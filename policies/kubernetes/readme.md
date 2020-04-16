@@ -10,4 +10,4 @@ References:
 - Learn Rego here: https://www.openpolicyagent.org/docs/latest/policy-language/
 - Rego playground: https://play.openpolicyagent.org/
 - Writing unit tests: https://www.openpolicyagent.org/docs/latest/policy-testing/
-- Easy way to run Rego policies: https://github.com/instrumenta/conftest/. Simply run 'docker run --rm -v $(pwd):/k8s instrumenta/conftest test /k8s/runAsNonRoot.yaml -p /k8s/policy/'
+- Easy way to run Rego policies: https://github.com/instrumenta/conftest/. Simply run 'docker run --rm -v $(pwd):/k8s instrumenta/conftest test /k8s/test.yaml -p /k8s/policy/'
