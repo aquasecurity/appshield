@@ -2,15 +2,16 @@ package main
 
 import data.lib.kubernetes
 
-
 name = input.metadata.name
 
-allowPrivilegeEscalation {
-  input.spec.template.spec.containers[_].securityContext.allowPrivilegeEscalation == false
+default checkAllowPrivilegeEscalation = false
+
+checkAllowPrivilegeEscalation {
+  input.spec.template.spec.containers[_].securityContext.allowPrivilegeEscalation == true
 }
 
 deny[msg] {
   kubernetes.containers[container]
-  not allowPrivilegeEscalation
+  checkAllowPrivilegeEscalation
   msg = sprintf("containers[].securityContext.allowPrivilegeEscalation should be set to 'false' in Deployment '%s'", [name])
 }
