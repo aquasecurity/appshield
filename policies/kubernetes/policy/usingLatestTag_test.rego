@@ -24,7 +24,7 @@ test_using_latest_tag {
 }
 
 # PASS if image tag is not set
-test_using_latest_tag {
+test_using_latest_tag_no_tag {
   checkUsingLatestTag with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
@@ -47,7 +47,7 @@ test_using_latest_tag {
 }
 
 # FAIL if image tag is not set to latest
-test_using_latest_tag {
+test_using_latest_tag_with_tag {
   checkUsingLatestTag with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
