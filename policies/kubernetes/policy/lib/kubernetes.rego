@@ -32,6 +32,22 @@ is_service {
 	kind = "Service"
 }
 
+is_controller {
+	kind = "CronJob"
+}
+
+is_controller {
+	kind = "StatefulSet"
+}
+
+is_controller {
+	kind = "Deployment"
+}
+
+is_controller {
+	kind = "Daemonset"
+}
+
 is_deployment {
 	kind = "Deployment"
 }
@@ -72,6 +88,11 @@ pods[pod] {
 pods[pod] {
 	is_pod
 	pod = object
+}
+
+pods[pod] {
+	is_controller
+	pod = object.spec.template
 }
 
 volumes[volume] {

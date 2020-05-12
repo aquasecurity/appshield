@@ -19,6 +19,41 @@ test_allow_privilege_escalation {
                 "allowPrivilegeEscalation": true
               }
             }
+          ],
+          "initContainers": [
+            {
+              "name": "init-svc",
+              "image": "busybox:1.28",
+              "securityContext": {
+                "allowPrivilegeEscalation": false
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+# PASS if allowPrivilegeEscalation is set to true
+test_allow_privilege_escalation_statefulset {
+  checkAllowPrivilegeEscalation with input as {
+    "apiVersion": "apps/v1",
+    "kind": "StatefulSet",
+    "metadata": {
+      "name": "mongo-deployment"
+    },
+    "spec": {
+      "template": {
+        "spec": {
+          "containers": [
+            {
+              "name": "carts-db",
+              "image": "mongo",
+              "securityContext": {
+                "allowPrivilegeEscalation": true
+              }
+            }
           ]
         }
       }
