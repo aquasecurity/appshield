@@ -19,6 +19,15 @@ test_run_as_nonroot {
                 "runAsNonRoot": false
               }
             }
+          ],
+          "initContainers": [
+            {
+              "name": "carts-init",
+              "image": "mongo",
+              "securityContext": {
+                "runAsNonRoot": true
+              }
+            }
           ]
         }
       }

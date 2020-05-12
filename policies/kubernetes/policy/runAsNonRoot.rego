@@ -9,11 +9,15 @@ default checkRunAsNonRoot = false
 # checkRunAsNonRoot is true if securityContext.runAsNonRoot is set to false
 # or if securityContext.runAsNonRoot is not set.
 checkRunAsNonRoot {
-  input.spec.template.spec.containers[_].securityContext.runAsNonRoot == false
+  containers := kubernetes.containers
+  containers[_].securityContext.runAsNonRoot == false
 }
 
 deny[msg] {
-  kubernetes.containers[container]
   checkRunAsNonRoot
-  msg = kubernetes.format(sprintf("%s in the %s %s is running as root", [container.name, kubernetes.kind, kubernetes.name]))
+
+  some i
+  containers := kubernetes.containers
+  containers[i].securityContext.runAsNonRoot == false
+  msg = kubernetes.format(sprintf("%s in the %s %s is running as root", [containers[i].name, kubernetes.kind, kubernetes.name]))
 }

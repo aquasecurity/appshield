@@ -13,6 +13,14 @@ spec:
       - name: carts-db
         image: mongo
         securityContext:
+          runAsNonRoot: true
+        resources:
+          limits:
+            memory: 24M
+      initContainers:
+      - name: carts-init
+        image: mongo
+        securityContext:
           runAsNonRoot: false
         resources:
           limits:
