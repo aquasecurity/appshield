@@ -5,7 +5,8 @@ import data.lib.kubernetes
 name = input.metadata.name
 
 hasCapsDropAll {
-  input.spec.template.spec.containers[_].securityContext.capabilities.drop[_] == "ALL"
+  containers := kubernetes.containers
+  containers[_].securityContext.capabilities.drop[_] == "ALL"
 }
 
 default checkCapsDropAll = false
@@ -17,7 +18,6 @@ checkCapsDropAll {
 }
 
 deny[msg] {
-  kubernetes.is_deployment
   checkCapsDropAll
   msg = sprintf("containers[].securityContext.capabilities.drop should drop 'ALL' capabilities in Deployment '%s'", [name])
 }
