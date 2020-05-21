@@ -40,6 +40,24 @@ is_pod {
 	kind = "Pod"
 }
 
+default is_controller = false
+
+is_controller {
+  kind = "Deployment"
+}
+
+is_controller {
+  kind = "StatefulSet"
+}
+
+is_controller {
+  kind = "DaemonSet"
+}
+
+is_controller {
+  kind = "CronJob"
+}
+
 split_image(image) = [image, "latest"] {
 	not contains(image, ":")
 }
