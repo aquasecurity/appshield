@@ -16,6 +16,7 @@ test_allow_privilege_escalation {
               "name": "carts-db",
               "image": "mongo",
               "securityContext": {
+                "runAsNonRoot": true,
                 "allowPrivilegeEscalation": true
               }
             }
@@ -35,11 +36,11 @@ test_allow_privilege_escalation {
   }
 }
 
-# PASS if allowPrivilegeEscalation is set to true
-test_allow_privilege_escalation_statefulset {
+# PASS if securityContext.allowPrivilegeEscalation is not set
+test_allow_privilege_escalation_not_set {
   checkAllowPrivilegeEscalation with input as {
     "apiVersion": "apps/v1",
-    "kind": "StatefulSet",
+    "kind": "Deployment",
     "metadata": {
       "name": "mongo-deployment"
     },
@@ -50,9 +51,6 @@ test_allow_privilege_escalation_statefulset {
             {
               "name": "carts-db",
               "image": "mongo",
-              "securityContext": {
-                "allowPrivilegeEscalation": true
-              }
             }
           ]
         }
@@ -77,7 +75,8 @@ test_allow_privilege_escalation_set_to_false {
               "name": "carts-db",
               "image": "mongo",
               "securityContext": {
-                "allowPrivilegeEscalation": false
+                "allowPrivilegeEscalation": false,
+                "runAsNonRoot": false
               }
             }
           ]
@@ -87,25 +86,3 @@ test_allow_privilege_escalation_set_to_false {
   }
 }
 
-# FAIL if securityContext.allowPrivilegeEscalation is not set
-test_allow_privilege_escalation_not_set {
-  checkAllowPrivilegeEscalation with input as {
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-      "name": "mongo-deployment"
-    },
-    "spec": {
-      "template": {
-        "spec": {
-          "containers": [
-            {
-              "name": "carts-db",
-              "image": "mongo",
-            }
-          ]
-        }
-      }
-    }
-  }
-}

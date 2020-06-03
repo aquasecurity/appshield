@@ -29,6 +29,7 @@ spec:
         image: mongo
         securityContext:
           runAsNonRoot: true
+          allowPrivilegeEscalation: false
         resources:
           limits:
             memory: 24M
