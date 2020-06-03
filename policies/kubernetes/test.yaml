@@ -13,15 +13,22 @@ spec:
       - name: carts-db
         image: mongo
         securityContext:
-          runAsNonRoot: true
+          runAsNonRoot: false
         resources:
           limits:
-            memory: 24M
+            memory: 24m
+      - name: app
+        image: app
+        securityContext:
+          allowPrivilegeEscalation: true
+        resources:
+          limits:
+            memory: 24m
       initContainers:
       - name: carts-init
         image: mongo
         securityContext:
-          runAsNonRoot: false
+          runAsNonRoot: true
         resources:
           limits:
             memory: 24M

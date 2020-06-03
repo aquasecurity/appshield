@@ -26,6 +26,9 @@ format(msg) = msg {
 
 name = object.metadata.name
 
+default namespace = "default"
+namespace = object.metadata.namespace
+
 kind = object.kind
 
 is_service {

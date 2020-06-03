@@ -35,6 +35,29 @@ test_run_as_nonroot {
   }
 }
 
+# PASS if runAsNonRoot is not set
+test_run_as_nonroot_not_set {
+  checkRunAsNonRoot with input as {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "mongo-deployment"
+    },
+    "spec": {
+      "template": {
+        "spec": {
+          "containers": [
+            {
+              "name": "carts-db",
+              "image": "mongo"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
 # FAIL if runAsNonRoot is set to true
 test_run_as_nonroot_set_to_true {
   checkRunAsNonRoot with input as {
@@ -53,29 +76,6 @@ test_run_as_nonroot_set_to_true {
               "securityContext": {
                 "runAsNonRoot": true
               }
-            }
-          ]
-        }
-      }
-    }
-  }
-}
-
-# FAIL if runAsNonRoot is not set
-test_run_as_nonroot_not_set {
-  checkRunAsNonRoot with input as {
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-      "name": "mongo-deployment"
-    },
-    "spec": {
-      "template": {
-        "spec": {
-          "containers": [
-            {
-              "name": "carts-db",
-              "image": "mongo"
             }
           ]
         }
