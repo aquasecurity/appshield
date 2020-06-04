@@ -14,6 +14,8 @@ spec:
         image: mongo
         securityContext:
           runAsNonRoot: false
+          capabilities:
+            drop: ["NET_ADMIN", "SYS_TIME"]
         resources:
           limits:
             memory: 24m
@@ -21,6 +23,8 @@ spec:
         image: app
         securityContext:
           allowPrivilegeEscalation: true
+          capabilities:
+            drop: ["ALL"]
         resources:
           limits:
             memory: 24m

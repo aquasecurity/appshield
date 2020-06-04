@@ -1,6 +1,6 @@
 package main
 
-# PASS if capabilities drop is not include 'ALL'
+# PASS if capabilities drop does not include 'ALL'
 test_caps_drop_all {
   checkCapsDropAll with input as {
     "apiVersion": "apps/v1",

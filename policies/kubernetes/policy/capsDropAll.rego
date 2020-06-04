@@ -2,22 +2,34 @@ package main
 
 import data.lib.kubernetes
 
-name = input.metadata.name
+default checkCapsDropAll = false
 
-hasCapsDropAll {
-  containers := kubernetes.containers
-  containers[_].securityContext.capabilities.drop[_] == "ALL"
+# Get all containers which include 'ALL' in security.capabilities.drop
+getCapsDropAllContainers[container] {
+  allContainers := kubernetes.containers[_]
+  allContainers.securityContext.capabilities.drop[_] == "ALL"
+  container := allContainers.name
 }
 
-default checkCapsDropAll = false
+# Get all containers which don't include 'ALL' in security.capabilities.drop
+getCapsNoDropAllContainers[container] {
+  container := kubernetes.containers[_].name
+  not getCapsDropAllContainers[container]
+}
 
 # checkCapsDropAll is true if capabilities drop does not include 'ALL',
 # or if capabilities drop is not specified at all.
 checkCapsDropAll {
-  not hasCapsDropAll
+  count(getCapsNoDropAllContainers) > 0
 }
 
 deny[msg] {
   checkCapsDropAll
-  msg = sprintf("containers[].securityContext.capabilities.drop should drop 'ALL' capabilities in Deployment '%s'", [name])
+
+  msg := kubernetes.format(
+    sprintf(
+      "container %s of %s %s in %s namespace should add 'ALL' to securityContext.capabilities.drop",
+      [getCapsNoDropAllContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
+    )
+  )
 }
