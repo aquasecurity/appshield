@@ -9,6 +9,10 @@ spec:
   replicas: 1
   template:
     spec:
+      volumes:
+      - name: dockersock
+        hostPath:
+          path: /var/run/docker.sock
       containers:
       - name: carts-db
         image: mongo
