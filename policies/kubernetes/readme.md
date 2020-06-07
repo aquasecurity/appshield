@@ -49,25 +49,6 @@ cd ./policy
 opa test .
 ```
 
-### Concepts
-Each policy document has a corresponding test file.
-
-We explicitly write both passing and failing tests for now to test both allow and deny for various
-inputs.
-Our convention is to add comments beginning with PASS or FAIL to identify passing tests (deny) and
-failing tests (allow) to make understanding and reviewing tests easier.
-
-### What is a PASS test
-These are tests that will make `check` rules evalute to true, therefore making the `deny` rule true.
-PASS tests are useful for checking if our policy document deny on expected input.
-For example in the example policy document above, `test_foo` will PASS only if input is `input.foo`.
-
-### What is a FAIL test
-These are tests that will make `check` rules evaluate to false, thereby making the `deny` rule false.
-FAIL tests are useful for checking that our policy documents do not deny (allow) valid input.
-For example in the example policy document above, `test_foo` will FAIL (allow) if input is anything
-other than `input.foo`.
-
 ## References:
 - Learn Rego here: https://www.openpolicyagent.org/docs/latest/policy-language/
 - Rego playground: https://play.openpolicyagent.org/

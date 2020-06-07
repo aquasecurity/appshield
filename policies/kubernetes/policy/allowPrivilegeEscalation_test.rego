@@ -1,7 +1,8 @@
 package main
 
-# PASS if allowPrivilegeEscalation is set to true
-test_allow_privilege_escalation {
+# Test allowPrivilegeEscalation is set to true on
+# ANY container
+test_allowPrivilegeEscalation_ANY_is_true {
   checkAllowPrivilegeEscalation with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
@@ -36,8 +37,9 @@ test_allow_privilege_escalation {
   }
 }
 
-# PASS if securityContext.allowPrivilegeEscalation is not set
-test_allow_privilege_escalation_not_set {
+# Test securityContext.allowPrivilegeEscalation is not set
+# on A container
+test_allowPrivilegeEscalation_not_set {
   checkAllowPrivilegeEscalation with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
@@ -59,9 +61,10 @@ test_allow_privilege_escalation_not_set {
   }
 }
 
-# FAIL if allowPrivilegeEscalation is set to false
-test_allow_privilege_escalation_set_to_false {
-  checkAllowPrivilegeEscalation with input as {
+# Test allowPrivilegeEscalation is set to false on ALL
+# containers
+test_allowPrivilegeEscalation_ALL_is_false {
+  not checkAllowPrivilegeEscalation with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
@@ -78,6 +81,13 @@ test_allow_privilege_escalation_set_to_false {
                 "allowPrivilegeEscalation": false,
                 "runAsNonRoot": false
               }
+            },
+            {
+              "name": "app",
+              "image": "app:v1",
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+              }
             }
           ]
         }
@@ -85,4 +95,3 @@ test_allow_privilege_escalation_set_to_false {
     }
   }
 }
-

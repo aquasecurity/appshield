@@ -1,7 +1,7 @@
 package main
 
-# PASS if runAsNonRoot is set to false
-test_run_as_nonroot {
+# Test runAsNonRoot ANY container set to false
+test_runAsNonroot_any_is_false {
   checkRunAsNonRoot with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
@@ -35,8 +35,8 @@ test_run_as_nonroot {
   }
 }
 
-# PASS if runAsNonRoot is not set
-test_run_as_nonroot_not_set {
+# Test runAsNonRoot not set
+test_runAsNonroot_not_set {
   checkRunAsNonRoot with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
@@ -58,9 +58,9 @@ test_run_as_nonroot_not_set {
   }
 }
 
-# FAIL if runAsNonRoot is set to true
-test_run_as_nonroot_set_to_true {
-  checkRunAsNonRoot with input as {
+# Test runAsNonRoot is set to true
+test_runAsNonroot_is_true {
+  not checkRunAsNonRoot with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {

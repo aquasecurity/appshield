@@ -1,7 +1,7 @@
 package main
 
-# PASS if capabilities drop does not include 'ALL'
-test_caps_drop_all {
+# Test capabilities drop does not include 'ALL'
+test_capsDropAll_not_include_ALL {
   checkCapsDropAll with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
@@ -28,8 +28,8 @@ test_caps_drop_all {
   }
 }
 
-# PASS if capabilities is not set
-test_caps_drop_all_drop_no_caps {
+# Test capabilities drop not set
+test_capsDropAll_caps_drop_not_set {
   checkCapsDropAll with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
@@ -51,9 +51,9 @@ test_caps_drop_all_drop_no_caps {
   }
 }
 
-# FAIL if capability drop includes 'ALL'.
-test_caps_drop_all_set_all {
-  checkCapsDropAll with input as {
+# Test capability drop includes 'ALL'.
+test_capsDropAll_include_ALL {
+  not checkCapsDropAll with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
