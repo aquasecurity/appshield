@@ -15,7 +15,7 @@ spec:
           path: /var/run/docker.sock
       containers:
       - name: carts-db
-        image: mongo
+        image: mongo:latest
         securityContext:
           runAsNonRoot: false
           capabilities:
@@ -34,7 +34,7 @@ spec:
             memory: 24m
       initContainers:
       - name: carts-init
-        image: mongo
+        image: mongo:1.28
         securityContext:
           runAsNonRoot: true
           allowPrivilegeEscalation: false
