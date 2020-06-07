@@ -12,25 +12,25 @@ name space name, controller/pod name, severity of test.
 All policy document should have the following sections to make it easier
 to read, verify and test policies.
 
-1. Default Check rule value: This should always be set to false (required by OPA testing).
-1. Check rule: This rule checks for the condition which will result in a deny. 
-   The rule name should be in the form `check<SomeText>.
+1. Default Fail rule value: This should always be set to false (required by OPA testing).
+1. Fail rule: This rule checks for conditions which will result in a deny. 
+   The rule name should be in the form `fail<SomeText>.
    This rule should always return true if the condition for a deny is met (required by OPA testing).
-1. Deny rule: This rule should call the check rule and return a message if the check rule is true.
+1. Deny rule: This rule should call the fail rule and return a message if the fail rule is true.
 
 Example policy document:
 ```
-# default check rule value
-default checkFoo = false
+# default fail rule value
+default failFoo = false
 
-# check rule
-checkFoo {
+# fail rule
+failFoo {
   input.foo == "bar"
 }
 
 # deny rule
 deny[msg] {
-  checkFoo
+  failFoo
   msg := "Foo is denied"
 }
 ```
@@ -38,7 +38,7 @@ deny[msg] {
 Example test file:
 ```
 test_foo {
-  checkFoo with input as { "foo": "bar" }
+  failFoo with input as { "foo": "bar" }
 }
 ```
 
