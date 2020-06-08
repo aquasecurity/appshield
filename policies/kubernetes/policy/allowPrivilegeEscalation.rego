@@ -5,7 +5,7 @@ import data.lib.utils
 
 default checkAllowPrivilegeEscalation = false
 
-# getContainers returns an array of containers which have
+# getPrivilegeEscalationContainers returns an array of containers which have
 # securityContext.allowPrivilegeEscalation set to true or not set.
 getPrivilegeEscalationContainers[container] {
   allContainers := kubernetes.containers[_]
