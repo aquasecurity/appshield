@@ -5,24 +5,19 @@ import data.lib.utils
 
 default checkAllowPrivilegeEscalation = false
 
-# getPrivilegeEscalationContainers returns an array of containers which have
+# getNoPrivilegeEscalationContainers returns the names of all containers which have
+# securityContext.allowPrivilegeEscalation set to false.
+getNoPrivilegeEscalationContainers[container] {
+  allContainers := kubernetes.containers[_]
+  allContainers.securityContext.allowPrivilegeEscalation == false
+  container := allContainers.name
+}
+
+# getPrivilegeEscalationContainers returns the names of all containers which have
 # securityContext.allowPrivilegeEscalation set to true or not set.
 getPrivilegeEscalationContainers[container] {
-  allContainers := kubernetes.containers[_]
-  allContainers.securityContext.allowPrivilegeEscalation == true
-  container := allContainers
-}
-
-getPrivilegeEscalationContainers[container] {
-  allContainers := kubernetes.containers[_]
-  not utils.has_key(allContainers, "securityContext")
-  container := allContainers
-}
-
-getPrivilegeEscalationContainers[container] {
-  allContainers := kubernetes.containers[_]
-  not utils.has_key(allContainers.securityContext, "allowPrivilegeEscalation")
-  container := allContainers
+  container := kubernetes.containers[_].name
+  not getNoPrivilegeEscalationContainers[container]
 }
 
 # checkAllowPrivilegeEscalation is true if any container has
@@ -37,7 +32,7 @@ deny[msg] {
   msg := kubernetes.format(
     sprintf(
       "container %s of %s %s in %s namespace should set securityContext.allowPrivilegeEscalation to false",
-      [getPrivilegeEscalationContainers[_].name, lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
+      [getPrivilegeEscalationContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
 }
