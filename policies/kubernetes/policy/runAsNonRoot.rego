@@ -5,24 +5,19 @@ import data.lib.utils
 
 default checkRunAsNonRoot = false
 
-# getRootContainers returns an array of containers which have
+# getNonRootContainers returns the names of all containers which have
+# securityContext.runAsNonRoot set to true.
+getNonRootContainers[container] {
+  allContainers := kubernetes.containers[_]
+  allContainers.securityContext.runAsNonRoot == true
+  container := allContainers.name
+}
+
+# getRootContainers returns the names of all containers which have
 # securityContext.runAsNonRoot set to false or not set.
 getRootContainers[container] {
-  allContainers := kubernetes.containers[_]
-  allContainers.securityContext.runAsNonRoot == false
-  container := allContainers
-}
-
-getRootContainers[container] {
-  allContainers := kubernetes.containers[_]
-  not utils.has_key(allContainers, "securityContext")
-  container := allContainers
-}
-
-getRootContainers[container] {
-  allContainers := kubernetes.containers[_]
-  not utils.has_key(allContainers.securityContext, "runAsNonRoot")
-  container := allContainers
+  container := kubernetes.containers[_].name
+  not getNonRootContainers[container]
 }
 
 # checkRunAsNonRoot is true if securityContext.runAsNonRoot is set to false
@@ -37,7 +32,7 @@ deny[msg] {
   msg := kubernetes.format(
     sprintf(
       "container %s of %s %s in %s namespace should set securityContext.runAsNonRoot to true",
-      [getRootContainers[_].name, lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
+      [getRootContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
 }
