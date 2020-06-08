@@ -61,6 +61,33 @@ test_allowPrivilegeEscalation_not_set {
   }
 }
 
+# Test securityContext.allowPrivilegeEscalation is not set
+# on A container
+test_allowPrivilegeEscalation_not_set_2 {
+  checkAllowPrivilegeEscalation with input as {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "mongo-deployment"
+    },
+    "spec": {
+      "template": {
+        "spec": {
+          "containers": [
+            {
+              "name": "carts-db",
+              "image": "mongo",
+              "securityContext": {
+                "runAsNonRoot": false
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
 # Test allowPrivilegeEscalation is set to false on ALL
 # containers
 test_allowPrivilegeEscalation_ALL_is_false {
@@ -95,3 +122,4 @@ test_allowPrivilegeEscalation_ALL_is_false {
     }
   }
 }
+
