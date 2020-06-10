@@ -1,7 +1,7 @@
 package main
 
-# PASS if image tag is latest
-test_using_latest_tag {
+# Test image tag is latest
+test_usingLatestTag_tag_is_latest {
   checkUsingLatestTag with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
@@ -23,8 +23,8 @@ test_using_latest_tag {
   }
 }
 
-# PASS if image tag is not set
-test_using_latest_tag_no_tag {
+# Test image tag is untagged
+test_usingLatestTag_no_tag {
   checkUsingLatestTag with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
@@ -46,9 +46,9 @@ test_using_latest_tag_no_tag {
   }
 }
 
-# FAIL if image tag is not set to latest
-test_using_latest_tag_with_tag {
-  checkUsingLatestTag with input as {
+# Test image tag is not latest
+test_usingLatestTag_tag_not_latest {
+  not checkUsingLatestTag with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
