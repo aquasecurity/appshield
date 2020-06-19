@@ -28,6 +28,7 @@ name = object.metadata.name
 
 default namespace = "default"
 namespace = object.metadata.namespace
+annotations = object.metadata.annotations
 
 kind = object.kind
 
