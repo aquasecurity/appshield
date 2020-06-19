@@ -12,6 +12,10 @@ spec:
   replicas: 1
   template:
     spec:
+      hostIPC: true
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostname: ["foo.bar"]
       volumes:
       - name: dockersock
         hostPath:
