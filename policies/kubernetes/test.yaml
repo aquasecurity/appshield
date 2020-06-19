@@ -3,6 +3,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo-deployment
+  annotations:
+    container.apparmor.security.beta.kubernetes.io/carts-db: "localhost/k8s-apparmor-example-deny-write"
+    container.apparmor.security.beta.kubernetes.io/app: "unconfined"
   labels:
     app: nginx
 spec:
