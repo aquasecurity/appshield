@@ -1,3 +1,8 @@
+# @title: Workload is allowed to elevate privileges
+# @description: A program inside the container can elevate its privileges and run as root, which might give the program control over the container and node.
+# @recommended_actions: Set 'set containers[].securityContext.allowPrivilegeEscalation' to 'false'
+# @severity: Medium
+
 package main
 
 import data.lib.kubernetes
