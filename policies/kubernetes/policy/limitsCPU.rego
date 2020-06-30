@@ -3,6 +3,7 @@
 # @recommended_actions: Set a limit value under 'containers[].resources.limits.cpu'
 # @severity: Low
 # @id: KSV011
+# @links: 
 
 package main
 

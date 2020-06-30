@@ -3,6 +3,7 @@
 # @recommended_actions: Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'
 # @severity: Medium
 # @id: KSV002
+# @links: 
 
 package main
 

@@ -3,6 +3,7 @@
 # @recommended_actions: Do not set 'spec.template.spec.hostAliases'
 # @severity: Low
 # @id: KSV007
+# @links: 
 
 package main
 

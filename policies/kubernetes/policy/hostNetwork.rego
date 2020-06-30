@@ -3,6 +3,7 @@
 # @recommended_actions: Do not set 'spec.template.spec.hostNetwork' to true
 # @severity: High
 # @id: KSV009
+# @links: 
 
 package main
 

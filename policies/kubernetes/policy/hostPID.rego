@@ -4,6 +4,7 @@
 # @recommended_actions: Do not set 'spec.template.spec.hostPID' to true
 # @severity: High
 # @id: KSV010
+# @links: 
 
 package main
 

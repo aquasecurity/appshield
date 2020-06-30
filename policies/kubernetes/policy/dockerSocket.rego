@@ -3,6 +3,7 @@
 # @recommended_actions: Do not specify /var/run/docker.socker in 'spec.template.volumes.hostPath.path'
 # @severity: High
 # @id: KSV006
+# @links: 
 
 package main
 

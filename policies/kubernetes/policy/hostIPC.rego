@@ -3,6 +3,7 @@
 # @recommended_actions: Do not set 'spec.template.spec.hostIPC' to true
 # @severity: High
 # @id: KSV008
+# @links: 
 
 package main
 

@@ -3,6 +3,7 @@
 # @recommended_actions: Use a specific container image tag that is not 'latest' 
 # @severity: Low
 # @id: KSV013
+# @links: 
 
 package main
 

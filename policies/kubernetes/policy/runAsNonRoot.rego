@@ -3,6 +3,7 @@
 # @recommended_actions: Set 'containers[].securityContext.runAsNonRoot' to true
 # @severity: Medium
 # @id: KSV012
+# @links: 
 
 package main
 

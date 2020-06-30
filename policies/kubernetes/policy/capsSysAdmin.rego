@@ -3,6 +3,7 @@
 # @recommended_actions: Remove the SYS_ADMIN capability from 'containers[].securityContext.capabilities.add'
 # @severity: High
 # @id: KSV005
+# @links: 
 
 package main
 

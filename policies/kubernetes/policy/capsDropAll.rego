@@ -3,6 +3,7 @@
 # @recommended_actions: Add 'ALL' to containers[].securityContext.capabilities.drop
 # @severity: Low
 # @id: KSV003
+# @links: 
 
 package main
 

@@ -3,6 +3,7 @@
 # @recommended_actions: Set 'set containers[].securityContext.allowPrivilegeEscalation' to 'false'
 # @severity: Medium
 # @id: KSV001
+# @links: 
 
 package main
 
