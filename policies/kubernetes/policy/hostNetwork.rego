@@ -2,6 +2,7 @@
 # @description: Sharing the host’s network namespace permits processes in the pod to communicate with processes bound to the host’s loopback adapter
 # @recommended_actions: Do not set 'spec.template.spec.hostNetwork' to true
 # @severity: High
+# @id: KSV009
 
 package main
 

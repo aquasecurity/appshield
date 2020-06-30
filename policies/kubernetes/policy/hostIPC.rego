@@ -2,6 +2,7 @@
 # @description: Sharing the host’s IPC namespace allows container processes to communicate with processes on the host.
 # @recommended_actions: Do not set 'spec.template.spec.hostIPC' to true
 # @severity: High
+# @id: KSV008
 
 package main
 

@@ -2,6 +2,7 @@
 # @description: Container should drop all default capabilities and add only those that are needed for its execution
 # @recommended_actions: Add 'ALL' to containers[].securityContext.capabilities.drop
 # @severity: Low
+# @id: KSV003
 
 package main
 
