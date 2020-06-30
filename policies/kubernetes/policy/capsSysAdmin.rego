@@ -1,3 +1,8 @@
+# @title: Container should not include SYS_ADMIN capability
+# @description: SYS_ADMIN gives the processes running inside the container privileges that are equivalent to root.
+# @recommended_actions: Remove the SYS_ADMIN capability from 'containers[].securityContext.capabilities.add'
+# @severity: High
+
 package main
 
 import data.lib.kubernetes
