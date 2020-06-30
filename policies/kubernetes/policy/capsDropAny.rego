@@ -1,3 +1,8 @@
+# @title: Container should drop unnecessery capabilities
+# @description: Security best practices requires containers to run with minimal required capabilities.
+# @recommended_actions: Specify at least one un-needed capability in 'containers[].securityContext.capabilities.drop'
+# @severity: Low
+
 package main
 
 import data.lib.kubernetes
