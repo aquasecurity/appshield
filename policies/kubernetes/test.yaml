@@ -26,6 +26,7 @@ spec:
       - name: carts-db
         image: mongo:latest
         securityContext:
+          privileged: true
           runAsNonRoot: false
           capabilities:
             drop: ["NET_ADMIN", "SYS_TIME"]
