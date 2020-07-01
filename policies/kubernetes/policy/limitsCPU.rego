@@ -1,3 +1,10 @@
+# @title: Limit container CPU
+# @description: Enforcing CPU limits prevents DOS via resource exhaustion
+# @recommended_actions: Set a limit value under 'containers[].resources.limits.cpu'
+# @severity: Low
+# @id: KSV011
+# @links: 
+
 package main
 
 import data.lib.kubernetes

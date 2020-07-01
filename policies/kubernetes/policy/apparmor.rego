@@ -1,3 +1,10 @@
+# @title: Apparmor policies are disabled for container
+# @description: A program inside the container can bypass Apparmor protection policies.
+# @recommended_actions: Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'
+# @severity: Medium
+# @id: KSV002
+# @links: 
+
 package main
 
 import data.lib.kubernetes

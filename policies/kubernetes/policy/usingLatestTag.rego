@@ -1,3 +1,10 @@
+# @title: Avoid using the ':latest' tag
+# @description: You should avoid using the :latest tag when deploying containers in production, because this makes it hard to track which version of the image is running and hard to roll back.
+# @recommended_actions: Use a specific container image tag that is not 'latest' 
+# @severity: Low
+# @id: KSV013
+# @links: 
+
 package main
 
 import data.lib.kubernetes

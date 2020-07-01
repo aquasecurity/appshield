@@ -1,3 +1,10 @@
+# @title: Run container as non root user
+# @description: Force the running image to run as a non-root user to ensure least privilege
+# @recommended_actions: Set 'containers[].securityContext.runAsNonRoot' to true
+# @severity: Medium
+# @id: KSV012
+# @links: 
+
 package main
 
 import data.lib.kubernetes
