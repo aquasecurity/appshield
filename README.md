@@ -1,6 +1,6 @@
 # AppShield
 
-Appshield is a set of policies that check for secuirty issues in popular applications.
+Appshield is a set of policies for checking secuirty issues in popular applications (Kubernetes, Docker, nginx, etc.).
 
 This project is under constructions.
 
