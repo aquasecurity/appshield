@@ -1,3 +1,10 @@
+# @title: Limit container memory
+# @description: Enforcing memory limits prevents DOS via resource exhaustion
+# @recommended_actions: Set a limit value under 'containers[].resources.limits.memory'
+# @severity: Low
+# @id: KSV012
+# @links: 
+
 package main
 
 import data.lib.kubernetes
