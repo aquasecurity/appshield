@@ -1,3 +1,10 @@
+# @title: Memory Requests
+# @description: When containers have resource requests specified the scheduler can make better decisions about which nodes to place Pods on and how to deal with resource contention
+# @recommended_actions: Set 'containers[].resources.requests.memory' 
+# @severity: Low
+# @id: KSV016
+# @links: 
+
 package main
 
 import data.lib.kubernetes
