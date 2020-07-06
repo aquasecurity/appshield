@@ -2,7 +2,7 @@
 # @description: Enforcing memory limits prevents DOS via resource exhaustion
 # @recommended_actions: Set a limit value under 'containers[].resources.limits.memory'
 # @severity: Low
-# @id: KSV012
+# @id: KSV018
 # @links: 
 
 package main
