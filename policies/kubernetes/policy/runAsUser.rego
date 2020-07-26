@@ -1,8 +1,8 @@
 # @title: Run as User ID > 100000
 # @description: Force the container to run with user ID > 10000 to avoid conflicts with the host’s user table
 # @recommended_actions: Set 'containers[].securityContext.runAsUser' to integer > 10000
-# @severity:
-# @id:
+# @severity: Medium
+# @id: KSV020
 # @links:
 
 package main
