@@ -28,7 +28,7 @@ spec:
         securityContext:
           privileged: true
           runAsNonRoot: false
-          runAsGroup: 2000
+          runAsUser: 15000
           capabilities:
             drop: ["NET_ADMIN", "SYS_TIME"]
         resources:
