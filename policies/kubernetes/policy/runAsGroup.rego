@@ -1,8 +1,8 @@
 # @title: Run as Group ID > 10000
 # @description: Force the container to run with group ID > 10000 to avoid conflicts with the host’s user table
 # @recommended_actions: Set 'containers[].securityContext.runAsGroup' to integer > 10000
-# @severity:
-# @id:
+# @severity: Medium
+# @id: KSV021
 # @links:
 
 package main
