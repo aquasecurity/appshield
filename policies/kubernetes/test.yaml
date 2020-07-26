@@ -28,6 +28,7 @@ spec:
         securityContext:
           privileged: true
           runAsNonRoot: false
+          runAsGroup: 2000
           capabilities:
             drop: ["NET_ADMIN", "SYS_TIME"]
         resources:
@@ -36,6 +37,7 @@ spec:
       - name: app
         image: app
         securityContext:
+          runAsGroup: 1000
           allowPrivilegeEscalation: true
           capabilities:
             drop: ["ALL"]
