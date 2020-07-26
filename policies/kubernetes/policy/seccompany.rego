@@ -1,8 +1,8 @@
 # @title: Seccomp policies are disabled for container
 # @description: A program inside the container can bypass Seccomp protection policies.
 # @recommended_actions: Remove the 'unconfined' value from 'container.seccomp.security.alpha.kubernetes.io'
-# @severity: 
-# @id: 
+# @severity: Medium
+# @id: KSV019
 # @links: 
 
 package main
