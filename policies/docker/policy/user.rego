@@ -1,3 +1,10 @@
+# @title: Image user should not be 'root'
+# @description: It is a good practice to run the container as a non-root user.
+# @recommended_actions: Add 'USER <non root user name>' line to the Dockerfile
+# @severity: High
+# @id: DS002
+# @links: 
+
 package main
 
 # getUser returns all the usernames from
