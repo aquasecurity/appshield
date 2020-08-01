@@ -1,3 +1,10 @@
+# @title: Use a tag name in FROM statement
+# @description: When using 'FROM' statement you should use a specific tag to avoid uncontrolled behavior when image is updated
+# @recommended_actions: Add a tag to the image in the FROM statement
+# @severity: Medium
+# @id: DS001
+# @links: 
+
 package main
 
 # getImage returns the image in FROM statement.
