@@ -44,9 +44,3 @@ deny[msg] {
     [id, title, description, recommended_actions, severity])
 }
 
-deny[msg] {
-  failLastUserRoot
-  msg := sprintf(
-    "{\"id\": \"%s\", \"title\": \"%s\", \"description\":\"%s\", \"recommended_actions\":\"%s\", \"severity\":\"%s\"}",
-    [id, title, description, recommended_actions, severity])
-}
