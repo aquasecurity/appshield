@@ -31,7 +31,7 @@ failLastUserRoot {
 
 deny[msg] {
   failUserCount
-  msg = "specify at least 1 USER command in Dockerfile"
+  msg = "Specify at least 1 USER command in Dockerfile"
 }
 
 deny[msg] {

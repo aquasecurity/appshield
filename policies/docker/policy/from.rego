@@ -39,5 +39,5 @@ failLatest {
 deny[msg] {
   failLatest
   [img, _] := getImageTag
-  msg = sprintf("specify tag for image %s", [img])
+  msg = sprintf("Specify tag for image %s", [img])
 }

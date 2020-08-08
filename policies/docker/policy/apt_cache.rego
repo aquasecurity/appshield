@@ -33,5 +33,5 @@ failAPTCleanCache {
 
 deny[msg] {
   failAPTCleanCache
-  msg := "clean apt cache"
+  msg := "Clean apt cache"
 }
