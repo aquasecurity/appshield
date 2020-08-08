@@ -7,6 +7,13 @@
 
 package main
 
+title = "Use a tag name in FROM statement"
+description = "When using 'FROM' statement you should use a specific tag to avoid uncontrolled behavior when image is updated"
+recommended_actions = "Add a tag to the image in the FROM statement"
+severity = "Medium"
+id = "DS001"
+links = ""
+
 # getImage returns the image in FROM statement.
 getImage = image {
   some i
@@ -39,5 +46,7 @@ failLatest {
 deny[msg] {
   failLatest
   [img, _] := getImageTag
-  msg = sprintf("specify tag for image %s", [img])
+  msg := sprintf(
+    "{\"id\": \"%s\", \"title\": \"%s\", \"description\":\"%s\", \"recommended_actions\":\"%s\", \"severity\":\"%s\"}",
+    [id, title, description, recommended_actions, severity])
 }
