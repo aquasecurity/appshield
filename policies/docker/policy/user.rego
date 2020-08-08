@@ -3,17 +3,9 @@
 # @recommended_actions: Add 'USER <non root user name>' line to the Dockerfile
 # @severity: High
 # @id: DS002
-# @links: 
+# @links:
 
 package main
-
-title = "Image user should not be 'root'"
-description = "It is a good practice to run the container as a non-root user."
-recommended_actions = "Add 'USER <non root user name>' line to the Dockerfile"
-severity = "High"
-id = "DS002"
-links = "" 
-
 
 # getUser returns all the usernames from
 # the USER command.
@@ -39,8 +31,10 @@ failLastUserRoot {
 
 deny[msg] {
   failUserCount
-  msg := sprintf(
-    "{\"id\": \"%s\", \"title\": \"%s\", \"description\":\"%s\", \"recommended_actions\":\"%s\", \"severity\":\"%s\"}",
-    [id, title, description, recommended_actions, severity])
+  msg = "specify at least 1 USER command in Dockerfile"
 }
 
+deny[msg] {
+  failLastUserRoot
+  msg = "Last USER command in Dockerfile should not be root"
+}
