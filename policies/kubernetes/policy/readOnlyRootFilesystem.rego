@@ -9,6 +9,15 @@ package main
 
 import data.lib.kubernetes
 
+meta_ksv014 = {
+  "title": "Read only file system",
+  "description": "An immutable root filesystem prevents applications from writing to their local disk. This can limit an intrusion as the attacker will not be able to tamper with the filesystem or write foreign executables to disk.",
+  "recommended_actions": "Change 'containers[].securityContext.readOnlyRootFilesystem' to 'true'",
+  "severity": "Low",
+  "id": "KSV014",
+  "links": ""
+}
+
 default failReadOnlyRootFilesystem = false
 
 # getReadOnlyRootFilesystemContainers returns all containers that have
@@ -34,11 +43,5 @@ failReadOnlyRootFilesystem {
 
 deny[msg] {
   failReadOnlyRootFilesystem
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should set securityContext.readOnlyRootFilesystem to true",
-      [getNotReadOnlyRootFilesystemContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv014)
 }

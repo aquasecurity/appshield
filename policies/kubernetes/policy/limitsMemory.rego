@@ -10,6 +10,15 @@ package main
 import data.lib.kubernetes
 import data.lib.utils
 
+meta_ksv018 = {
+  "title": "Limit container memory",
+  "description": "Enforcing memory limits prevents DOS via resource exhaustion",
+  "recommended_actions": "Set a limit value under 'containers[].resources.limits.memory'",
+  "severity": "Low",
+  "id": "KSV018",
+  "links": ""
+}
+
 default failLimitsMemory = false
 
 # getLimitsMemoryContainers returns all containers which have set resources.limits.memory
@@ -34,11 +43,5 @@ failLimitsMemory {
 
 deny[msg] {
   failLimitsMemory
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should set resources.limits.memory",
-      [getNoLimitsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv018)
 }

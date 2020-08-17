@@ -10,6 +10,15 @@ package main
 import data.lib.kubernetes
 import data.lib.utils
 
+meta_ksv012 = {
+  "title": "Run container as non root user",
+  "description": "Force the running image to run as a non-root user to ensure least privilege",
+  "recommended_actions": "Set 'containers[].securityContext.runAsNonRoot' to true",
+  "severity": "Medium",
+  "id": "KSV012",
+  "links": ""
+}
+
 default checkRunAsNonRoot = false
 
 # getNonRootContainers returns the names of all containers which have
@@ -35,11 +44,5 @@ checkRunAsNonRoot {
 
 deny[msg] {
   checkRunAsNonRoot
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should set securityContext.runAsNonRoot to true",
-      [getRootContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv012)
 }

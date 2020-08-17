@@ -9,6 +9,15 @@ package main
 
 import data.lib.kubernetes
 
+meta_ksv003 = {
+  "title": "Container should explicitly drop all capabilities",
+  "description": "Container should drop all default capabilities and add only those that are needed for its execution",
+  "recommended_actions": "Add 'ALL' to containers[].securityContext.capabilities.drop",
+  "severity": "Low",
+  "id": "KSV003",
+  "links": ""
+}
+
 default checkCapsDropAll = false
 
 # Get all containers which include 'ALL' in security.capabilities.drop
@@ -32,11 +41,5 @@ checkCapsDropAll {
 
 deny[msg] {
   checkCapsDropAll
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should add 'ALL' to securityContext.capabilities.drop",
-      [getCapsNoDropAllContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv003)
 }

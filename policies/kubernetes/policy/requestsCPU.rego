@@ -10,6 +10,15 @@ package main
 import data.lib.kubernetes
 import data.lib.utils
 
+meta_ksv015 = {
+  "title": "CPU Requests",
+  "description": "When containers have resource requests specified the scheduler can make better decisions about which nodes to place Pods on and how to deal with resource contention",
+  "recommended_actions": "Set 'containers[].resources.requests.cpu' ",
+  "severity": "Low",
+  "id": "KSV015",
+  "links": ""
+}
+
 default failRequestsCPU = false
 
 # getRequestsCPUContainers returns all containers which have set resources.requests.cpu
@@ -34,11 +43,5 @@ failRequestsCPU {
 
 deny[msg] {
   failRequestsCPU
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should set resources.requests.cpu",
-      [getNoRequestsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv015)
 }

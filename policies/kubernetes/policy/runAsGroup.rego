@@ -10,6 +10,15 @@ package main
 import data.lib.kubernetes
 import data.lib.utils
 
+meta_ksv021 = {
+  "title": "Run as Group ID > 10000",
+  "description": "Force the container to run with group ID > 10000 to avoid conflicts with the host’s user table",
+  "recommended_actions": "Set 'containers[].securityContext.runAsGroup' to integer > 10000",
+  "severity": "Medium",
+  "id": "KSV021",
+  "links": ""
+}
+
 default failRunAsGroup = false
 
 # getGroupIdContainers returns the names of all containers which have
@@ -44,11 +53,5 @@ failRunAsGroup {
 
 deny[msg] {
   failRunAsGroup
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should set securityContext.runAsGroup > 10000",
-      [getGroupIdContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv021)
 }

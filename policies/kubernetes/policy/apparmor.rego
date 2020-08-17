@@ -9,6 +9,15 @@ package main
 
 import data.lib.kubernetes
 
+meta_ksv002 = {
+  "title": "Apparmor policies are disabled for container",
+  "description": "A program inside the container can bypass Apparmor protection policies.",
+  "recommended_actions": "Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'",
+  "severity": "Medium",
+  "id": "KSV002",
+  "links": ""
+}
+
 default failAppArmor = false
 
 # getApparmorContainers returns all containers which have an apparmor
@@ -39,12 +48,6 @@ failApparmor {
 
 deny[msg] {
   failApparmor
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should specify an apparmor profile",
-      [getNoApparmorContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv002)
 }
 

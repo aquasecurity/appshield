@@ -7,6 +7,15 @@
 
 package main
 
+meta_ds003 = {
+  "title": "Clean APT cache",
+  "description": "It is a good practice to clean the APT cache.",
+  "recommended_actions": "Add 'RUN apt-get clean' line to the Dockerfile",
+  "severity": "Medium",
+  "id": "DS003",
+  "links": ""
+}
+
 # runsAPT is true if there is `apt` command.
 runs_apt {
   some i
@@ -33,5 +42,5 @@ failAPTCleanCache {
 
 deny[msg] {
   failAPTCleanCache
-  msg := "Clean apt cache"
+  msg := json.marshal(meta_ds003)
 }

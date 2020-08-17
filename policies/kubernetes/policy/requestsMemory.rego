@@ -10,6 +10,15 @@ package main
 import data.lib.kubernetes
 import data.lib.utils
 
+meta_ksv016 = {
+  "title": "Memory Requests",
+  "description": "When containers have resource requests specified the scheduler can make better decisions about which nodes to place Pods on and how to deal with resource contention",
+  "recommended_actions": "Set 'containers[].resources.requests.memory' ",
+  "severity": "Low",
+  "id": "KSV016",
+  "links": ""
+}
+
 default failRequestsMemory = false
 
 # getRequestsMemoryContainers returns all containers which have set resources.requests.memory
@@ -34,11 +43,5 @@ failRequestsMemory {
 
 deny[msg] {
   failRequestsMemory
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should set resources.requests.memory",
-      [getNoRequestsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv016)
 }

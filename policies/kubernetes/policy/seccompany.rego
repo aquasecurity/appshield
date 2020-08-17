@@ -9,6 +9,15 @@ package main
 
 import data.lib.kubernetes
 
+meta_ksv019 = {
+  "title": "Seccomp policies are disabled for container",
+  "description": "A program inside the container can bypass Seccomp protection policies.",
+  "recommended_actions": "Remove the 'unconfined' value from 'container.seccomp.security.alpha.kubernetes.io'",
+  "severity": "Medium",
+  "id": "KSV019",
+  "links": ""
+}
+
 default failSeccompAny = false
 
 # getSeccompContainers returns all containers which have a seccomp
@@ -39,12 +48,6 @@ failSeccomp {
 
 deny[msg] {
   failSeccomp
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should specify a seccomp profile",
-      [getNoSeccompContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv019)
 }
 

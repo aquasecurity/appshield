@@ -9,6 +9,15 @@ package main
 
 import data.lib.kubernetes
 
+meta_ksv013 = {
+  "title": "Avoid using the ':latest' tag",
+  "description": "You should avoid using the :latest tag when deploying containers in production, because this makes it hard to track which version of the image is running and hard to roll back.",
+  "recommended_actions": "Use a specific container image tag that is not 'latest' ",
+  "severity": "Low",
+  "id": "KSV013",
+  "links": ""
+}
+
 default checkUsingLatestTag = false
 
 # getTaggedContainers returns the names of all containers which
@@ -35,13 +44,5 @@ checkUsingLatestTag {
 
 deny[msg] {
   checkUsingLatestTag
-
-  # msg = kubernetes.format(sprintf("%s in the %s %s has an image, %s, using the latest tag", [container.name, kubernetes.kind, image_name, kubernetes.name]))
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should specify image tag",
-      [getUntaggedContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv013)
 }
