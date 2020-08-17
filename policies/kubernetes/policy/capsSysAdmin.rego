@@ -9,6 +9,15 @@ package main
 
 import data.lib.kubernetes
 
+meta_ksv005 = {
+  "title": "Container should not include SYS_ADMIN capability",
+  "description": "SYS_ADMIN gives the processes running inside the container privileges that are equivalent to root.",
+  "recommended_actions": "Remove the SYS_ADMIN capability from 'containers[].securityContext.capabilities.add'",
+  "severity": "High",
+  "id": "KSV005",
+  "links": ""
+}
+
 default failCapsSysAdmin = false
 
 # getCapsSysAdmin returns the names of all containers which include
@@ -27,12 +36,6 @@ failCapsSysAdmin {
 
 deny[msg] {
   failCapsSysAdmin
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should not include 'SYS_ADMIN' in securityContext.capabilities.add",
-      [getCapsSysAdmin[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv005)
 }
 

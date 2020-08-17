@@ -10,6 +10,15 @@ package main
 import data.lib.kubernetes
 import data.lib.utils
 
+meta_ksv011 = {
+  "title": "Limit container CPU",
+  "description": "Enforcing CPU limits prevents DOS via resource exhaustion",
+  "recommended_actions": "Set a limit value under 'containers[].resources.limits.cpu'",
+  "severity": "Low",
+  "id": "KSV011",
+  "links": ""
+}
+
 default failLimitsCPU = false
 
 # getLimitsCPUContainers returns all containers which have set resources.limits.cpu
@@ -34,11 +43,5 @@ failLimitsCPU {
 
 deny[msg] {
   failLimitsCPU
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should set resources.limits.cpu",
-      [getNoLimitsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv011)
 }

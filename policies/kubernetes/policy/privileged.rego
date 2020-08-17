@@ -9,6 +9,15 @@ package main
 
 import data.lib.kubernetes
 
+meta_ksv017 = {
+  "title": "Privileged container",
+  "description": "Privileged containers share namespaces with the host system and do not offer any security. They should be used exclusively for system containers that require high privileges.",
+  "recommended_actions": "Change 'containers[].securityContext.privileged' to 'false'",
+  "severity": "High",
+  "id": "KSV017",
+  "links": ""
+}
+
 default failPrivileged = false
 
 # getPrivilegedContainers returns all containers which have
@@ -27,11 +36,5 @@ failPrivileged {
 
 deny[msg] {
   failPrivileged
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should set securityContext.privileged to false",
-      [getPrivilegedContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv017)
 }

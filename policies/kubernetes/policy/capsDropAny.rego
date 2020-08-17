@@ -10,6 +10,15 @@ package main
 import data.lib.kubernetes
 import data.lib.utils
 
+meta_ksv004 = {
+  "title": "Container should drop unnecessery capabilities",
+  "description": "Security best practices requires containers to run with minimal required capabilities.",
+  "recommended_actions": "Specify at least one un-needed capability in 'containers[].securityContext.capabilities.drop'",
+  "severity": "Low",
+  "id": "KSV004",
+  "links": ""
+}
+
 default failCapsDropAny = false
 
 # getCapsDropAnyContainers returns names of all containers
@@ -35,11 +44,5 @@ failCapsDropAny {
 
 deny[msg] {
   failCapsDropAny
-
-  msg := kubernetes.format(
-    sprintf(
-      "container %s of %s %s in %s namespace should set securityContext.capabilities.drop",
-      [getNoCapsDropContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
-    )
-  )
+  msg := json.marshal(meta_ksv004)
 }

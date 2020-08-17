@@ -7,6 +7,15 @@
 
 package main
 
+meta_ds002 = {
+  "title": "Image user should not be 'root'",
+  "description": "It is a good practice to run the container as a non-root user.",
+  "recommended_actions": "Add 'USER <non root user name>' line to the Dockerfile",
+  "severity": "High",
+  "id": "DS002",
+  "links": ""
+}
+
 # getUser returns all the usernames from
 # the USER command.
 getUser[user] {
@@ -31,10 +40,10 @@ failLastUserRoot {
 
 deny[msg] {
   failUserCount
-  msg = "Specify at least 1 USER command in Dockerfile"
+  msg = json.marshal(meta_ds002)
 }
 
 deny[msg] {
   failLastUserRoot
-  msg = "Last USER command in Dockerfile should not be root"
+  msg := json.marshal(meta_ds002)
 }
