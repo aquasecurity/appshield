@@ -1,13 +1,23 @@
-# @title: Privileged
-# @description: Privileged containers share namespaces with the host system and do not offer any security. They should be used exclusively for system containers that require high privileges.
-# @recommended_actions: Change 'containers[].securityContext.privileged' to 'false'.
-# @severity: High
-# @id: KSV017
-# @links: 
-
 package main
 
 import data.lib.kubernetes
+
+__rego__metadoc__ := {
+  "id": "KSV017",
+  "title": "Privileged",
+  "description": "Privileged containers share namespaces with the host system and do not offer any security. They should be used exclusively for system containers that require high privileges.",
+  "notes": [
+    "Recommendation: Change 'containers[].securityContext.privileged' to 'false'",
+    "Severity: High"
+  ],
+  "entrypoint": "main.deny",
+  "input": "Kubernetes Pod spec OR a Kubernetes admission review object with for a Pod spec",
+  "output": "Set of messages pertaining to affected items",
+  "examples": [
+    "test_Privileged_is_true",
+    "test_Privileged_is_false"
+  ]
+}
 
 default failPrivileged = false
 
