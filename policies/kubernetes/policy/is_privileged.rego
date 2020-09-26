@@ -14,8 +14,8 @@ __rego__metadoc__ := {
   "input": "Kubernetes Pod spec OR a Kubernetes admission review object with for a Pod spec",
   "output": "Set of messages pertaining to affected items",
   "examples": [
-    "test_Privileged_is_true",
-    "test_Privileged_is_false"
+    "main.test_Privileged_is_true",
+    "main.test_Privileged_is_false"
   ]
 }
 
