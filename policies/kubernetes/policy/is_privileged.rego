@@ -7,11 +7,9 @@ __rego__metadoc__ := {
   "title": "Privileged",
   "description": "Privileged containers share namespaces with the host system and do not offer any security. They should be used exclusively for system containers that require high privileges.",
   "custom": {
-    "notes": [
-      "Recommendation: Change 'containers[].securityContext.privileged' to 'false'",
-      "Severity: High"
-    ]
-  ],
+      "Recommendation": "Change 'containers[].securityContext.privileged' to 'false'",
+      "Severity": "High"
+  },
   "entrypoint": "main.deny",
   "input": "Kubernetes Pod spec OR a Kubernetes admission review object with for a Pod spec",
   "output": "Set of messages pertaining to affected items",
