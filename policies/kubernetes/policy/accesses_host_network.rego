@@ -11,9 +11,9 @@ import data.lib.kubernetes
 
 default failHostNetwork = false
 
-# failHostNetwork is true if spec.hostNetwork is set to true
+# failHostNetwork is true if spec.hostNetwork is set to true (on all controllers)
 failHostNetwork {
-  input.spec.hostNetwork == true
+  kubernetes.host_networks[_] == true
 }
 
 deny[msg] {

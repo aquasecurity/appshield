@@ -17,7 +17,7 @@ getSeccompContainers[container] {
   some i
   keys := [key | key := sprintf("%s/%s", ["container.seccomp.security.alpha.kubernetes.io",
     kubernetes.containers[_].name])]
-  seccomp := object.filter(kubernetes.annotations, keys)
+  seccomp := object.filter(kubernetes.annotations[_], keys)
   val := seccomp[i]
   val != "unconfined"
   [a, c] := split(i, "/")
