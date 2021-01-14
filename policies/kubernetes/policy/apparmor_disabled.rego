@@ -17,7 +17,7 @@ getApparmorContainers[container] {
   some i
   keys := [key | key := sprintf("%s/%s", ["container.apparmor.security.beta.kubernetes.io",
     kubernetes.containers[_].name])]
-  apparmor := object.filter(kubernetes.annotations, keys)
+  apparmor := object.filter(kubernetes.annotations[_], keys)
   val := apparmor[i]
   val != "unconfined"
   [a, c] := split(i, "/")

@@ -12,9 +12,9 @@ import data.lib.utils
 
 default failHostAliases = false
 
-# failHostAliases is true if spec.hostAliases is set
+# failHostAliases is true if spec.hostAliases is set (on all controllers)
 failHostAliases {
-  utils.has_key(input.spec, "hostAliases")
+  utils.has_key(kubernetes.host_aliases[_], "hostAliases")
 }
 
 deny[msg] {

@@ -12,9 +12,9 @@ import data.lib.kubernetes
 
 default failHostPID = false
 
-# failHostPID is true if spec.hostPID is set to true
+# failHostPID is true if spec.hostPID is set to true (on all controllers)
 failHostPID {
-  input.spec.hostPID == true
+  kubernetes.host_pids[_] == true
 }
 
 deny[msg] {

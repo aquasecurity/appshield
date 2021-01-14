@@ -28,7 +28,7 @@ name = object.metadata.name
 
 default namespace = "default"
 namespace = object.metadata.namespace
-annotations = object.metadata.annotations
+#annotations = object.metadata.annotations
 
 kind = object.kind
 
@@ -75,6 +75,18 @@ is_controller {
 }
 
 is_controller {
+  kind = "ReplicaSet"
+}
+
+is_controller {
+  kind = "ReplicationController"
+}
+
+is_controller {
+  kind = "Job"
+}
+
+is_cronjob {
   kind = "CronJob"
 }
 
@@ -117,6 +129,11 @@ pods[pod] {
 	pod = object.spec.template
 }
 
+pods[pod] {
+	is_cronjob
+	pod = object.spec.jobTemplate.spec.template
+}
+
 volumes[volume] {
 	pods[pod]
 	volume = pod.spec.volumes[_]
@@ -150,4 +167,29 @@ priviledge_escalation_allowed(c) {
 priviledge_escalation_allowed(c) {
 	has_field(c, "securityContext")
 	has_field(c.securityContext, "allowPrivilegeEscalation")
+}
+
+annotations[annotation] {
+	pods[pod]
+	annotation = pod.metadata.annotations
+}
+
+host_ipcs[host_ipc] {
+    pods[pod]
+    host_ipc = pod.spec.hostIPC
+}
+
+host_networks[host_network] {
+    pods[pod]
+    host_network = pod.spec.hostNetwork
+}
+
+host_pids[host_pid] {
+    pods[pod]
+    host_pid = pod.spec.hostPID
+}
+
+host_aliases[host_alias] {
+    pods[pod]
+    host_alias = pod.spec
 }

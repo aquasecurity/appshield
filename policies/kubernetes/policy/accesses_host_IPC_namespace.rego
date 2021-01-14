@@ -11,9 +11,9 @@ import data.lib.kubernetes
 
 default failHostIPC = false
 
-# failHostIPC is true if spec.hostIPC is set to true
+# failHostIPC is true if spec.hostIPC is set to true (on all resources)
 failHostIPC {
-  input.spec.hostIPC == true
+  kubernetes.host_ipcs[_] == true
 }
 
 deny[msg] {
