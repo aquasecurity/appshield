@@ -25,6 +25,9 @@ spec:
       containers:
       - name: carts-db
         image: mongo:latest
+        ports:
+          - containerPort: 8080
+            hostPort: 8080
         securityContext:
           privileged: true
           runAsNonRoot: false
@@ -47,6 +50,9 @@ spec:
       initContainers:
       - name: carts-init
         image: mongo:1.28
+        ports:
+          - containerPort: 8081
+            hostPort: 8081
         securityContext:
           runAsNonRoot: true
           allowPrivilegeEscalation: false
