@@ -19,6 +19,10 @@ spec:
         sysctls:
         - name: "foo.bar"
           value: "baz"
+      volumes:
+      - name: tmp
+        hostPath:
+          path: /tmp
       hostPID: true
       hostIPC: true
       hostNetwork: true
