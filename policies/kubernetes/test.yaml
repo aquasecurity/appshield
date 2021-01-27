@@ -26,6 +26,7 @@ spec:
       - name: carts-db
         image: mongo:latest
         securityContext:
+          procMount: "Default"
           privileged: true
           runAsNonRoot: false
           runAsUser: 15000
@@ -48,6 +49,7 @@ spec:
       - name: carts-init
         image: mongo:1.28
         securityContext:
+          procMount: "UnmaskedProcMount"
           runAsNonRoot: true
           allowPrivilegeEscalation: false
         resources:
