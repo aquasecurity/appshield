@@ -22,6 +22,10 @@ spec:
       - name: dockersock
         hostPath:
           path: /var/run/docker.sock
+      - name: gcepd
+        gcePersistentDisk:
+          pdName: my-data-disk
+          fsType: ext4
       containers:
       - name: carts-db
         image: mongo:latest
