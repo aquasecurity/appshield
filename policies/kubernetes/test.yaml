@@ -24,7 +24,7 @@ spec:
           path: /var/run/docker.sock
       containers:
       - name: carts-db
-        image: mongo:latest
+        image: my.azurecr.io/mongo:latest
         securityContext:
           privileged: true
           runAsNonRoot: false
@@ -35,7 +35,7 @@ spec:
           limits:
             cpu: 24m
       - name: app
-        image: app
+        image: 12345699.dkr.ecr.eu-west-1.amazonaws.com/travelshift/webapp
         securityContext:
           runAsGroup: 1000
           allowPrivilegeEscalation: true
