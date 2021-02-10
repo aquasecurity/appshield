@@ -36,7 +36,7 @@ The following table compare PSS to PSP:
 
 ### PSS - baseline
 
-PSS control | PSP control
+PSS control | PSP control(s)
 ------------ | -------------
 1-Host Namespaces | 2-Usage of host namespaces. 3-Usage of host networking and ports
 2-Privileged Containers |	1-Running of privileged containers
