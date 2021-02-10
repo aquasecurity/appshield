@@ -1,8 +1,8 @@
 package main
 
-# Test untrusted registry
-test_untrusted_registry {
-  failTrustedRegistry with input as {
+# Test untrusted gcr registry
+test_untrusted_gcr_registry {
+  failTrustedGCRRegistry with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
@@ -27,9 +27,9 @@ test_untrusted_registry {
   }
 }
 
-# Test trusted registry
-test_trusted_registry {
-  not failTrustedRegistry with input as {
+# Test trusted gcr registry
+test_trusted_gcr_registry {
+  not failTrustedGCRRegistry with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
@@ -41,7 +41,7 @@ test_trusted_registry {
           "containers": [
             {
               "name": "carts-db",
-              "image": "my.azurecr.io/mongo",
+              "image": "asia.gcr.io/mongo",
               "securityContext": {
                 "runAsNonRoot": true,
                 "allowPrivilegeEscalation": true
@@ -56,7 +56,7 @@ test_trusted_registry {
 
 # Test bare image
 test_bare_image {
-  failTrustedRegistry with input as {
+  failTrustedGCRRegistry with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
