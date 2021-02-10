@@ -33,9 +33,10 @@ The controls of both Pod Security Policy (PSP) and Pod Security Standards (PSS) 
 
 ## PSS and PSP
 Pod Security Standard (PSP) is the official standard for security best practices for pods and it overlaps with the checks that PSP perform
-https://kubernetes.io/docs/concepts/security/pod-security-standards/
+- PSS: https://kubernetes.io/docs/concepts/security/pod-security-standards/
+- PSP: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
 
-It has 14 controls that are grouped into two policies: Baseline and Restricted. We chose to name the controls in this repository under the PSS controls that are more up to date and has better coverage than PSP. The following table compare PSS to PSP:
+PSS has 14 controls that are grouped into two policies: Baseline and Restricted. We named the controls in this repository under the PSS controls because they are more up-to-date and have better coverage than PSP. The following table maps PSS controls to PSP controls:
 
 ### PSS - baseline
 
