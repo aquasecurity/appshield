@@ -1,8 +1,8 @@
 package main
 
-# Test untrusted registry
-test_untrusted_registry {
-  failTrustedRegistry with input as {
+# Test untrusted azure registry
+test_untrusted_azure_registry {
+  failTrustedAzureRegistry with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
@@ -27,9 +27,9 @@ test_untrusted_registry {
   }
 }
 
-# Test trusted registry
-test_trusted_registry {
-  not failTrustedRegistry with input as {
+# Test trusted azure registry
+test_trusted_azure_registry {
+  not failTrustedAzureRegistry with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
@@ -56,7 +56,7 @@ test_trusted_registry {
 
 # Test bare image
 test_bare_image {
-  failTrustedRegistry with input as {
+  failTrustedAzureRegistry with input as {
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
