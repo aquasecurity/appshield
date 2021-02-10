@@ -7,7 +7,7 @@ Follow these steps to pull a policy and test Kubernetes workload manifest:
 ```
 mkdir myPolicy
 ```
-2. Download the main library and the desired checks(s) into "policy" directory
+2. Download the main library and the desired checks(s) into "policy" directory - in this example we use the "is_privileged" check only
 ```
 wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/policy/lib/kubernetes.rego
 wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/policy/lib/utils.rego
