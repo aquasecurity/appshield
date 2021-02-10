@@ -36,7 +36,7 @@ Pod Security Standard (PSS) is the official standard for security best practices
 - PSS: https://kubernetes.io/docs/concepts/security/pod-security-standards/
 - PSP: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
 
-PSS has 14 controls that are grouped into two policies: Baseline and Restricted. We named the controls in this repository under the PSS controls because they are more up-to-date and have better coverage than PSP. The following table maps PSS controls to PSP controls:
+PSS has 14 controls that are grouped into two policies: Baseline and Restricted. We named the controls in this repository under the PSS controls because they are more up-to-date and have better coverage than PSP. The below table maps PSS controls to PSP controls:
 
 ### PSS - baseline
 
@@ -70,12 +70,12 @@ The REGO rules are available [here](https://github.com/aquasecurity/appshield/tr
 Additional best practices available under this repository
 
 Top Examples:
-Best practice | field in the manifest
+Best practice | tested field in the manifest
 ------------ | -------------
-Trust ECR registries only | container(s).image prefix
-Trust ACR registries only | container(s).image prefix
-Trust GCR registries only | container(s).image prefix
-Block public registries | container(s).image prefix
+Trust ECR registries only | container(s).image != ECR domain in prefix  
+Trust ACR registries only | container(s).image != ACR domain in prefix
+Trust GCR registries only | container(s).image != GCR domain in prefix
+Block public registries | container(s).image != null or docker.io prefix
 HostPath volume mounted with docker.sock | hostPath.path != /var/run/docker.sock
 
 Additional REGO rules available [here](https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy)
