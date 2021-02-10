@@ -1,4 +1,4 @@
-## The most comperhensive REGO library for Kubernetes workload configuration checks
+## Comprehensive REGO library for Kubernetes workload configuration checks
 
 Examples:
 - Use our REGO policies with tools such as OPA Gatekeeper and Conftest to check kubernetes resources configurations
@@ -23,7 +23,7 @@ wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/po
 ```
 wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/test.yaml
 ```
-4. Use any tool that supports REGO to test the exmple file. In this example we are using conftest
+4. Use any tool that supports REGO to test the example file. In this example we are using conftest
 ```
 conftest test test.yaml --policy myPolicy/
 ```
