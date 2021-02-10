@@ -28,7 +28,7 @@ wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/te
 conftest test test.yaml --policy myPolicy/
 ```
 
-# Standards and Use-cases
+# Standards and best practices
 The controls of both Pod Security Policy (PSP) and Pod Security Standards (PSS) and additional best practices are covered in this github repository
 
 ## PSS and PSP
@@ -63,7 +63,14 @@ PSS control | PSP control
 5-Seccomp | 15-The seccomp profile used by containers
 
 ## Additional best practices
-To support more best practices we have added more REGO checks in the following directory: 
-https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy
+Additional best practices available under this directory: https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy
 
+Top Examples:
+Best practice | field in the manifest
+------------ | -------------
+Trust ECR registries only | container(s).image prefix
+Trust ACR registries only | container(s).image prefix
+Trust GCR registries only | container(s).image prefix
+Block public registries | container(s).image prefix
+HostPath volume mounted with docker.sock | hostPath.path != /var/run/docker.sock
 
