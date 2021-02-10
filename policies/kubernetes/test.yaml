@@ -12,6 +12,9 @@ spec:
   replicas: 1
   template:
     spec:
+      securityContext:
+        seccompProfile:
+          type: "my-profile"
       hostPID: true
       hostIPC: true
       hostNetwork: true
@@ -26,6 +29,8 @@ spec:
       - name: carts-db
         image: mongo:latest
         securityContext:
+          seccompProfile:
+            type: RuntimeDefault
           privileged: true
           runAsNonRoot: false
           runAsUser: 15000
@@ -37,6 +42,8 @@ spec:
       - name: app
         image: app
         securityContext:
+          seccompProfile:
+            type: "another-profile"
           runAsGroup: 1000
           allowPrivilegeEscalation: true
           capabilities:
