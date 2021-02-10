@@ -1,7 +1,7 @@
-The most comperhensive REGO library for Kubernetes workload configuration checks
+## The most comperhensive REGO library for Kubernetes workload configuration checks
 
 Examples:
-- Use tools such as OPA Gatekeeper and Conftes that support REGO to check kubernetes resources configurations
+- Use tools such as OPA Gatekeeper and Conftest that support REGO to check kubernetes resources configurations
 - Ensure pods and controllers are not running as privileged
 - Ensure pods images are hosted in a trusted ECR/GCR/ACR registry
 - and more checks to comply with PSP, PSS and additional standards
@@ -32,13 +32,10 @@ conftest test test.yaml --policy myPolicy/
 The controls of both Pod Security Policy (PSP) and Pod Security Standards (PSS) and additional best practices are covered in this github repository
 
 ## PSS and PSP
-Pod Security Standard (PSP) are the official standards that can replace the PSP feature
+Pod Security Standard (PSP) is the official standard for security best practices for pods and it overlaps with the checks that PSP perform
 https://kubernetes.io/docs/concepts/security/pod-security-standards/
 
-It has 14 controls that are grouped into two policies: Baseline and Restricted
-
-We chose to name the controls in this repository under the PSS controls that are more up to date and has better coverage than PSP.
-The following table compare PSS to PSP:
+It has 14 controls that are grouped into two policies: Baseline and Restricted. We chose to name the controls in this repository under the PSS controls that are more up to date and has better coverage than PSP. The following table compare PSS to PSP:
 
 ### PSS - baseline
 
