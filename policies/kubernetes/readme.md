@@ -67,7 +67,6 @@ PSS control | PSP control
 The REGO rules are available [here](https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy)
 
 ## Additional best practices
-Additional best practices available under this repository
 
 Top Examples:
 Best practice | tested field in the manifest
