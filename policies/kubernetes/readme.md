@@ -52,6 +52,8 @@ PSS control | PSP control(s)
 8-/proc Mount Type	| 13-The Allowed Proc Mount types for the container
 9-Sysctls	| 16-The sysctl profile used by containers
 
+The REGO rules are available [here](https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy)
+
 ### PSS - restricted
 
 PSS control | PSP control
@@ -62,8 +64,10 @@ PSS control | PSP control
 4-Non-root groups | 7-Allocating an FSGroup that owns the Pod's volumes. 9-The user and group IDs of the container
 5-Seccomp | 15-The seccomp profile used by containers
 
+The REGO rules are available [here](https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy)
+
 ## Additional best practices
-Additional best practices available under this directory: https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy
+Additional best practices available under this repository
 
 Top Examples:
 Best practice | field in the manifest
@@ -74,3 +78,4 @@ Trust GCR registries only | container(s).image prefix
 Block public registries | container(s).image prefix
 HostPath volume mounted with docker.sock | hostPath.path != /var/run/docker.sock
 
+Additional REGO rules available [here](https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy)
