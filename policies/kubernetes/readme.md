@@ -1,5 +1,11 @@
 The most comperhensive REGO library for Kubernetes workload configuration checks
 
+Examples:
+- Use tools such as OPA Gatekeeper and Conftes that support REGO to check kubernetes resources configurations
+- Ensure pods and controllers are not running as privileged
+- Ensure pods images are hosted in a trusted ECR/GCR/ACR registry
+- and more checks to comply with PSP, PSS and additional standards
+
 # Quick start
 Follow these steps to pull a policy and test Kubernetes workload manifest:
 1. Create a directory named "myPolicy" to host all the required rego checks
