@@ -10,10 +10,10 @@ package main
 import data.lib.kubernetes
 import data.lib.utils
 
-default failSysctls = false
+default failTrustedECRRegistry = false
 
-# list of trusted registries
-trusted_registries = [
+# list of trusted ECR registries
+trusted_ecr_registries = [
   "ecr.us-east-2.amazonaws.com",
   "ecr.us-east-1.amazonaws.com",
   "ecr.us-west-1.amazonaws.com",
@@ -38,16 +38,11 @@ trusted_registries = [
   "ecr.sa-east-1.amazonaws.com",
   "ecr.us-gov-east-1.amazonaws.com",
   "ecr.us-gov-west-1.amazonaws.com",
-  "gcr.io",
-  "us.gcr.io",
-  "eu.gcr.io",
-  "asia.gcr.io",
-  "azurecr.io"
 ]
 
-# getContainersWithTrustedRegistry returns a list of containers
-# with image from a trusted registry
-getContainersWithTrustedRegistry[name] {
+# getContainersWithTrustedECRRegistry returns a list of containers
+# with image from a trusted ECR registry
+getContainersWithTrustedECRRegistry[name] {
   container := kubernetes.containers[_]
   image := container.image
   # get image registry/repo parts
@@ -55,31 +50,31 @@ getContainersWithTrustedRegistry[name] {
   # images with only one part do not specify a registry
   count(image_parts) > 1
   registry = image_parts[0]
-  trusted := trusted_registries[_]
+  trusted := trusted_ecr_registries[_]
   endswith(registry, trusted)
   name := container.name
 }
 
-# getContainersWithUntrustedRegistry returns a list of containers
-# with image from an untrusted registry
-getContainersWithUntrustedRegistry[name] {
+# getContainersWithUntrustedECRRegistry returns a list of containers
+# with image from an untrusted ECR registry
+getContainersWithUntrustedECRRegistry[name] {
   name := kubernetes.containers[_].name
-  not getContainersWithTrustedRegistry[name]
+  not getContainersWithTrustedECRRegistry[name]
 }
 
-# failTrustedRegistry is true if a container uses an image from an
-# untrusted registry
-failTrustedRegistry {
-  count(getContainersWithUntrustedRegistry) > 0
+# failTrustedECRRegistry is true if a container uses an image from an
+# untrusted ECR registry
+failTrustedECRRegistry {
+  count(getContainersWithUntrustedECRRegistry) > 0
 }
 
 deny[msg] {
-  failTrustedRegistry
+  failTrustedECRRegistry
 
   msg := kubernetes.format(
     sprintf(
-      "container %s of %s %s in %s namespace should restrict container image to your specific registry domain. See the full GCR list here: https://cloud.google.com/container-registry/docs/overview#registries. See the full ECR list here: https://docs.aws.amazon.com/general/latest/gr/ecr.html. For Azure any domain ending in 'azurecr.io'",
-      [getContainersWithUntrustedRegistry[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
+      "container %s of %s %s in %s namespace should restrict container image to your specific registry domain. See the full ECR list here: https://docs.aws.amazon.com/general/latest/gr/ecr.html",
+      [getContainersWithUntrustedECRRegistry[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
 }
