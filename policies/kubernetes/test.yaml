@@ -12,6 +12,9 @@ spec:
   replicas: 1
   template:
     spec:
+      securityContext:
+        seccompProfile:
+          type: "my-profile"
       hostPID: true
       hostIPC: true
       hostNetwork: true
@@ -22,11 +25,20 @@ spec:
       - name: dockersock
         hostPath:
           path: /var/run/docker.sock
+      - name: gcepd
+        gcePersistentDisk:
+          pdName: my-data-disk
+          fsType: ext4
       containers:
       - name: carts-db
         image: mongo:latest
+        ports:
+          - containerPort: 8080
+            hostPort: 8080
         securityContext:
           procMount: "Default"
+          seccompProfile:
+            type: RuntimeDefault
           privileged: true
           runAsNonRoot: false
           runAsUser: 15000
@@ -38,6 +50,8 @@ spec:
       - name: app
         image: app
         securityContext:
+          seccompProfile:
+            type: "another-profile"
           runAsGroup: 1000
           allowPrivilegeEscalation: true
           capabilities:
@@ -48,6 +62,9 @@ spec:
       initContainers:
       - name: carts-init
         image: mongo:1.28
+        ports:
+          - containerPort: 8081
+            hostPort: 8081
         securityContext:
           procMount: "UnmaskedProcMount"
           runAsNonRoot: true
