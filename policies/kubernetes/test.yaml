@@ -31,6 +31,7 @@ spec:
           fsType: ext4
       containers:
       - name: carts-db
+        image: my.azurecr.io/mongo:latest
         image: mongo:latest
         ports:
           - containerPort: 8080
@@ -47,7 +48,7 @@ spec:
           limits:
             cpu: 24m
       - name: app
-        image: app
+        image: 12345699.dkr.ecr.eu-west-1.amazonaws.com/travelshift/webapp
         securityContext:
           seccompProfile:
             type: "another-profile"

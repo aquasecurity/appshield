@@ -1,0 +1,60 @@
+# @title: Uses images from untrusted GCR registries.
+# @description: Containers should only use images from trusted GCR registries.
+# @recommended_actions: Use images from trusted GCR registries.
+# @severity:
+# @id:
+# @links:
+
+package main
+
+import data.lib.kubernetes
+import data.lib.utils
+
+default failTrustedGCRRegistry = false
+
+# list of trusted GCR registries
+trusted_gcr_registries = [
+  "gcr.io",
+  "us.gcr.io",
+  "eu.gcr.io",
+  "asia.gcr.io",
+]
+
+# getContainersWithTrustedGCRRegistry returns a list of containers
+# with image from a trusted gcr registry
+getContainersWithTrustedGCRRegistry[name] {
+  container := kubernetes.containers[_]
+  image := container.image
+  # get image registry/repo parts
+  image_parts := split(image, "/")
+  # images with only one part do not specify a registry
+  count(image_parts) > 1
+  registry = image_parts[0]
+  trusted := trusted_gcr_registries[_]
+  endswith(registry, trusted)
+  name := container.name
+}
+
+# getContainersWithUntrustedGCRRegistry returns a list of containers
+# with image from an untrusted gcr registry
+getContainersWithUntrustedGCRRegistry[name] {
+  name := kubernetes.containers[_].name
+  not getContainersWithTrustedGCRRegistry[name]
+}
+
+# failTrustedGCRRegistry is true if a container uses an image from an
+# untrusted gcr registry
+failTrustedGCRRegistry {
+  count(getContainersWithUntrustedGCRRegistry) > 0
+}
+
+deny[msg] {
+  failTrustedGCRRegistry
+
+  msg := kubernetes.format(
+    sprintf(
+      "container %s of %s %s in %s namespace should restrict container image to your specific registry domain. See the full GCR list here: https://cloud.google.com/container-registry/docs/overview#registries",
+      [getContainersWithUntrustedGCRRegistry[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
+    )
+  )
+}
