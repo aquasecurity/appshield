@@ -37,6 +37,7 @@ spec:
           - containerPort: 8080
             hostPort: 8080
         securityContext:
+          procMount: "Default"
           seccompProfile:
             type: RuntimeDefault
           privileged: true
@@ -66,6 +67,7 @@ spec:
           - containerPort: 8081
             hostPort: 8081
         securityContext:
+          procMount: "UnmaskedProcMount"
           runAsNonRoot: true
           allowPrivilegeEscalation: false
         resources:
