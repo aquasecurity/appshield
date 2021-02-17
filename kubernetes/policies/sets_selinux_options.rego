@@ -1,8 +1,8 @@
-# @title: Setting custom SELinux options should be disallowed.
-# @description: Pods should not set SELinux options.
+# @title: SELinux custom options set
+# @description: According to pod security standard "SElinux", setting custom SELinux options should be disallowed.
 # @recommended_actions: Do not set 'spec.securityContext.seLinuxOptions', spec.containers[*].securityContext.seLinuxOptions and spec.initContainers[*].securityContext.seLinuxOptions.
-# @severity:
-# @id:
+# @severity: Medium
+# @id: KSV025
 # @links: 
 
 package main

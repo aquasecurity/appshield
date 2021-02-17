@@ -1,8 +1,8 @@
-# @title: Sets disallowed volume type.
-# @description: Restrict usage of non-core volume types to those defined through PersistentVolumes.
+# @title: Non-core volume types used.
+# @description: According to pod security standard "Volume types", non-core volume types must not be used.
 # @recommended_actions: Do not Set 'spec.volumes[*]' to any of the disallowed volume types.
-# @severity:
-# @id:
+# @severity: Low
+# @id: KSV028
 # @links: 
 
 package main

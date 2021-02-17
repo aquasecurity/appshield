@@ -1,8 +1,8 @@
-# @title: Sets a seccomp profile other than RuntimeDefault.
-# @description: Containers should be disallowed from setting seccomp profile to anything other than RuntimeDefault.
+# @title: Runtime/Default Seccomp profile not set
+# @description: According to pod security standard "Seccomp", the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.
 # @recommended_actions: Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to RuntimeDefault.
-# @severity:
-# @id:
+# @severity: Low
+# @id: KSV030
 # @links:
 
 package main

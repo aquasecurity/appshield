@@ -1,4 +1,4 @@
-# @title: Excess (default) capabilities
+# @title: Default capabilities: some containers do not drop all
 # @description: The container should drop all default capabilities and add only those that are needed for its execution.
 # @recommended_actions: Add 'ALL' to containers[].securityContext.capabilities.drop.
 # @severity: Low
