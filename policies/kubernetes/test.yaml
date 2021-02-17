@@ -16,6 +16,9 @@ spec:
         seccompProfile:
           type: "my-profile"
         runAsGroup: 0
+        sysctls:
+        - name: "foo.bar"
+          value: "baz"
       hostPID: true
       hostIPC: true
       hostNetwork: true
