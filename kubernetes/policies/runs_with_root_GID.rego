@@ -1,8 +1,8 @@
-# @title: Runs with root GID
-# @description: Containers should be forbidden from running with a root primary or supplementary GID.
+# @title: Runs with a root primary or supplementary GID
+# @description: According to pod security standard "Non-root groups", containers should be forbidden from running with a root primary or supplementary GID.
 # @recommended_actions: Set 'containers[].securityContext.runAsGroup' to a non-zero integer or leave undefined.
-# @severity:
-# @id:
+# @severity: Low
+# @id: KSV029
 # @links:
 
 package main

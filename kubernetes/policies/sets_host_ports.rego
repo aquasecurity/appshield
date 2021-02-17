@@ -1,8 +1,8 @@
-# @title: Disallow hostPorts in pods.
-# @description: HostPorts should be disallowed, or at minimum restricted to a known list.
+# @title: Access to host ports
+# @description: According to pod security standard "Host Ports", hostPorts should be disallowed, or at minimum restricted to a known list.
 # @recommended_actions: Do not set spec.containers[*].ports[*].hostPort and spec.initContainers[*].ports[*].hostPort.
-# @severity: 
-# @id: 
+# @severity: High
+# @id: KSV024
 # @links: 
 
 package main

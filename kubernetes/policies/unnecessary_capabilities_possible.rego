@@ -1,4 +1,4 @@
-# @title: May have unnecessary capabilities
+# @title: Default capabilities: some containers do not drop any
 # @description: Security best practices require containers to run with minimal required capabilities.
 # @recommended_actions: Specify at least one unneeded capability in 'containers[].securityContext.capabilities.drop'.
 # @severity: Low

@@ -1,4 +1,4 @@
-# @title: Uses the image tag ":latest"
+# @title: Image tag ":latest" used
 # @description: It is best to avoid using the ":latest' image tag when deploying containers in production. Doing so makes it hard to track which version of the image is running, and hard to roll back the version.
 # @recommended_actions: Use a specific container image tag that is not "latest".
 # @severity: Low

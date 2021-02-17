@@ -1,8 +1,8 @@
-# @title: Adding additional capabilities beyond the default set must be disallowed.
-# @description: Pods should not set additional capabilities or set capabilities from a known restricted list.
+# @title: Specific capabilities added
+# @description: According to pod security standard "Capabilities", capabilities beyond the default set must not be added.
 # @recommended_actions: Do not set spec.containers[*].securityContext.capabilities.add and spec.initContainers[*].securityContext.capabilities.add..
-# @severity: 
-# @id: 
+# @severity: Medium
+# @id: KSV022
 # @links: 
 
 package main

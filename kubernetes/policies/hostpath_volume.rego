@@ -1,8 +1,8 @@
-# @title: HostPath volumes must be forbidden
-# @description: Pods should not use hostpath volumes.
+# @title: HostPath volumes mounted
+# @description: According to pod security standard "HostPath Volumes", HostPath volumes must be forbidden.
 # @recommended_actions: Do not set 'spec.volumes[*].hostPath'.
-# @severity:
-# @id:
+# @severity: Medium
+# @id: KSV023
 # @links: 
 
 package main
@@ -12,7 +12,6 @@ import data.lib.utils
 
 default failHostPathVolume = false
 
-# failHostPathVolume is true if the workload has a hostPath volume
 failHostPathVolume {
   volumes := kubernetes.volumes
   utils.has_key(volumes[_], "hostPath")
