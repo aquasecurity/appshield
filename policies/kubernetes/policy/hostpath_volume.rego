@@ -12,6 +12,7 @@ import data.lib.utils
 
 default failHostPathVolume = false
 
+# failHostPathVolume is true if the workload has a hostPath volume
 failHostPathVolume {
   volumes := kubernetes.volumes
   utils.has_key(volumes[_], "hostPath")
