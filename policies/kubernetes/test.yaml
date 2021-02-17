@@ -15,6 +15,7 @@ spec:
       securityContext:
         seccompProfile:
           type: "my-profile"
+        runAsGroup: 0
       hostPID: true
       hostIPC: true
       hostNetwork: true
@@ -53,7 +54,7 @@ spec:
         securityContext:
           seccompProfile:
             type: "another-profile"
-          runAsGroup: 1000
+          runAsGroup: 0
           allowPrivilegeEscalation: true
           capabilities:
             drop: ["ALL"]
