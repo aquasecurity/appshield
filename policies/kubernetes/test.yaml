@@ -19,6 +19,12 @@ spec:
         sysctls:
         - name: "foo.bar"
           value: "baz"
+        seLinuxOptions:
+          level: "s1:s2"
+      volumes:
+      - name: tmp
+        hostPath:
+          path: /tmp
       hostPID: true
       hostIPC: true
       hostNetwork: true
