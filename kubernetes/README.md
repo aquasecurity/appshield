@@ -15,13 +15,13 @@ mkdir myPolicy
 ```
 2. Download the main library and the desired checks(s) into "policy" directory - in this example we use the "is_privileged" check only
 ```
-wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/policy/lib/kubernetes.rego
-wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/policy/lib/utils.rego
-wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/policy/is_privileged.rego
+wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/lib/kubernetes.rego
+wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/lib/utils.rego
+wget https://github.com/aquasecurity/appshield/raw/master/kubernetes/policies/pss/Baseline%20%232%20-%20Privileged.rego
 ```
 3. Download an example of a non-compliant kubernetes deployment (in yaml format) 
 ```
-wget https://github.com/aquasecurity/appshield/raw/master/policies/kubernetes/test.yaml
+wget https://github.com/aquasecurity/appshield/raw/master/kubernetes/test/test.yaml
 ```
 4. Use any tool that supports REGO to test the example file. In this example we are using conftest
 ```
@@ -52,7 +52,7 @@ PSS control | PSP control(s)
 8-/proc Mount Type	| 13-The Allowed Proc Mount types for the container
 9-Sysctls	| 16-The sysctl profile used by containers
 
-The REGO rules are available [here](https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy)
+The REGO rules are available [here](https://github.com/aquasecurity/appshield/tree/master/kubernetes/policies/pss)
 
 ### PSS - restricted
 
@@ -64,7 +64,7 @@ PSS control | PSP control
 4-Non-root groups | 7-Allocating an FSGroup that owns the Pod's volumes. 9-The user and group IDs of the container
 5-Seccomp | 15-The seccomp profile used by containers
 
-The REGO rules are available [here](https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy)
+The REGO rules are available [here](https://github.com/aquasecurity/appshield/tree/master/kubernetes/policies/pss)
 
 ## Additional best practices
 
@@ -77,4 +77,4 @@ Trust GCR registries only | container(s).image != GCR domain in prefix
 Block public registries | container(s).image != null or docker.io prefix
 HostPath volume mounted with docker.sock | hostPath.path != /var/run/docker.sock
 
-Additional REGO rules available [here](https://github.com/aquasecurity/appshield/tree/master/policies/kubernetes/policy)
+Additional REGO rules available [here](https://github.com/aquasecurity/appshield/tree/master/kubernetes/policies/general)
