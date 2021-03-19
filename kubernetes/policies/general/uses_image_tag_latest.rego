@@ -11,6 +11,15 @@ import data.lib.kubernetes
 
 default checkUsingLatestTag = false
 
+__rego_metadata__ := {
+	"id": "KSV013",
+	"title": "Image tag \":latest\" used",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
+
 # getTaggedContainers returns the names of all containers which
 # have tagged images.
 getTaggedContainers[container] {
@@ -33,7 +42,7 @@ checkUsingLatestTag {
   count(getUntaggedContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   checkUsingLatestTag
 
   # msg = kubernetes.format(sprintf("%s in the %s %s has an image, %s, using the latest tag", [container.name, kubernetes.kind, image_name, kubernetes.name]))
@@ -44,4 +53,10 @@ deny[msg] {
       [getUntaggedContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }    
 }

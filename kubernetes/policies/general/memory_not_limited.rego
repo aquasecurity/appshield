@@ -12,6 +12,15 @@ import data.lib.utils
 
 default failLimitsMemory = false
 
+__rego_metadata__ := {
+	"id": "KSV018",
+	"title": "Memory not limited",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
+
 # getLimitsMemoryContainers returns all containers which have set resources.limits.memory
 getLimitsMemoryContainers[container] {
   allContainers := kubernetes.containers[_]
@@ -32,7 +41,7 @@ failLimitsMemory {
   count(getNoLimitsMemoryContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failLimitsMemory
 
   msg := kubernetes.format(
@@ -41,4 +50,10 @@ deny[msg] {
       [getNoLimitsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }  
 }

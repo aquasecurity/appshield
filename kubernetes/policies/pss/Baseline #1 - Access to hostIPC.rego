@@ -12,12 +12,21 @@ import data.lib.kubernetes
 
 default failHostPID = false
 
+__rego_metadata__ := {
+	"id": "KSV010",
+	"title": "Access to host PID",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "High"
+  }
+}
+
 # failHostPID is true if spec.hostPID is set to true (on all controllers)
 failHostPID {
   kubernetes.host_pids[_] == true
 }
 
-deny[msg] {
+deny[res] {
   failHostPID
 
   msg := kubernetes.format(
@@ -26,4 +35,10 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  } 
 }

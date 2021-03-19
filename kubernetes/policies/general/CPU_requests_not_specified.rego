@@ -12,6 +12,15 @@ import data.lib.utils
 
 default failRequestsCPU = false
 
+__rego_metadata__ := {
+	"id": "KSV015",
+	"title": "CPU requests not specified",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
+
 # getRequestsCPUContainers returns all containers which have set resources.requests.cpu
 getRequestsCPUContainers[container] {
   allContainers := kubernetes.containers[_]
@@ -32,7 +41,7 @@ failRequestsCPU {
   count(getNoRequestsCPUContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failRequestsCPU
 
   msg := kubernetes.format(
@@ -41,4 +50,10 @@ deny[msg] {
       [getNoRequestsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }
 }

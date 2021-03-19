@@ -11,6 +11,15 @@ import data.lib.kubernetes
 
 default failReadOnlyRootFilesystem = false
 
+__rego_metadata__ := {
+	"id": "KSV014",
+	"title": "Root file system is not read-only",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
+
 # getReadOnlyRootFilesystemContainers returns all containers that have
 # securityContext.readOnlyFilesystem set to true.
 getReadOnlyRootFilesystemContainers[container] {
@@ -32,7 +41,7 @@ failReadOnlyRootFilesystem {
   count(getNotReadOnlyRootFilesystemContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failReadOnlyRootFilesystem
 
   msg := kubernetes.format(
@@ -41,4 +50,10 @@ deny[msg] {
       [getNotReadOnlyRootFilesystemContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }  
 }

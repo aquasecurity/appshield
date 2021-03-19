@@ -12,6 +12,15 @@ import data.lib.utils
 
 default failCapsDropAny = false
 
+__rego_metadata__ := {
+	"id": "KSV004",
+	"title": "Default capabilities: some containers do not drop any",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
+
 # getCapsDropAnyContainers returns names of all containers
 # which set securityContext.capabilities.drop
 getCapsDropAnyContainers[container] {
@@ -33,7 +42,7 @@ failCapsDropAny {
   count(getNoCapsDropContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failCapsDropAny
 
   msg := kubernetes.format(
@@ -42,4 +51,10 @@ deny[msg] {
       [getNoCapsDropContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }    
 }

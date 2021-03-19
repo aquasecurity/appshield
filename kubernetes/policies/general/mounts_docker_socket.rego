@@ -12,6 +12,15 @@ import data.lib.kubernetes
 name = input.metadata.name
 
 default checkDockerSocket = false
+
+__rego_metadata__ := {
+	"id": "KSV006",
+	"title": "hostPath volume mounted with docker.sock",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "High"
+  }
+}
  
 # checkDockerSocket is true if volumes.hostPath.path is set to /var/run/docker.sock
 # and is false if volumes.hostPath is set to some other path or not set.
@@ -20,7 +29,7 @@ checkDockerSocket {
   volumes[_].hostPath.path == "/var/run/docker.sock"
 }
 
-deny[msg] {
+deny[res] {
   checkDockerSocket
   # msg = sprintf("%s should not mount /var/run/docker.socker", [name])
 
@@ -30,4 +39,10 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }   
 }

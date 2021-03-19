@@ -1,8 +1,8 @@
-# @title: Uses images from untrusted GCR registries.
+# @title: Container images from non-GCR registries used
 # @description: Containers should only use images from trusted GCR registries.
 # @recommended_actions: Use images from trusted GCR registries.
-# @severity:
-# @id:
+# @severity: Medium
+# @id: KSV033
 # @links:
 
 package main
@@ -11,6 +11,15 @@ import data.lib.kubernetes
 import data.lib.utils
 
 default failTrustedGCRRegistry = false
+
+__rego_metadata__ := {
+	"id": "KSV033",
+	"title": "Container images from non-GCR registries used",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Medium"
+  }
+}
 
 # list of trusted GCR registries
 trusted_gcr_registries = [
@@ -48,7 +57,7 @@ failTrustedGCRRegistry {
   count(getContainersWithUntrustedGCRRegistry) > 0
 }
 
-deny[msg] {
+deny[res] {
   failTrustedGCRRegistry
 
   msg := kubernetes.format(
@@ -57,4 +66,10 @@ deny[msg] {
       [getContainersWithUntrustedGCRRegistry[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  } 
 }

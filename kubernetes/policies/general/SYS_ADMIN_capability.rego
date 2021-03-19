@@ -11,6 +11,15 @@ import data.lib.kubernetes
 
 default failCapsSysAdmin = false
 
+__rego_metadata__ := {
+	"id": "KSV005",
+	"title": "SYS_ADMIN capability added",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "High"
+  }
+}
+
 # getCapsSysAdmin returns the names of all containers which include
 # 'SYS_ADMIN' in securityContext.capabilities.add.
 getCapsSysAdmin[container] {
@@ -25,7 +34,7 @@ failCapsSysAdmin {
   count(getCapsSysAdmin) > 0
 }
 
-deny[msg] {
+deny[res] {
   failCapsSysAdmin
 
   msg := kubernetes.format(
@@ -34,5 +43,11 @@ deny[msg] {
       [getCapsSysAdmin[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }  
 }
 

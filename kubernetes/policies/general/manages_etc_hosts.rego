@@ -12,12 +12,21 @@ import data.lib.utils
 
 default failHostAliases = false
 
+__rego_metadata__ := {
+	"id": "KSV007",
+	"title": "Manages /etc/hosts",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
+
 # failHostAliases is true if spec.hostAliases is set (on all controllers)
 failHostAliases {
   utils.has_key(kubernetes.host_aliases[_], "hostAliases")
 }
 
-deny[msg] {
+deny[res] {
   failHostAliases
 
   msg := kubernetes.format(
@@ -26,5 +35,11 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }  
 }
 

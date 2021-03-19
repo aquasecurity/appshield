@@ -12,6 +12,15 @@ import data.lib.utils
 
 default failLimitsCPU = false
 
+__rego_metadata__ := {
+	"id": "KSV011",
+	"title": "CPU not limited",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
+
 # getLimitsCPUContainers returns all containers which have set resources.limits.cpu
 getLimitsCPUContainers[container] {
   allContainers := kubernetes.containers[_]
@@ -32,7 +41,7 @@ failLimitsCPU {
   count(getNoLimitsCPUContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failLimitsCPU
 
   msg := kubernetes.format(
@@ -41,4 +50,10 @@ deny[msg] {
       [getNoLimitsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }
 }

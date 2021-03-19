@@ -12,6 +12,15 @@ import data.lib.utils
 
 default failRunAsUser = false
 
+__rego_metadata__ := {
+	"id": "KSV020",
+	"title": "Runs with UID <= 10000",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Medium"
+  }
+}
+
 # getUserIdContainers returns the names of all containers which have
 # securityContext.runAsUser less than or equal to 100000.
 getUserIdContainers[container] {
@@ -42,7 +51,7 @@ failRunAsUser {
   count(getUserIdContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failRunAsUser
 
   msg := kubernetes.format(
@@ -51,4 +60,10 @@ deny[msg] {
       [getUserIdContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }   
 }

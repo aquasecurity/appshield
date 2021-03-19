@@ -12,6 +12,15 @@ import data.lib.utils
 
 default failRequestsMemory = false
 
+__rego_metadata__ := {
+	"id": "KSV016",
+	"title": "Memory requests not specified",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
+
 # getRequestsMemoryContainers returns all containers which have set resources.requests.memory
 getRequestsMemoryContainers[container] {
   allContainers := kubernetes.containers[_]
@@ -32,7 +41,7 @@ failRequestsMemory {
   count(getNoRequestsMemoryContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failRequestsMemory
 
   msg := kubernetes.format(
@@ -41,4 +50,10 @@ deny[msg] {
       [getNoRequestsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }   
 }

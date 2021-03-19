@@ -11,6 +11,15 @@ import data.lib.kubernetes
 
 default checkCapsDropAll = false
 
+__rego_metadata__ := {
+	"id": "KSV003",
+	"title": "Default capabilities: some containers do not drop all",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
+
 # Get all containers which include 'ALL' in security.capabilities.drop
 getCapsDropAllContainers[container] {
   allContainers := kubernetes.containers[_]
@@ -30,7 +39,7 @@ checkCapsDropAll {
   count(getCapsNoDropAllContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   checkCapsDropAll
 
   msg := kubernetes.format(
@@ -39,4 +48,10 @@ deny[msg] {
       [getCapsNoDropAllContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }  
 }

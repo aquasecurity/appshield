@@ -12,6 +12,15 @@ import data.lib.utils
 
 default failRunAsGroup = false
 
+__rego_metadata__ := {
+	"id": "KSV021",
+	"title": "Runs with GID <= 10000",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Medium"
+  }
+}
+
 # getGroupIdContainers returns the names of all containers which have
 # securityContext.runAsGroup less than or equal to 10000.
 getGroupIdContainers[container] {
@@ -42,7 +51,7 @@ failRunAsGroup {
   count(getGroupIdContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failRunAsGroup
 
   msg := kubernetes.format(
@@ -51,4 +60,10 @@ deny[msg] {
       [getGroupIdContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  }   
 }

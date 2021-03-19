@@ -1,8 +1,8 @@
-# @title: Uses images from untrusted Azure registries.
+# @title: Container images from non-ACR registries used
 # @description: Containers should only use images from trusted Azure registries.
 # @recommended_actions: Use images from trusted Azure registries.
-# @severity:
-# @id:
+# @severity: Medium
+# @id: KSV032
 # @links:
 
 package main
@@ -11,6 +11,15 @@ import data.lib.kubernetes
 import data.lib.utils
 
 default failTrustedAzureRegistry = false
+
+__rego_metadata__ := {
+	"id": "KSV032",
+	"title": "Container images from non-ACR registries used",
+  "version": "v1.0.0",
+  "custom": {
+  	"severity": "Low"
+  }
+}
 
 # getContainersWithTrustedAzureRegistry returns a list of containers
 # with image from a trusted Azure registry
@@ -39,7 +48,7 @@ failTrustedAzureRegistry {
   count(getContainersWithUntrustedAzureRegistry) > 0
 }
 
-deny[msg] {
+deny[res] {
   failTrustedAzureRegistry
 
   msg := kubernetes.format(
@@ -48,4 +57,10 @@ deny[msg] {
       [getContainersWithUntrustedAzureRegistry[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+  res := {
+    "msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "custom":  __rego_metadata__.custom
+  } 
 }
