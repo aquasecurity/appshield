@@ -5,12 +5,21 @@
 # @id: KSV029
 # @links:
 
-package main
+package appshield.KSV029
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failRootGroupId = false
+
+__rego_metadata__ := {
+	"id": "KSV029",
+	"title": "Runs with a root primary or supplementary GID",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Low"
+  }
+}
 
 # getContainersWithRootGroupId returns a list of containers
 # with root group id set
@@ -39,7 +48,7 @@ failRootGroupId {
   pod.spec.securityContext.fsGroup == 0
 }
 
-deny[msg] {
+deny[res] {
   failRootGroupId
 
   msg := kubernetes.format(
@@ -48,9 +57,15 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }
 
-deny[msg] {
+deny[res] {
   count(getContainersWithRootGroupId) > 0
 
   msg := kubernetes.format(
@@ -59,4 +74,10 @@ deny[msg] {
       [getContainersWithRootGroupId[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

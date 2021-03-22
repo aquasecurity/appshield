@@ -5,12 +5,21 @@
 # @id: KSV030
 # @links:
 
-package main
+package appshield.KSV030
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failSeccompProfileType = false
+
+__rego_metadata__ := {
+	"id": "KSV030",
+	"title": "Runtime/Default Seccomp profile not set",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Low"
+  }
+}
 
 # getContainersWithDisallowedSeccompProfileType returns a list of containers
 # with seccompProfile type set to anything other than RuntimeDefault
@@ -29,7 +38,7 @@ failSeccompProfileType {
   not type == "RuntimeDefault"
 }
 
-deny[msg] {
+deny[res] {
   failSeccompProfileType
 
   msg := kubernetes.format(
@@ -38,9 +47,15 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }
 
-deny[msg] {
+deny[res] {
   count(getContainersWithDisallowedSeccompProfileType) > 0
 
   msg := kubernetes.format(
@@ -49,4 +64,10 @@ deny[msg] {
       [getContainersWithDisallowedSeccompProfileType[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

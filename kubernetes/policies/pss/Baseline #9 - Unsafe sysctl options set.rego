@@ -5,12 +5,21 @@
 # @id: KSV026
 # @links: 
 
-package main
+package appshield.KSV026
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failSysctls = false
+
+__rego_metadata__ := {
+	"id": "KSV026",
+	"title": "Unsafe sysctl options set",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Medium"
+  }
+}
 
 # Add allowed sysctls
 allowed_sysctls = {
@@ -33,7 +42,7 @@ sysctl_msg = msg {
   msg := sprintf(" or set it to the following allowed values: %s", [concat(", ", allowed_sysctls)])
 }
 
-deny[msg] {
+deny[res] {
   failSysctls
 
   msg := kubernetes.format(
@@ -42,4 +51,10 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, sysctl_msg]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

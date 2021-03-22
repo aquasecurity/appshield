@@ -5,7 +5,7 @@
 # @id: KSV032
 # @links:
 
-package main
+package appshield.KSV032
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -17,7 +17,7 @@ __rego_metadata__ := {
 	"title": "Container images from non-ACR registries used",
   "version": "v1.0.0",
   "custom": {
-  	"severity": "Low"
+  	"severity": "Medium"
   }
 }
 

@@ -5,12 +5,21 @@
 # @id: KSV012
 # @links: 
 
-package main
+package appshield.KSV012
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default checkRunAsNonRoot = false
+
+__rego_metadata__ := {
+	"id": "KSV012",
+	"title": "Runs as root user",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Medium"
+  }
+}
 
 # getNonRootContainers returns the names of all containers which have
 # securityContext.runAsNonRoot set to true.
@@ -33,7 +42,7 @@ checkRunAsNonRoot {
   count(getRootContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   checkRunAsNonRoot
 
   msg := kubernetes.format(
@@ -42,4 +51,10 @@ deny[msg] {
       [getRootContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

@@ -5,11 +5,20 @@
 # @id: KSV022
 # @links: 
 
-package main
+package appshield.KSV022
 
 import data.lib.kubernetes
 
 default failAdditionalCaps = false
+
+__rego_metadata__ := {
+	"id": "KSV022",
+	"title": "Specific capabilities added",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Medium"
+  }
+}
 
 # Add allowed capabilities to this set
 allowed_caps = set()
@@ -37,9 +46,15 @@ failAdditionalCaps {
   count(getContainersWithDisallowedCaps) > 0
 }
 
-deny[msg] {
+deny[res] {
   failAdditionalCaps
 
   msg := sprintf("container %s of %s %s in %s namespace should not set securityContext.capabilities.add%s", 
     [getContainersWithDisallowedCaps[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, caps_msg])
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

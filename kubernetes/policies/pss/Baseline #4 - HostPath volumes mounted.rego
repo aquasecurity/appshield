@@ -5,19 +5,28 @@
 # @id: KSV023
 # @links: 
 
-package main
+package appshield.KSV023
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failHostPathVolume = false
 
+__rego_metadata__ := {
+	"id": "KSV023",
+	"title": "HostPath volumes mounted",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Medium"
+  }
+}
+
 failHostPathVolume {
   volumes := kubernetes.volumes
   utils.has_key(volumes[_], "hostPath")
 }
 
-deny[msg] {
+deny[res] {
   failHostPathVolume
 
   msg := kubernetes.format(
@@ -26,4 +35,10 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

@@ -5,12 +5,21 @@
 # @id: KSV027
 # @links:
 
-package main
+package appshield.KSV027
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failProcMount = false
+
+__rego_metadata__ := {
+	"id": "KSV027",
+	"title": "Non-default /proc masks set",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Medium"
+  }
+}
 
 # failProcMountOpts is true if securityContext.procMount is set in any container
 failProcMountOpts {
@@ -18,7 +27,7 @@ failProcMountOpts {
   utils.has_key(allContainers.securityContext, "procMount")
 }
 
-deny[msg] {
+deny[res] {
   failProcMountOpts
 
   msg := kubernetes.format(
@@ -27,4 +36,10 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

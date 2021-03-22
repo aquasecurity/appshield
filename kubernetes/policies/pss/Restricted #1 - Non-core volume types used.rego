@@ -5,10 +5,19 @@
 # @id: KSV028
 # @links: 
 
-package main
+package appshield.KSV028
 
 import data.lib.kubernetes
 import data.lib.utils
+
+__rego_metadata__ := {
+	"id": "KSV028",
+	"title": "Non-core volume types used.",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Low"
+  }
+}
 
 # Add disallowed volume type
 disallowed_volume_types = [
@@ -50,7 +59,7 @@ failVolumeTypes {
   count(getDisallowedVolumes) > 0
 }
 
-deny[msg] {
+deny[res] {
   failVolumeTypes
 
   msg := kubernetes.format(
@@ -59,4 +68,10 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, getDisallowedVolumes[_]]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

@@ -5,18 +5,27 @@
 # @id: KSV009
 # @links: 
 
-package main
+package appshield.KSV009
 
 import data.lib.kubernetes
 
 default failHostNetwork = false
+
+__rego_metadata__ := {
+	"id": "KSV009",
+	"title": "Access to host network",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "High"
+  }
+}
 
 # failHostNetwork is true if spec.hostNetwork is set to true (on all controllers)
 failHostNetwork {
   kubernetes.host_networks[_] == true
 }
 
-deny[msg] {
+deny[res] {
   failHostNetwork
 
   msg := kubernetes.format(
@@ -25,5 +34,11 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }
 

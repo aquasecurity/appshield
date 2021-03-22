@@ -5,12 +5,21 @@
 # @id: KSV025
 # @links: 
 
-package main
+package appshield.KSV025
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failSELinux = false
+
+__rego_metadata__ := {
+	"id": "KSV025",
+	"title": "SELinux custom options set",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Medium"
+  }
+}
 
 # failSELinuxOpts is true if securityContext.seLinuxOptions is set in any container
 failSELinuxOpts {
@@ -24,7 +33,7 @@ failSELinuxOpts {
   utils.has_key(allPods.spec.securityContext, "seLinuxOptions")
 }
 
-deny[msg] {
+deny[res] {
   failSELinuxOpts
 
   msg := kubernetes.format(
@@ -33,4 +42,10 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

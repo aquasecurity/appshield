@@ -5,7 +5,7 @@
 # @id: KSV003
 # @links: 
 
-package main
+package appshield.KSV003
 
 import data.lib.kubernetes
 

@@ -5,12 +5,21 @@
 # @id: KSV001
 # @links: 
 
-package main
+package appshield.KSV001
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default checkAllowPrivilegeEscalation = false
+
+__rego_metadata__ := {
+	"id": "KSV001",
+	"title": "Can elevate its own privileges",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Medium"
+  }
+}
 
 # getNoPrivilegeEscalationContainers returns the names of all containers which have
 # securityContext.allowPrivilegeEscalation set to false.
@@ -33,7 +42,7 @@ checkAllowPrivilegeEscalation {
   count(getPrivilegeEscalationContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   checkAllowPrivilegeEscalation
 
   msg := kubernetes.format(
@@ -42,4 +51,10 @@ deny[msg] {
       [getPrivilegeEscalationContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }

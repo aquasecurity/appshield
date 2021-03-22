@@ -5,11 +5,20 @@
 # @id: KSV002
 # @links: 
 
-package main
+package appshield.KSV002
 
 import data.lib.kubernetes
 
 default failAppArmor = false
+
+__rego_metadata__ := {
+	"id": "KSV002",
+	"title": "AppArmor policies disabled",
+    "version": "v1.0.0",
+    "custom": {
+  	    "severity": "Medium"
+  }
+}
 
 # getApparmorContainers returns all containers which have an AppArmor
 # profile set and is profile not set to "unconfined"
@@ -37,7 +46,7 @@ failApparmor {
   count(getNoApparmorContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failApparmor
 
   msg := kubernetes.format(
@@ -46,5 +55,11 @@ deny[msg] {
       [getNoApparmorContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+      "msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "custom":  __rego_metadata__.custom
+    }
 }
 
