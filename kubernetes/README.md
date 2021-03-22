@@ -25,7 +25,7 @@ wget https://github.com/aquasecurity/appshield/raw/master/kubernetes/test/test.y
 ```
 4. Use any tool that supports REGO to test the example file. In this example we are using conftest
 ```
-conftest test test.yaml --policy myPolicy/
+conftest test test.yaml --all-namespaces --policy myPolicy/
 ```
 
 # Standards and best practices
