@@ -1,17 +1,19 @@
-# @title: Memory not limited
-# @description: Enforcing memory limits prevents DoS via resource exhaustion.
-# @recommended_actions: Set a limit value under 'containers[].resources.limits.memory'.
-# @severity: Low
-# @id: KSV018
-# @links: 
-
-package main
+package appshield.kubernetes.KSV018
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failLimitsMemory = false
 
+__rego_metadata__ := {
+    "id": "KSV018",
+    "title": "Memory not limited",
+    "version": "v1.0.0",
+    "severity": "Low",
+    "type": "Kubernetes Security Check",
+    "description": "Enforcing memory limits prevents DoS via resource exhaustion.",
+    "recommended_actions": "Set a limit value under 'containers[].resources.limits.memory'.",
+}
 # getLimitsMemoryContainers returns all containers which have set resources.limits.memory
 getLimitsMemoryContainers[container] {
   allContainers := kubernetes.containers[_]
@@ -32,7 +34,7 @@ failLimitsMemory {
   count(getNoLimitsMemoryContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failLimitsMemory
 
   msg := kubernetes.format(
@@ -41,4 +43,11 @@ deny[msg] {
       [getNoLimitsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

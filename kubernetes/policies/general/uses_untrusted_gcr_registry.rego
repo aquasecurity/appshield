@@ -1,16 +1,19 @@
-# @title: Uses images from untrusted GCR registries.
-# @description: Containers should only use images from trusted GCR registries.
-# @recommended_actions: Use images from trusted GCR registries.
-# @severity:
-# @id:
-# @links:
-
-package main
+package appshield.kubernetes.KSV033
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failTrustedGCRRegistry = false
+
+__rego_metadata__ := {
+     "id": "KSV033",
+     "title": "Uses images from untrusted GCR registries.",
+     "version": "v1.0.0",
+     "severity": "Medium",
+     "type": "Kubernetes Security Check",
+     "description": "Containers should only use images from trusted GCR registries.",
+     "recommended_actions": "Use images from trusted GCR registries.",
+}
 
 # list of trusted GCR registries
 trusted_gcr_registries = [
@@ -48,7 +51,7 @@ failTrustedGCRRegistry {
   count(getContainersWithUntrustedGCRRegistry) > 0
 }
 
-deny[msg] {
+deny[res] {
   failTrustedGCRRegistry
 
   msg := kubernetes.format(
@@ -57,4 +60,11 @@ deny[msg] {
       [getContainersWithUntrustedGCRRegistry[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

@@ -1,16 +1,19 @@
-# @title: Uses images from untrusted registries.
-# @description: Containers should only use images from trusted registries.
-# @recommended_actions: Use images from trusted registries.
-# @severity:
-# @id:
-# @links:
-
-package main
+package appshield.kubernetes.KSV035
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failTrustedECRRegistry = false
+
+__rego_metadata__ := {
+     "id": "KSV035",
+     "title": "Container images from non-ECR registries used",
+     "version": "v1.0.0",
+     "severity": "Medium",
+     "type": "Kubernetes Security Check",
+     "description": "Containers should only use images from trusted registries.",
+     "recommended_actions": "Use images from trusted registries.",
+}
 
 # list of trusted ECR registries
 trusted_ecr_registries = [
@@ -68,7 +71,7 @@ failTrustedECRRegistry {
   count(getContainersWithUntrustedECRRegistry) > 0
 }
 
-deny[msg] {
+deny[res] {
   failTrustedECRRegistry
 
   msg := kubernetes.format(
@@ -77,4 +80,11 @@ deny[msg] {
       [getContainersWithUntrustedECRRegistry[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

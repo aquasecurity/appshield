@@ -1,15 +1,18 @@
-# @title: SYS_ADMIN capability added
-# @description: SYS_ADMIN gives the processes running inside the container privileges that are equivalent to root.
-# @recommended_actions: Remove the SYS_ADMIN capability from 'containers[].securityContext.capabilities.add'.
-# @severity: High
-# @id: KSV005
-# @links: 
-
-package main
+package appshield.kubernetes.KSV005
 
 import data.lib.kubernetes
 
 default failCapsSysAdmin = false
+
+__rego_metadata__ := {
+     "id": "KSV005",
+     "title": "SYS_ADMIN capability added",
+     "version": "v1.0.0",
+     "severity": "High",
+     "type": "Kubernetes Security Check",
+     "description": "SYS_ADMIN gives the processes running inside the container privileges that are equivalent to root.",
+     "recommended_actions": "Remove the SYS_ADMIN capability from 'containers[].securityContext.capabilities.add'.",
+}
 
 # getCapsSysAdmin returns the names of all containers which include
 # 'SYS_ADMIN' in securityContext.capabilities.add.
@@ -25,7 +28,7 @@ failCapsSysAdmin {
   count(getCapsSysAdmin) > 0
 }
 
-deny[msg] {
+deny[res] {
   failCapsSysAdmin
 
   msg := kubernetes.format(
@@ -34,5 +37,12 @@ deny[msg] {
       [getCapsSysAdmin[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }
 

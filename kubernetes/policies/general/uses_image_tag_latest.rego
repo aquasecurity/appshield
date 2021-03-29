@@ -1,15 +1,18 @@
-# @title: Image tag ":latest" used
-# @description: It is best to avoid using the ":latest' image tag when deploying containers in production. Doing so makes it hard to track which version of the image is running, and hard to roll back the version.
-# @recommended_actions: Use a specific container image tag that is not "latest".
-# @severity: Low
-# @id: KSV013
-# @links: 
-
-package main
+package appshield.kubernetes.KSV013
 
 import data.lib.kubernetes
 
 default checkUsingLatestTag = false
+
+__rego_metadata__ := {
+     "id": "KSV013",
+     "title": "Image tag \":latest\" used",
+     "version": "v1.0.0",
+     "severity": "Low",
+     "type": "Kubernetes Security Check",
+     "description": "It is best to avoid using the ':latest' image tag when deploying containers in production. Doing so makes it hard to track which version of the image is running, and hard to roll back the version.",
+     "recommended_actions": "Use a specific container image tag that is not 'latest'.",
+}
 
 # getTaggedContainers returns the names of all containers which
 # have tagged images.
@@ -33,7 +36,7 @@ checkUsingLatestTag {
   count(getUntaggedContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   checkUsingLatestTag
 
   # msg = kubernetes.format(sprintf("%s in the %s %s has an image, %s, using the latest tag", [container.name, kubernetes.kind, image_name, kubernetes.name]))
@@ -44,4 +47,11 @@ deny[msg] {
       [getUntaggedContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

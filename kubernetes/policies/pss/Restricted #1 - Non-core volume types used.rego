@@ -1,14 +1,17 @@
-# @title: Non-core volume types used.
-# @description: According to pod security standard "Volume types", non-core volume types must not be used.
-# @recommended_actions: Do not Set 'spec.volumes[*]' to any of the disallowed volume types.
-# @severity: Low
-# @id: KSV028
-# @links: 
-
-package main
+package appshield.kubernetes.KSV028
 
 import data.lib.kubernetes
 import data.lib.utils
+
+__rego_metadata__ := {
+     "id": "KSV028",
+     "title": "Non-core volume types used.",
+     "version": "v1.0.0",
+     "severity": "Low",
+     "type": "Kubernetes Security Check",
+     "description": "According to pod security standard 'Volume types', non-core volume types must not be used.",
+     "recommended_actions": "Do not Set 'spec.volumes[*]' to any of the disallowed volume types.",
+}
 
 # Add disallowed volume type
 disallowed_volume_types = [
@@ -50,7 +53,7 @@ failVolumeTypes {
   count(getDisallowedVolumes) > 0
 }
 
-deny[msg] {
+deny[res] {
   failVolumeTypes
 
   msg := kubernetes.format(
@@ -59,4 +62,11 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, getDisallowedVolumes[_]]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

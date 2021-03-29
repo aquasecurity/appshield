@@ -1,15 +1,18 @@
-# @title: Specific capabilities added
-# @description: According to pod security standard "Capabilities", capabilities beyond the default set must not be added.
-# @recommended_actions: Do not set spec.containers[*].securityContext.capabilities.add and spec.initContainers[*].securityContext.capabilities.add..
-# @severity: Medium
-# @id: KSV022
-# @links: 
-
-package main
+package appshield.kubernetes.KSV022
 
 import data.lib.kubernetes
 
 default failAdditionalCaps = false
+
+__rego_metadata__ := {
+     "id": "KSV022",
+     "title": "Specific capabilities added",
+     "version": "v1.0.0",
+     "severity": "Medium",
+     "type": "Kubernetes Security Check",
+     "description": "According to pod security standard 'Capabilities', capabilities beyond the default set must not be added.",
+     "recommended_actions": "Do not set spec.containers[*].securityContext.capabilities.add and spec.initContainers[*].securityContext.capabilities.add",
+}
 
 # Add allowed capabilities to this set
 allowed_caps = set()
@@ -37,9 +40,17 @@ failAdditionalCaps {
   count(getContainersWithDisallowedCaps) > 0
 }
 
-deny[msg] {
+deny[res] {
   failAdditionalCaps
 
   msg := sprintf("container %s of %s %s in %s namespace should not set securityContext.capabilities.add%s", 
     [getContainersWithDisallowedCaps[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, caps_msg])
+
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

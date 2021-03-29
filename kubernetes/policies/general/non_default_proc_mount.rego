@@ -1,17 +1,19 @@
-# @title: Proc mount not default or undefined
-# @description: The default /proc masks are set up to reduce attack surface, and should be required.
-# @recommended_actions: Do not set spec.containers[*].securityContext.procMount and spec.initContainers[*].securityContext.procMount, or set to 'Default'
-# @severity:
-# @id:
-# @links: 
-
-package main
+package appshield.kubernetes.KSV031
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failProcMount = false
 
+__rego_metadata__ := {
+     "id": "KSV031",
+     "title": "Proc mount not default or undefined",
+     "version": "v1.0.0",
+     "severity": "Low",
+     "type": "Kubernetes Security Check",
+     "description": "The default /proc masks are set up to reduce attack surface, and should be required.",
+     "recommended_actions": "Do not set spec.containers[*].securityContext.procMount and spec.initContainers[*].securityContext.procMount, or set to 'Default'",
+}
 # getContainersWithDefaultProcMount returns the names of all containers which
 # set securityContext.procMount to 'Default'
 getContainersWithDefaultProcMount[container] {
@@ -50,7 +52,7 @@ failProcMount {
   count(getContainersWithNonDefaultProcMount) > 0
 }
 
-deny[msg] {
+deny[res] {
   failProcMount
 
   msg := kubernetes.format(
@@ -59,4 +61,11 @@ deny[msg] {
       [getContainersWithNonDefaultProcMount[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

@@ -1,15 +1,18 @@
-# @title: AppArmor policies disabled
-# @description: A program inside the container can bypass AppArmor protection policies.
-# @recommended_actions: Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'.
-# @severity: Medium
-# @id: KSV002
-# @links: 
-
-package main
+package appshield.kubernetes.KSV002
 
 import data.lib.kubernetes
 
 default failAppArmor = false
+
+__rego_metadata__ := {
+     "id": "KSV002",
+     "title": "AppArmor policies disabled",
+     "version": "v1.0.0",
+     "severity": "Medium",
+     "type": "Kubernetes Security Check",
+     "description": "A program inside the container can bypass AppArmor protection policies.",
+     "recommended_actions": "Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'.",
+}
 
 # getApparmorContainers returns all containers which have an AppArmor
 # profile set and is profile not set to "unconfined"
@@ -37,7 +40,7 @@ failApparmor {
   count(getNoApparmorContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failApparmor
 
   msg := kubernetes.format(
@@ -46,5 +49,12 @@ deny[msg] {
       [getNoApparmorContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }
 

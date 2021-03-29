@@ -1,15 +1,18 @@
-# @title: Access to host ports
-# @description: According to pod security standard "Host Ports", hostPorts should be disallowed, or at minimum restricted to a known list.
-# @recommended_actions: Do not set spec.containers[*].ports[*].hostPort and spec.initContainers[*].ports[*].hostPort.
-# @severity: High
-# @id: KSV024
-# @links: 
-
-package main
+package appshield.kubernetes.KSV024
 
 import data.lib.kubernetes
 
 default failHostPorts = false
+
+__rego_metadata__ := {
+     "id": "KSV024",
+     "title": "Access to host ports",
+     "version": "v1.0.0",
+     "severity": "High",
+     "type": "Kubernetes Security Check",
+     "description": "According to pod security standard 'Host Ports', hostPorts should be disallowed, or at minimum restricted to a known list.",
+     "recommended_actions": "Do not set spec.containers[*].ports[*].hostPort and spec.initContainers[*].ports[*].hostPort.",
+}
 
 # Add allowed host ports to this set
 allowed_host_ports = set()
@@ -37,9 +40,17 @@ failHostPorts {
   count(getContainersWithDisallowedHostPorts) > 0
 }
 
-deny[msg] {
+deny[res] {
   failHostPorts
 
   msg := sprintf("container %s of %s %s in %s namespace should not set host ports, ports[*].hostPort%s", 
     [getContainersWithDisallowedHostPorts[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, host_ports_msg])
+
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

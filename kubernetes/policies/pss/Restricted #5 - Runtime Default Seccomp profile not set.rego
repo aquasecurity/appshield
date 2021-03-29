@@ -1,16 +1,19 @@
-# @title: Runtime/Default Seccomp profile not set
-# @description: According to pod security standard "Seccomp", the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.
-# @recommended_actions: Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to RuntimeDefault.
-# @severity: Low
-# @id: KSV030
-# @links:
-
-package main
+package appshield.kubernetes.KSV030
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failSeccompProfileType = false
+
+__rego_metadata__ := {
+     "id": "KSV030",
+     "title": "Runtime/Default Seccomp profile not set",
+     "version": "v1.0.0",
+     "severity": "Low",
+     "type": "Kubernetes Security Check",
+     "description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+     "recommended_actions": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to RuntimeDefault.",
+}
 
 # getContainersWithDisallowedSeccompProfileType returns a list of containers
 # with seccompProfile type set to anything other than RuntimeDefault
@@ -29,7 +32,7 @@ failSeccompProfileType {
   not type == "RuntimeDefault"
 }
 
-deny[msg] {
+deny[res] {
   failSeccompProfileType
 
   msg := kubernetes.format(
@@ -38,9 +41,16 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }
 
-deny[msg] {
+deny[res] {
   count(getContainersWithDisallowedSeccompProfileType) > 0
 
   msg := kubernetes.format(
@@ -49,4 +59,11 @@ deny[msg] {
       [getContainersWithDisallowedSeccompProfileType[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

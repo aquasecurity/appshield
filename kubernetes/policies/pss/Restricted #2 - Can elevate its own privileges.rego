@@ -1,16 +1,19 @@
-# @title: Can elevate its own privileges
-# @description: A program inside the container can elevate its own privileges and run as root, which might give the program control over the container and node.
-# @recommended_actions: Set 'set containers[].securityContext.allowPrivilegeEscalation' to 'false'.
-# @severity: Medium
-# @id: KSV001
-# @links: 
-
-package main
+package appshield.kubernetes.KSV001
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default checkAllowPrivilegeEscalation = false
+
+__rego_metadata__ := {
+     "id": "KSV001",
+     "title": "Can elevate its own privileges",
+     "version": "v1.0.0",
+     "severity": "Medium",
+     "type": "Kubernetes Security Check",
+     "description": "A program inside the container can elevate its own privileges and run as root, which might give the program control over the container and node.",
+     "recommended_actions": "Set 'set containers[].securityContext.allowPrivilegeEscalation' to 'false'.",
+}
 
 # getNoPrivilegeEscalationContainers returns the names of all containers which have
 # securityContext.allowPrivilegeEscalation set to false.
@@ -33,7 +36,7 @@ checkAllowPrivilegeEscalation {
   count(getPrivilegeEscalationContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   checkAllowPrivilegeEscalation
 
   msg := kubernetes.format(
@@ -42,4 +45,11 @@ deny[msg] {
       [getPrivilegeEscalationContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }
