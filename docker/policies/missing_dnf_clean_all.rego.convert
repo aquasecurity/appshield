@@ -1,0 +1,71 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+	command := resource.Value[0]
+
+	containsInstallCommand(command)
+	not containsDnfClean(input.document[i].command[name], resource.StartLine)
+	not containsCleanAfterInstall(command)
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+containsDnfClean(inputs, startLine) {
+	commands := inputs[_]
+	commands.Cmd == "run"
+	contains(commands.Value[_], "dnf clean")
+	commands.StartLine > startLine
+}
+containsInstallCommand(command) {
+	installCommands = [
+		"dnf install",
+		"dnf in",
+		"dnf reinstall",
+		"dnf rei",
+		"dnf install-n",
+		"dnf install-na",
+		"dnf install-nevra",
+	]
+
+	contains(command, installCommands[_])
+}
+containsCleanAfterInstall(command) {
+	contains(command, "dnf clean all")
+
+	installCommands = [
+		"dnf install",
+		"dnf in",
+		"dnf reinstall",
+		"dnf rei",
+		"dnf install-n",
+		"dnf install-na",
+		"dnf install-nevra",
+	]
+
+	some cmd
+	install := indexof(command, installCommands[cmd])
+	install != -1
+
+	clean := indexof(command, "dnf clean")
+	clean != -1
+
+	install < clean
+}
+# vim: ts=4:sw=4:expandtab

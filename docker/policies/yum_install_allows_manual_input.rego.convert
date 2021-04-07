@@ -1,0 +1,56 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+	count(resource.Value) == 1
+
+	command := resource.Value[0]
+	isYumInstall(command)
+
+	not avoidManualInput(command)
+
+	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+	count(resource.Value) > 1
+
+    dockerLib.arrayContains(resource.Value, {"yum", "install"})
+
+	not avoidManualInputInList(resource.Value)
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+isYumInstall(command) {
+	regex.match("yum (-(-)?[a-zA-Z]+ *)*(group|local)?install", command)
+}
+avoidManualInput(command) {
+	regex.match("yum (-(-)?[a-zA-Z]+ *)*(-y|-yes|--assumeyes) (-(-)?[a-zA-Z]+ *)*(group|local)?install", command)
+}
+avoidManualInput(command) {
+	regex.match("yum (-(-)?[a-zA-Z]+ *)*(group|local)?install (-(-)?[a-zA-Z]+ *)*(-y|-yes|--assumeyes)", command)
+}
+avoidManualInput(command) {
+	regex.match("yum (-(-)?[a-zA-Z]+ *)*(group|local)?install ([A-Za-z0-9-:=.$_]+ *)*(-y|-yes|--assumeyes)", command)
+}
+avoidManualInputInList(command) {
+	flags := ["-y", "yes", "--assumeyes"]
+
+	contains(command[j], flags[x])
+}
+# vim: ts=4:sw=4:expandtab

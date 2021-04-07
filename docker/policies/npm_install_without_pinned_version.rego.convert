@@ -1,0 +1,101 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	runCmd := input.document[i].command[name][_]
+	isRunCmd(runCmd)
+
+	value := runCmd.Value
+	count(value) == 1 #command is in a single string
+
+	cmd := value[0]
+
+	installCmd := ["npm install ", "npm i ", "npm add "][_]
+	searchIndex := indexof(cmd, installCmd)
+
+	searchIndex != -1
+
+	npmInstallCmd := trimCmdEnd(substring(cmd, searchIndex + count(installCmd), (count(cmd) - searchIndex) - count(installCmd)))
+
+	not isValidInstall(npmInstallCmd)
+
+	runCmd := input.document[i].command[name][_]
+	isRunCmd(runCmd)
+
+	value := runCmd.Value
+	count(value) > 1 #command is in several tokens
+
+	npmInstallIndex := getNPMInstallCmdIdx(value)
+	npmInstallIndex != -1
+	npmInstallCmd := value[npmInstallIndex]
+
+	not isValidInstallArray(value, npmInstallIndex)
+
+	cmdFormatted := replace(runCmd.Original, "\"", "'")
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+isRunCmd(com) {
+	com.Cmd == "run"
+}
+trimCmdEnd(cmd) = trimmed {
+	termOps := ["&&", "||", "|", "&", ";"]
+
+	splitStr := split(cmd, " ")
+	splitStr[i] == termOps[j]
+	indexTerm := indexof(cmd, termOps[j])
+	trimmed := substring(cmd, 0, count(cmd) - indexTerm)
+} else = cmd {
+	true
+}
+isValidInstall(install) {
+	install == ""
+} else {
+	tokens := split(install, " ")
+	validMatch(tokens[_])
+}
+validMatch(token) {
+	startswith(token, "git") # npm install from git repository
+} else {
+	hasScope := re_match("@.+/.*", token)
+	hasScope
+
+	scopeEnd := indexof(token, "/")
+	packageID := substring(token, scopeEnd + 1, count(token) - scopeEnd)
+	atIndex := indexof(packageID, "@")
+	atIndex != -1 #package must refer the version or tag
+} else {
+	hasScope := re_match("@.+/.*", token)
+	not hasScope
+	atIndex := indexof(token, "@")
+	atIndex != -1 #package must refer the version or tag
+}
+isValidInstallArray(value, npmIdx) {
+	j >= npmIdx
+	j < count(value)
+	validMatch(value[j])
+}
+getNPMInstallCmdIdx(value) = idx {
+	install := ["install", "i", "add"]
+	value[i] == "npm"
+	value[plus(i, 1)] == install[_]
+	idx := i + 2
+} else = -1 {
+	true
+}
+# vim: ts=4:sw=4:expandtab

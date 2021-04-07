@@ -1,0 +1,48 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	document := input.document[i]
+	commands = document.command
+	some img
+	some c
+	commands[img][c].Cmd == "run"
+
+	some j
+	command := commands[img][c].Value[j]
+
+	commandHasZypperUsage(command)
+	not commandHasNonInteractiveSwitch(command)
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+commandHasNonInteractiveSwitch(command) {
+	regex.match("zypper \\w+ (-y|--no-confirm)", command)
+}
+commandHasZypperUsage(command) {
+    list := ["zypper in", "zypper remove", "zypper rm", "zypper source-install", "zypper si", "zypper patch"][_]
+	index := indexof(command, list)
+	index != -1
+}
+commandHasZypperUsage(command) {
+    output := regex.find_n("zypper (-(-)?[a-zA-Z]+ *)*install", command, -1)
+    output != null
+    index := indexof(command, output[0])
+    index != -1
+}
+# vim: ts=4:sw=4:expandtab

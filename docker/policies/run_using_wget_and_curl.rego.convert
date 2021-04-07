@@ -1,0 +1,62 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name]
+
+	wget := getWget(resource[_])
+	curl := getCurl(resource[_])
+
+	count(curl) > 0
+	count(wget) > 0
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+getWget(cmd) = wget {
+	cmd.Cmd == "run"
+	count(cmd.Value) == 1
+
+	commandsList = split(cmd.Value[0], "&&")
+
+	wget := [x | instruction := commandsList[i]; not contains(instruction, "install "); regex.match("^( )*wget", instruction) == true; x := cmd.Original]
+}
+getWget(cmd) = wget {
+	cmd.Cmd == "run"
+	count(cmd.Value) > 1
+
+	cmd.Value[0] == "wget"
+
+	wget := [cmd.Original]
+}
+getCurl(cmd) = curl {
+	cmd.Cmd == "run"
+	count(cmd.Value) == 1
+
+	commandsList = split(cmd.Value[0], "&&")
+
+	curl := [x | instruction := commandsList[i]; not contains(instruction, "install "); regex.match("^( )*curl", instruction) == true; x := cmd.Original]
+}
+getCurl(cmd) = curl {
+	cmd.Cmd == "run"
+	count(cmd.Value) > 1
+
+	cmd.Value[0] == "curl"
+
+	curl := [cmd.Original]
+}
+# vim: ts=4:sw=4:expandtab

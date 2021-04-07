@@ -1,0 +1,66 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+	resource.Cmd == "from"
+	not resource.Value[0] == "scratch"
+
+	versionNotExplicit(resource.Value)
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+versionNotExplicit(cmd) {
+	count(cmd) == 1
+	regex.match("^\\$[{}A-z0-9-_+].*", cmd[0]) == false
+	not contains(cmd[0], ":")
+}
+versionNotExplicit(cmd) {
+	count(cmd) == 1
+	regex.match("^\\$[{}A-z0-9-_+].*", cmd[0]) == true
+
+	resource := input.document[i].command[name][_]
+	not resource.Value[0] == "scratch"
+
+	possibilities := {"arg", "env"}
+	resource.Cmd == possibilities[j]
+
+	cmdClean := trim_prefix(cmd[0], "$")
+
+	startswith(resource.Value[0], cmdClean)
+
+	not contains(resource.Value[0], ":")
+}
+versionNotExplicit(cmd) {
+	count(cmd) > 1
+
+	not contains(cmd[0], ":")
+
+	resource := input.document[i].command[name][_]
+	not resource.Value[0] == "scratch"
+	resource.Cmd == "from"
+
+	count(resource.Value) > 1
+
+	resource.Value[1] == "as"
+
+	resource.Value[2] == cmd[0]
+
+	not contains(resource.Value[0], ":")
+}
+# vim: ts=4:sw=4:expandtab

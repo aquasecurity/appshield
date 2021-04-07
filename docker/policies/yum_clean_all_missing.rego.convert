@@ -1,0 +1,43 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+
+	command := resource.Value[0]
+
+	output := regex.match("yum (-[a-zA-Z]+ *)*install", command)
+	output == true
+
+	not containsCleanAfterYum(command)
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+containsCleanAfterYum(command) {
+	yumInstallCommand := regex.find_n("yum (-[a-zA-Z]+ *)*install", command, -1)
+
+	install := indexof(command, yumInstallCommand[0])
+	install != -1
+
+	clean := indexof(command, "yum clean all")
+	clean != -1
+
+	install < clean
+}
+# vim: ts=4:sw=4:expandtab

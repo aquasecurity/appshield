@@ -1,0 +1,66 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+
+	count(resource.Value) == 1
+	commands := resource.Value[0]
+
+	dnf := regex.find_n("dnf (-(-)?[a-zA-Z]+ *)*(in|rei)n?(stall)?", commands, -1)
+	dnf != null
+
+	packages = dockerLib.getPackages(commands, dnf)
+
+	length := count(packages)
+
+	some j
+	analyzePackages(j, packages[j], packages, length)
+
+	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+
+	count(resource.Value) > 1
+
+	isDnf(resource.Value)
+
+	resource.Value[j] != "dnf"
+	regex.match("(in|rei)n?(stall)?", resource.Value[j]) == false
+
+	regex.match("^[a-zA-Z]", resource.Value[j]) == true
+	not dockerLib.withVersion(resource.Value[j])
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+analyzePackages(j, currentPackage, packages, length) {
+	j == length - 1
+	regex.match("^[a-zA-Z]", currentPackage) == true
+	not dockerLib.withVersion(currentPackage)
+}
+analyzePackages(j, currentPackage, packages, length) {
+	j != length - 1
+	regex.match("^[a-zA-Z]", currentPackage) == true
+	packages[plus(j, 1)] != "-v"
+	not dockerLib.withVersion(currentPackage)
+}
+isDnf(command) {
+	contains(command[x], "dnf")
+	regex.match("(in|rei)n?(stall)?", command[j]) == true
+}
+# vim: ts=4:sw=4:expandtab

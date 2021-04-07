@@ -1,0 +1,33 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+
+	resource.Cmd == "copy"
+
+	command := resource.Value
+
+	numElems := count(command)
+	numElems > 2
+
+	not endswith(command[minus(numElems, 1)], "/")
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+# vim: ts=4:sw=4:expandtab

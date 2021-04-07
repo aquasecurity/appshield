@@ -1,0 +1,41 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+	resource.Cmd == "copy"
+
+	contains(resource.Flags[x], "--from=")
+	resource.Flags[x] != "--from=0"
+	aux_split := split(resource.Flags[x], "=")
+
+	not isPreviousAlias(resource.StartLine, aux_split[1])
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+isPreviousAlias(startLine, currentAlias) = allow {
+	resource := input.document[i].command[name][_]
+	resource.Cmd == "from"
+	previousAlias := resource.Value[2]
+
+	previousAlias == currentAlias
+	resource.EndLine < startLine
+
+	allow = true
+}
+# vim: ts=4:sw=4:expandtab

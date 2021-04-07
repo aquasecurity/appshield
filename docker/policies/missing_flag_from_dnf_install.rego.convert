@@ -1,0 +1,48 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+	values := resource.Value[0]
+	commands = split(values, "&&")
+
+	some k
+	c := hasInstallCommandWithoutFlag(commands[k])
+
+	not hasYesFlag(c)
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+hasInstallCommandWithoutFlag(command) = c {
+	commandList = [
+		"dnf install",
+		"dnf groupinstall",
+		"dnf localinstall",
+		"dnf reinstall",
+		"dnf in",
+		"dnf rei",
+	]
+
+	contains(command, commandList[_])
+	c := command
+}
+hasYesFlag(command) {
+	regex.match("\\b(dnf *install (-y|-[\\D]{1}y|-y[\\D]{1}|-yes|--asumme-yes))\\b [\\w\\W]*", command)
+}
+# vim: ts=4:sw=4:expandtab

@@ -1,0 +1,61 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+
+	count(resource.Value) == 1
+
+	command := resource.Value[j]
+	isAptGet(command)
+
+	not avoidManualInput(command)
+
+	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+
+	count(resource.Value) > 1
+
+    dockerLib.arrayContains(resource.Value, {"apt-get", "install"})
+
+	not avoidManualInputInList(resource.Value)
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+isAptGet(command) {
+	regex.match("apt-get (-(-)?[a-zA-Z]+ *)*install", command)
+}
+avoidManualInputInList(command) {
+	flags := ["-y", "yes", "--assumeyes"]
+
+	contains(command[j], flags[x])
+}
+isAptGet(command) {
+	regex.match("apt-get (-(-)?[a-zA-Z]+ *)*install", command)
+}
+avoidManualInput(command) {
+	regex.match("apt-get (-(-)?[a-zA-Z]+ *)*(-y|-yes|--assumeyes) (-(-)?[a-zA-Z]+ *)*install", command)
+}
+avoidManualInput(command) {
+	regex.match("apt-get (-(-)?[a-zA-Z]+ *)*install (-(-)?[a-zA-Z]+ *)*(-y|-yes|--assumeyes)", command)
+}
+avoidManualInput(command) {
+	regex.match("apt-get (-(-)?[a-zA-Z]+ *)*install ([A-Za-z0-9-:=.$_]+ *)*(-y|-yes|--assumeyes)", command)
+}
+# vim: ts=4:sw=4:expandtab

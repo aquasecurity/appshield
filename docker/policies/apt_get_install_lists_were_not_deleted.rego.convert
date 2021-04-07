@@ -1,0 +1,45 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    	resource := input.document[i].command[name][_]
+	resource.Cmd == "run"
+	commands := resource.Value[0]
+
+	aptGet := regex.find_n("apt-get (-(-)?[a-zA-Z]+ *)*install", commands, -1)
+	aptGet != null
+
+	not hasClean(resource.Value[0], aptGet[0])
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+
+hasClean(resourceValue, aptGet) {
+	listCommands := split(resourceValue, "&& ")
+
+	startswith(listCommands[install], aptGet)
+
+	some clean
+	startswith(listCommands[clean], "apt-get clean")
+
+	some remove
+	startswith(listCommands[remove], "rm -rf")
+
+	install < clean
+	clean < remove
+}
+# vim: ts=4:sw=4:expandtab

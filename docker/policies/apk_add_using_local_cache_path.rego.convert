@@ -1,0 +1,36 @@
+package $namespace.$type.$policyid
+
+__rego_metadata__ := {
+    "id": "XYZ-1234",
+    "title": "My rule",
+    "version": "v1.0.0",
+    "severity": "HIGH",
+    "type": "Some security check",
+}
+
+deny[res] {
+    command := input.document[i].command[name][_]
+    command.Cmd == "run"
+
+    # Split the commands (e.g., RUN command1 && command2 && command3)
+    runCommands := split(command.Value[0], "&&")
+    containsApkAddWithoutNoCache(runCommands)
+
+    res := {
+        "msg": "decision message",
+        "id": __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type": __rego_metadata__.type,
+    }
+}
+
+containsApkAddWithoutNoCache(commands) {
+    some i
+    command := trim_space(commands[i])
+    startswith(command, "apk ")
+    contains(command, " add ")
+    not contains(command, "--no-cache")
+}
+
+# vim: ts=4:sw=4:expandtab
