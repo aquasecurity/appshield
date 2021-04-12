@@ -1,16 +1,19 @@
-# @title: Unsafe sysctl options set
-# @description: Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset. A sysctl is considered safe if it is namespaced in the container or the pod, and is isolated from other pods and processes on the same node.
-# @recommended_actions: Do not set 'spec.securityContext.sysctls' or set to values in allowed subset.
-# @severity: Medium
-# @id: KSV026
-# @links: 
-
-package main
+package appshield.kubernetes.KSV026
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failSysctls = false
+
+__rego_metadata__ := {
+     "id": "KSV026",
+     "title": "Unsafe sysctl options set",
+     "version": "v1.0.0",
+     "severity": "Medium",
+     "type": "Kubernetes Security Check",
+     "description": "Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed 'safe' subset. A sysctl is considered safe if it is namespaced in the container or the pod, and is isolated from other pods and processes on the same node.",
+     "recommended_actions": "Do not set 'spec.securityContext.sysctls' or set to values in allowed subset.",
+}
 
 # Add allowed sysctls
 allowed_sysctls = {
@@ -33,7 +36,7 @@ sysctl_msg = msg {
   msg := sprintf(" or set it to the following allowed values: %s", [concat(", ", allowed_sysctls)])
 }
 
-deny[msg] {
+deny[res] {
   failSysctls
 
   msg := kubernetes.format(
@@ -42,4 +45,11 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, sysctl_msg]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

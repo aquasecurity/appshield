@@ -1,15 +1,18 @@
-# @title: Default capabilities: some containers do not drop all
-# @description: The container should drop all default capabilities and add only those that are needed for its execution.
-# @recommended_actions: Add 'ALL' to containers[].securityContext.capabilities.drop.
-# @severity: Low
-# @id: KSV003
-# @links: 
-
-package main
+package appshield.kubernetes.KSV003
 
 import data.lib.kubernetes
 
 default checkCapsDropAll = false
+
+__rego_metadata__ := {
+    "id": "KSV003",
+    "title": "Default capabilities: some containers do not drop all",
+    "version": "v1.0.0",
+    "severity": "Low",
+    "type": "Kubernetes Security Check",
+    "description": "The container should drop all default capabilities and add only those that are needed for its execution.",
+    "recommended_actions": "Add 'ALL' to containers[].securityContext.capabilities.drop.",
+}
 
 # Get all containers which include 'ALL' in security.capabilities.drop
 getCapsDropAllContainers[container] {
@@ -30,7 +33,7 @@ checkCapsDropAll {
   count(getCapsNoDropAllContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   checkCapsDropAll
 
   msg := kubernetes.format(
@@ -39,4 +42,11 @@ deny[msg] {
       [getCapsNoDropAllContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

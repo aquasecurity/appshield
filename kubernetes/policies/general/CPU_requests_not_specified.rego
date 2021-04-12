@@ -1,16 +1,19 @@
-# @title: CPU requests not specified
-# @description: When containers have resource requests specified, the scheduler can make better decisions about which nodes to place pods on, and how to deal with resource contention.
-# @recommended_actions: Set 'containers[].resources.requests.cpu'.
-# @severity: Low
-# @id: KSV015
-# @links: 
-
-package main
+package appshield.kubernetes.KSV015
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failRequestsCPU = false
+
+__rego_metadata__ := {
+    "id": "KSV015",
+    "title": "CPU requests not specified",
+    "version": "v1.0.0",
+    "severity": "Low",
+    "type": "Kubernetes Security Check",
+    "description": "When containers have resource requests specified, the scheduler can make better decisions about which nodes to place pods on, and how to deal with resource contention.",
+    "recommended_actions": "Set 'containers[].resources.requests.cpu'.",
+}
 
 # getRequestsCPUContainers returns all containers which have set resources.requests.cpu
 getRequestsCPUContainers[container] {
@@ -32,7 +35,7 @@ failRequestsCPU {
   count(getNoRequestsCPUContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failRequestsCPU
 
   msg := kubernetes.format(
@@ -41,4 +44,11 @@ deny[msg] {
       [getNoRequestsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

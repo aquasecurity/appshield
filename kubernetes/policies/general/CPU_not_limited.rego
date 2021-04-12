@@ -1,16 +1,19 @@
-# @title: CPU not limited
-# @description: Enforcing CPU limits prevents DoS via resource exhaustion.
-# @recommended_actions: Set a limit value under 'containers[].resources.limits.cpu'.
-# @severity: Low
-# @id: KSV011
-# @links: 
-
-package main
+package appshield.kubernetes.KSV011
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failLimitsCPU = false
+
+__rego_metadata__ := {
+    "id": "KSV011",
+    "title": "CPU not limited",
+    "version": "v1.0.0",
+    "severity": "Low",
+    "type": "Kubernetes Security Check",
+    "description": "Enforcing CPU limits prevents DoS via resource exhaustion.",
+    "recommended_actions": "Set a limit value under 'containers[].resources.limits.cpu'.",
+}
 
 # getLimitsCPUContainers returns all containers which have set resources.limits.cpu
 getLimitsCPUContainers[container] {
@@ -32,7 +35,7 @@ failLimitsCPU {
   count(getNoLimitsCPUContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failLimitsCPU
 
   msg := kubernetes.format(
@@ -41,4 +44,11 @@ deny[msg] {
       [getNoLimitsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

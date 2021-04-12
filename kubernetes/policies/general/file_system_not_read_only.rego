@@ -1,15 +1,18 @@
-# @title: Root file system is not read-only
-# @description: An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.
-# @recommended_actions: Change 'containers[].securityContext.readOnlyRootFilesystem' to 'true'.
-# @severity: Low
-# @id: KSV014
-# @links: 
-
-package main
+package appshield.kubernetes.KSV014
 
 import data.lib.kubernetes
 
 default failReadOnlyRootFilesystem = false
+
+__rego_metadata__ := {
+    "id": "KSV014",
+    "title": "Root file system is not read-only",
+    "version": "v1.0.0",
+    "severity": "Low",
+    "type": "Kubernetes Security Check",
+    "description": "An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.",
+    "recommended_actions": "Change 'containers[].securityContext.readOnlyRootFilesystem' to 'true'.",
+}
 
 # getReadOnlyRootFilesystemContainers returns all containers that have
 # securityContext.readOnlyFilesystem set to true.
@@ -32,7 +35,7 @@ failReadOnlyRootFilesystem {
   count(getNotReadOnlyRootFilesystemContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failReadOnlyRootFilesystem
 
   msg := kubernetes.format(
@@ -41,4 +44,11 @@ deny[msg] {
       [getNotReadOnlyRootFilesystemContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

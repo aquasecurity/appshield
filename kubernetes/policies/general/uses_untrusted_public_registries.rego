@@ -1,16 +1,19 @@
-# @title: Container images from public registries used
-# @description: Container images must not start with an empty prefix or a defined public registry domain.
-# @recommended_actions: Use images from private registries.
-# @severity: Medium
-# @id: KSV034
-# @links:
-
-package main
+package appshield.kubernetes.KSV034
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failPublicRegistry = false
+
+__rego_metadata__ := {
+     "id": "KSV034",
+     "title": "Container images from public registries used",
+     "version": "v1.0.0",
+     "severity": "Medium",
+     "type": "Kubernetes Security Check",
+     "description": "Container images must not start with an empty prefix or a defined public registry domain.",
+     "recommended_actions": "Use images from private registries.",
+}
 
 # list of untrusted public registries
 untrusted_public_registries = [
@@ -45,7 +48,7 @@ failPublicRegistry {
   count(getContainersWithPublicRegistries) > 0
 }
 
-deny[msg] {
+deny[res] {
   failPublicRegistry
 
   msg := kubernetes.format(
@@ -54,4 +57,11 @@ deny[msg] {
       [getContainersWithPublicRegistries[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

@@ -1,16 +1,19 @@
-# @title: Memory requests not specified
-# @description: When containers have memory requests specified, the scheduler can make better decisions about which nodes to place pods on, and how to deal with resource contention.
-# @recommended_actions: Set 'containers[].resources.requests.memory'.
-# @severity: Low
-# @id: KSV016
-# @links: 
-
-package main
+package appshield.kubernetes.KSV016
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failRequestsMemory = false
+
+__rego_metadata__ := {
+    "id": "KSV016",
+    "title": "Memory requests not specified",
+    "version": "v1.0.0",
+    "severity": "Low",
+    "type": "Kubernetes Security Check",
+    "description": "When containers have memory requests specified, the scheduler can make better decisions about which nodes to place pods on, and how to deal with resource contention.",
+    "recommended_actions": "Set 'containers[].resources.requests.memory'.",
+}
 
 # getRequestsMemoryContainers returns all containers which have set resources.requests.memory
 getRequestsMemoryContainers[container] {
@@ -32,7 +35,7 @@ failRequestsMemory {
   count(getNoRequestsMemoryContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failRequestsMemory
 
   msg := kubernetes.format(
@@ -41,4 +44,11 @@ deny[msg] {
       [getNoRequestsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

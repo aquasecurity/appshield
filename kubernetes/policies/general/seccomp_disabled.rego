@@ -1,15 +1,18 @@
-# @title: Seccomp policies disabled
-# @description: A program inside the container can bypass Seccomp protection policies.
-# @recommended_actions: Remove the 'unconfined' value from 'container.seccomp.security.alpha.kubernetes.io'.
-# @severity: Medium
-# @id: KSV019
-# @links:
-
-package main
+package appshield.kubernetes.KSV019
 
 import data.lib.kubernetes
 
 default failSeccompAny = false
+
+__rego_metadata__ := {
+     "id": "KSV019",
+     "title": "Seccomp policies disabled",
+     "version": "v1.0.0",
+     "severity": "Medium",
+     "type": "Kubernetes Security Check",
+     "description": "A program inside the container can bypass Seccomp protection policies.",
+     "recommended_actions": "Remove the 'unconfined' value from 'container.seccomp.security.alpha.kubernetes.io'.",
+}
 
 # getSeccompContainers returns all containers which have a seccomp
 # profile set and is profile not set to "unconfined"
@@ -37,7 +40,7 @@ failSeccomp {
   count(getNoSeccompContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failSeccomp
 
   msg := kubernetes.format(
@@ -46,4 +49,11 @@ deny[msg] {
       [getNoSeccompContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

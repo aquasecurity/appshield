@@ -1,16 +1,19 @@
-# @title: Default capabilities: some containers do not drop any
-# @description: Security best practices require containers to run with minimal required capabilities.
-# @recommended_actions: Specify at least one unneeded capability in 'containers[].securityContext.capabilities.drop'.
-# @severity: Low
-# @id: KSV004
-# @links: 
-
-package main
+package appshield.kubernetes.KSV004
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failCapsDropAny = false
+
+__rego_metadata__ := {
+     "id": "KSV004",
+     "title": "Default capabilities: some containers do not drop any",
+     "version": "v1.0.0",
+     "severity": "Low",
+     "type": "Kubernetes Security Check",
+     "description": "Security best practices require containers to run with minimal required capabilities.",
+     "recommended_actions": "Specify at least one unneeded capability in 'containers[].securityContext.capabilities.drop'",
+}
 
 # getCapsDropAnyContainers returns names of all containers
 # which set securityContext.capabilities.drop
@@ -33,7 +36,7 @@ failCapsDropAny {
   count(getNoCapsDropContainers) > 0
 }
 
-deny[msg] {
+deny[res] {
   failCapsDropAny
 
   msg := kubernetes.format(
@@ -42,4 +45,11 @@ deny[msg] {
       [getNoCapsDropContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

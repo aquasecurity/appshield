@@ -1,16 +1,19 @@
-# @title: SELinux custom options set
-# @description: According to pod security standard "SElinux", setting custom SELinux options should be disallowed.
-# @recommended_actions: Do not set 'spec.securityContext.seLinuxOptions', spec.containers[*].securityContext.seLinuxOptions and spec.initContainers[*].securityContext.seLinuxOptions.
-# @severity: Medium
-# @id: KSV025
-# @links: 
-
-package main
+package appshield.kubernetes.KSV025
 
 import data.lib.kubernetes
 import data.lib.utils
 
 default failSELinux = false
+
+__rego_metadata__ := {
+     "id": "KSV025",
+     "title": "SELinux custom options set",
+     "version": "v1.0.0",
+     "severity": "Medium",
+     "type": "Kubernetes Security Check",
+     "description": "According to pod security standard 'SElinux', setting custom SELinux options should be disallowed.",
+     "recommended_actions": "Do not set 'spec.securityContext.seLinuxOptions', spec.containers[*].securityContext.seLinuxOptions and spec.initContainers[*].securityContext.seLinuxOptions.",
+}
 
 # failSELinuxOpts is true if securityContext.seLinuxOptions is set in any container
 failSELinuxOpts {
@@ -24,7 +27,7 @@ failSELinuxOpts {
   utils.has_key(allPods.spec.securityContext, "seLinuxOptions")
 }
 
-deny[msg] {
+deny[res] {
   failSELinuxOpts
 
   msg := kubernetes.format(
@@ -33,4 +36,11 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }

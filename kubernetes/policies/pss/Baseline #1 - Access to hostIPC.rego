@@ -1,23 +1,25 @@
-  
-# @title: Access to host PID
-# @description: Sharing the host’s PID namespace allows visibility on host processes, potentially leaking information such as environment variables and configuration.
-# @recommended_actions: Do not set 'spec.template.spec.hostPID' to true.
-# @severity: High
-# @id: KSV010
-# @links: 
-
-package main
+package appshield.kubernetes.KSV010
 
 import data.lib.kubernetes
 
 default failHostPID = false
+
+__rego_metadata__ := {
+     "id": "KSV010",
+     "title": "Access to host PID",
+     "version": "v1.0.0",
+     "severity": "High",
+     "type": "Kubernetes Security Check",
+     "description": "Sharing the host’s PID namespace allows visibility on host processes, potentially leaking information such as environment variables and configuration.",
+     "recommended_actions": "Do not set 'spec.template.spec.hostPID' to true.",
+}
 
 # failHostPID is true if spec.hostPID is set to true (on all controllers)
 failHostPID {
   kubernetes.host_pids[_] == true
 }
 
-deny[msg] {
+deny[res] {
   failHostPID
 
   msg := kubernetes.format(
@@ -26,4 +28,11 @@ deny[msg] {
       [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]
     )
   )
+    res := {
+    	"msg": msg,
+        "id":  __rego_metadata__.id,
+        "title": __rego_metadata__.title,
+        "severity": __rego_metadata__.severity,
+        "type":  __rego_metadata__.type,
+    }
 }
