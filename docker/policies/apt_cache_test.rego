@@ -1,4 +1,4 @@
-package main
+package appshield.dockerfile.DS003
 
 test_failAPTCleanCache_empty {
   not failAPTCleanCache with input as [

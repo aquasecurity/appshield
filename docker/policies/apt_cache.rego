@@ -1,11 +1,14 @@
-# @title: Clean APT cache
-# @description: It is a good practice to clean the APT cache.
-# @recommended_actions: Add 'RUN apt-get clean' line to the Dockerfile
-# @severity: Medium
-# @id: DS003
-# @links:
+package appshield.dockerfile.DS003
 
-package main
+__rego_metadata__ := {
+    "id": "DS003",
+    "title": "Clean APT cache",
+    "version": "v1.0.0",
+    "severity": "Medium",
+    "type": "Dockerfile Security Check",
+    "description": "It is a good practice to clean the APT cache.",
+    "recommended_actions": "Add 'RUN apt-get clean' line to the Dockerfile",
+}
 
 # runsAPT is true if there is `apt` command.
 runs_apt {
@@ -31,7 +34,15 @@ failAPTCleanCache {
   not APTCleanCache
 }
 
-deny[msg] {
+deny[res] {
   failAPTCleanCache
   msg := "Clean apt cache"
+
+  res := {
+    	"msg": msg,
+      "id":  __rego_metadata__.id,
+      "title": __rego_metadata__.title,
+      "severity": __rego_metadata__.severity,
+      "type":  __rego_metadata__.type,
+    }
 }
