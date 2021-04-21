@@ -29,7 +29,7 @@ conftest test test.yaml --policy myPolicy/
 ```
 
 # Standards and best practices
-The controls of both Pod Security Policy (PSP) and Pod Security Standards (PSS) and additional best practices are covered in this github repository
+This GitHub repository has controls that cover both [PodSecurityPolicy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) (PSP) and the Kubernetes [Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/) (PSS), plus additional best practices.
 
 ## PSS and PSP
 Pod Security Standard (PSS) is the official standard for security best practices for pods and it overlaps with the checks that PSP perform
