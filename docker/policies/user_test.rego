@@ -1,4 +1,4 @@
-package main
+package appshield.dockerfile.DS002
 
 # Test failUserCount empty
 test_failUserCount_empty {

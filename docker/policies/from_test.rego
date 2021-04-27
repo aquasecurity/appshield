@@ -1,4 +1,4 @@
-package main
+package appshield.dockerfile.DS001
 
 # Test FROM image with latest tag
 test_failLatest_latest_tag {

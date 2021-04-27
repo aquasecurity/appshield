@@ -1,11 +1,14 @@
-# @title: Use a tag name in FROM statement
-# @description: When using 'FROM' statement you should use a specific tag to avoid uncontrolled behavior when image is updated
-# @recommended_actions: Add a tag to the image in the FROM statement
-# @severity: Medium
-# @id: DS001
-# @links:
+package appshield.dockerfile.DS001
 
-package main
+__rego_metadata__ := {
+    "id": "DS001",
+    "title": "Use a tag name in FROM statement",
+    "version": "v1.0.0",
+    "severity": "Medium",
+    "type": "Dockerfile Security Check",
+    "description": "When using 'FROM' statement you should use a specific tag to avoid uncontrolled behavior when image is updated",
+    "recommended_actions": "Add a tag to the image in the FROM statement",
+}
 
 # getImage returns the image in FROM statement.
 getImage = image {
@@ -36,8 +39,15 @@ failLatest {
   tag == "latest"
 }
 
-deny[msg] {
+deny[res] {
   failLatest
   [img, _] := getImageTag
-  msg = sprintf("Specify tag for image %s", [img])
+  msg := sprintf("Specify tag for image %s", [img])
+  res := {
+  	"msg": msg,
+    "id":  __rego_metadata__.id,
+    "title": __rego_metadata__.title,
+    "severity": __rego_metadata__.severity,
+    "type":  __rego_metadata__.type,
+    }
 }
