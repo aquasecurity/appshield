@@ -7,7 +7,7 @@ default failTrustedAzureRegistry = false
 
 __rego_metadata__ := {
      "id": "KSV032",
-     "title": "Container images from non-ACR registries used",
+     "title": "All container images must start with the *.azurecr.io domain",
      "version": "v1.0.0",
      "severity": "Medium",
      "type": "Kubernetes Security Check",

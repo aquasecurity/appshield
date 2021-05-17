@@ -7,7 +7,7 @@ default failTrustedECRRegistry = false
 
 __rego_metadata__ := {
      "id": "KSV035",
-     "title": "Container images from non-ECR registries used",
+     "title": "All container images must start with an ECR domain",
      "version": "v1.0.0",
      "severity": "Medium",
      "type": "Kubernetes Security Check",
