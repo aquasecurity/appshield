@@ -4,7 +4,7 @@ __rego_metadata__ := {
 	"id": "DS005",
 	"title": "COPY Instead of ADD",
 	"version": "v1.0.0",
-	"severity": "LOW",
+	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",
 	"description": "Should use COPY instead of ADD unless, running a tar file",
 	"recommended_actions": "Replace ADD by COPY",
