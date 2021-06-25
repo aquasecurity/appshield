@@ -13,8 +13,8 @@ __rego_metadata__ := {
 # getImage returns the image in FROM statement.
 getImage = image {
   some i
-  input[i].Cmd == "from"
-  val := input[i].Value
+  input.command[name][i].Cmd == "from"
+  val := input.command[name][i].Value
   image = val[i]
 }
 

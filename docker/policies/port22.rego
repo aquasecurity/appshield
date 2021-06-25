@@ -20,8 +20,8 @@ fail {
 
 failPortCheck {
 	some i
-	input[i].Cmd == "EXPOSE"
-	val := input[i].Value
+	input.command[name][i].Cmd == "EXPOSE"
+	val := input.command[name][i].Value
 	val[_] == denyList[_]
 }
 

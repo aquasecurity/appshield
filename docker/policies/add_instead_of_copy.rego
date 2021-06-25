@@ -17,10 +17,10 @@ __rego_input__ := {
 }
 
 getAdd[args] {
-	some i
-	input[i].Cmd == "add"
+	some i, name
+	input.command[name][i].Cmd == "add"
 
-	merged := concat(" ", input[i].Value)
+	merged := concat(" ", input.command[name][i].Value)
 
 	not contains(merged, ".tar")
 

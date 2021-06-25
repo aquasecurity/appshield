@@ -12,9 +12,9 @@ __rego_metadata__ := {
 
 # runsAPT is true if there is `apt` command.
 runs_apt {
-  some i
-  input[i].Cmd == "run"
-  val := input[i].Value[_]
+  some i,name
+  input.command[name][i].Cmd == "run"
+  val := input.command[name][i].Value[_]
   re_match(`\bapt\b`, val)
 }
 
@@ -22,8 +22,8 @@ runs_apt {
 # command.
 APTCleanCache {
   some i
-  input[i].Cmd == "run"
-  val := input[i].Value[_]
+  input.command[name][i].Cmd == "run"
+  val := input.command[name][i].Value[_]
   re_match(`apt clean|apt-get clean`, val)
 }
 

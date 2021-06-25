@@ -18,9 +18,9 @@ __rego_input__ := {
 
 getUpdate[args] {
 	some i
-	input[i].Cmd == "run"
+	input.command[name][i].Cmd == "run"
 
-	merged := concat(" ", input[i].Value)
+	merged := concat(" ", input.command[name][i].Value)
 
 	regex.match("(yum update)|(yum update-to)|(yum upgrade)|(yum upgrade-to)", merged)
 
