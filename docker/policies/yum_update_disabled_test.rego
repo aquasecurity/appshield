@@ -1,7 +1,5 @@
 package appshield.DS008
 
-#	regex.match("(yum update)|(yum update-to)|(yum upgrade)|(yum upgrade-to)", merged)
-
 test_failUpdate_update {
 	failUpdate with input as [{"Cmd": "run", "Value": ["yum update"]}]
 }
