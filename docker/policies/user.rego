@@ -14,8 +14,8 @@ __rego_metadata__ := {
 # the USER command.
 getUser[user] {
   some i
-  input.command[name][i].Cmd == "user"
-  val := input.command[name][i].Value
+  input.stages[name][i].Cmd == "user"
+  val := input.stages[name][i].Value
   user := val[_]
 }
 

@@ -1,7 +1,7 @@
 package appshield.DS009
 
 test_entry_point_positive {
-	r := deny with input as {"command": {
+	r := deny with input as {"stages": {
 		"golang": [
 			{
 				"Cmd": "from",
@@ -45,7 +45,7 @@ test_entry_point_positive {
 }
 
 test_entry_point_negative {
-	r := deny with input as {"command": {
+	r := deny with input as {"stages": {
 		"golang": [
 			{
 				"Cmd": "from",

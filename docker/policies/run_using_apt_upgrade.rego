@@ -18,9 +18,9 @@ __rego_input__ := {
 
 getUpgrade[args] {
 	some i
-	input.command[name][i].Cmd == "run"
+	input.stages[name][i].Cmd == "run"
 
-	merged := concat(" ", input.command[name][i].Value)
+	merged := concat(" ", input.stages[name][i].Value)
 
 	regex.match("(apt-get upgrade)|(apt-get dist-upgrade)", merged)
 

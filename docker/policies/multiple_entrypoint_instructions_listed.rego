@@ -21,11 +21,11 @@ getEntryPoints(image) = r {
 }
 
 failEntryPoints {
-	count(getEntryPoints(input.command[_])) > 1
+	count(getEntryPoints(input.stages[_])) > 1
 }
 
 deny[res] {
 	failEntryPoints
-	args := getEntryPoints(input.command[_])
+	args := getEntryPoints(input.stages[_])
 	res := sprintf("Duplicate ENTRYPOINT %s in Dockerfile", [args])
 }

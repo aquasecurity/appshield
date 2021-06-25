@@ -2,7 +2,7 @@ package appshield.DS007
 
 __rego_metadata__ := {
 	"id": "DS007",
-	"title": "COPY '--from' References Current FROM Alias",
+	"title": "COPY '--from' references current image FROM alias",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
