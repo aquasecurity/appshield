@@ -26,6 +26,8 @@
   file: use_of_apk_upgrade.rego
 - id: DS014
   file: run_using_sudo.rego
+- id: DS015
+  file: copy_with_more_than_two_arguments_not_ending_with_slash.rego
 
 
 
