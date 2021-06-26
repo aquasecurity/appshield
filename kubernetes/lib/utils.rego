@@ -1,3 +1,5 @@
 package lib.utils
 
-has_key(x, k) { _ = x[k] }
+has_key(x, k) {
+	_ = x[k]
+}

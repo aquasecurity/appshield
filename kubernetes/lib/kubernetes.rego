@@ -27,7 +27,9 @@ format(msg) = msg {
 name = object.metadata.name
 
 default namespace = "default"
+
 namespace = object.metadata.namespace
+
 #annotations = object.metadata.annotations
 
 kind = object.kind
@@ -63,31 +65,31 @@ is_pod {
 default is_controller = false
 
 is_controller {
-  kind = "Deployment"
+	kind = "Deployment"
 }
 
 is_controller {
-  kind = "StatefulSet"
+	kind = "StatefulSet"
 }
 
 is_controller {
-  kind = "DaemonSet"
+	kind = "DaemonSet"
 }
 
 is_controller {
-  kind = "ReplicaSet"
+	kind = "ReplicaSet"
 }
 
 is_controller {
-  kind = "ReplicationController"
+	kind = "ReplicationController"
 }
 
 is_controller {
-  kind = "Job"
+	kind = "Job"
 }
 
 is_cronjob {
-  kind = "CronJob"
+	kind = "CronJob"
 }
 
 split_image(image) = [image, "latest"] {
@@ -175,21 +177,21 @@ annotations[annotation] {
 }
 
 host_ipcs[host_ipc] {
-    pods[pod]
-    host_ipc = pod.spec.hostIPC
+	pods[pod]
+	host_ipc = pod.spec.hostIPC
 }
 
 host_networks[host_network] {
-    pods[pod]
-    host_network = pod.spec.hostNetwork
+	pods[pod]
+	host_network = pod.spec.hostNetwork
 }
 
 host_pids[host_pid] {
-    pods[pod]
-    host_pid = pod.spec.hostPID
+	pods[pod]
+	host_pid = pod.spec.hostPID
 }
 
 host_aliases[host_alias] {
-    pods[pod]
-    host_alias = pod.spec
+	pods[pod]
+	host_alias = pod.spec
 }
