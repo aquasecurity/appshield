@@ -24,6 +24,8 @@
   file: run_using_dnf_update.rego
 - id: DS013
   file: use_of_apk_upgrade.rego
+- id: DS014
+  file: run_using_sudo.rego
 
 
 
