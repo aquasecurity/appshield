@@ -4,14 +4,14 @@ package appshield.dockerfile.DS001
 test_deny_latest_tag_positive {
 	r := deny with input as {"stages": {"openjdk": [{"Cmd": "from", "Value": ["openjdk:latest"]}]}}
 	count(r) == 1
-	startswith(r[_].msg, "Specify tag for image")
+	r[_].msg == "Specify tag for image openjdk"
 }
 
 # Test FROM image with no tag
 test_deny_no_tag_positive {
 	r := deny with input as {"stages": {"openjdk": [{"Cmd": "from", "Value": ["openjdk"]}]}}
 	count(r) == 1
-	startswith(r[_].msg, "Specify tag for image")
+	r[_].msg == "Specify tag for image openjdk"
 }
 
 # Test FROM with scratch

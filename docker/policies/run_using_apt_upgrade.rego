@@ -27,12 +27,7 @@ get_upgrade[args] {
 	args := merged
 }
 
-fail_upgrade {
-	count(get_upgrade) > 0
-}
-
 deny[res] {
-	fail_upgrade
 	args := get_upgrade[_]
 	res := sprintf("Shouldn't use %s in Dockerfile", [args])
 }

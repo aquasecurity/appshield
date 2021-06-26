@@ -25,12 +25,7 @@ get_update[args] {
 	regex.match("(yum update)|(yum update-to)|(yum upgrade)|(yum upgrade-to)", args)
 }
 
-fail_update {
-	count(get_update) > 0
-}
-
 deny[res] {
-	fail_update
 	args := get_update[_]
 	res := sprintf("Shouldn't use %s in Dockerfile", [args])
 }

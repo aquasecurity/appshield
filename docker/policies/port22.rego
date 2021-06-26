@@ -14,9 +14,6 @@ __rego_metadata__ := {
 deny_list := [22]
 
 # fail_port_check is true if the Dockerfile contains an expose statement for value 22
-fail {
-	fail_port_check
-}
 
 fail_port_check {
 	some i

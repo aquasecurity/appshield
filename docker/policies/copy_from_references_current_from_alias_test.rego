@@ -33,7 +33,43 @@ test_deny_basic_positive {
 	}}
 
 	count(r) == 1
-	startswith(r[_], "COPY from shouldn't mention current alias")
+	r[_] == "COPY from shouldn't mention current alias 'dep'"
+}
+
+test_deny_extra_spaces_positive {
+	r := deny with input as {"stages": {
+		"golang:1.7.3 as   dep": [
+			{
+				"Cmd": "from",
+				"Value": ["golang:1.7.3"],
+			},
+			{
+				"Cmd": "copy",
+				"Flags": ["--from=dep"],
+				"Value": [
+					"/binary",
+					"/",
+				],
+			},
+		],
+		"alpine": [
+			{
+				"Cmd": "from",
+				"Value": ["alpine:latest"],
+			},
+			{
+				"Cmd": "entrypoint",
+				"Value": [
+					"/opt/app/run.sh",
+					"--port",
+					"8080",
+				],
+			},
+		],
+	}}
+
+	count(r) == 1
+	r[_] == "COPY from shouldn't mention current alias 'dep'"
 }
 
 test_deny_basic_negative {
