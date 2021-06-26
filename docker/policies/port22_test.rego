@@ -7,5 +7,5 @@ test_failPortCheck_port_22 {
 
 # Test EXPOSE without PORT 22
 test_failPortCheck_no_port_22 {
-	failPortCheck with input as [{"Cmd": "EXPOSE", "Value": [8080]}]
+	not failPortCheck with input as [{"Cmd": "EXPOSE", "Value": [8080]}]
 }
