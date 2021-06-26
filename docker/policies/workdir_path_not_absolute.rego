@@ -18,9 +18,9 @@ __rego_input__ := {
 
 get_work_dir[arg] {
 	some i
-	cmdObj := input.stages[name][i]
-	cmdObj.Cmd == "workdir"
-	arg := cmdObj.Value[0]
+	cmd_obj := input.stages[name][i]
+	cmd_obj.Cmd == "workdir"
+	arg := cmd_obj.Value[0]
 
 	not regex.match("(^/[A-z0-9-_+]*)|(^[A-z0-9-_+]:\\\\.*)|(^\\$[{}A-z0-9-_+].*)", arg)
 }

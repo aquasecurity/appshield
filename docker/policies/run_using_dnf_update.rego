@@ -25,11 +25,11 @@ get_update[args] {
 
 	some i
 
-	cmdObj := input.stages[name][i]
+	cmd_obj := input.stages[name][i]
 
-	cmdObj.Cmd == "run"
+	cmd_obj.Cmd == "run"
 
-	args := concat(" ", cmdObj.Value)
+	args := concat(" ", cmd_obj.Value)
 
 	contains(args, commands[_])
 }

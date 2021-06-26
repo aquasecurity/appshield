@@ -22,6 +22,8 @@
   file: workdir_path_not_absolute.rego
 - id: DS012
   file: run_using_dnf_update.rego
+- id: DS013
+  file: use_of_apk_upgrade.rego
 
 
 
