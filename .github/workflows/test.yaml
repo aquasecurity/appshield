@@ -24,10 +24,10 @@ jobs:
           sudo mv ./opa /usr/local/bin
       - name: OPA Format
         run: |
-          opa fmt --fail . 2> /dev/null
-          if [ -n "$?" ]; then
+          files=$(opa fmt --list .)
+          if [ -n "$files" ]; then
             echo "=== The following files are not formatted ==="
-            opa fmt --list .
+            echo "$files"
             exit 1
           fi
       - name: OPA Test
