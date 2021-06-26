@@ -25,7 +25,7 @@ jobs:
       - name: OPA Format
         run: |
           opa fmt --fail . 2> /dev/null
-            if [ -n "$?" ]; then
+          if [ -n "$?" ]; then
             echo "=== The following files are not formatted ==="
             opa fmt --list .
             exit 1
