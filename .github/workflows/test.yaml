@@ -31,4 +31,4 @@ jobs:
             exit 1
           fi
       - name: OPA Test
-        run: opa test kubernetes/ docker/
+        run: opa test -v kubernetes/ docker/
