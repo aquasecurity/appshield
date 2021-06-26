@@ -16,7 +16,7 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-getUpgrade[args] {
+get_upgrade[args] {
 	some i
 	input.stages[name][i].Cmd == "run"
 
@@ -27,12 +27,12 @@ getUpgrade[args] {
 	args := merged
 }
 
-failUpgrade {
-	count(getUpgrade) > 0
+fail_upgrade {
+	count(get_upgrade) > 0
 }
 
 deny[res] {
-	failUpgrade
-	args := getUpgrade[_]
+	fail_upgrade
+	args := get_upgrade[_]
 	res := sprintf("Shouldn't use %s in Dockerfile", [args])
 }

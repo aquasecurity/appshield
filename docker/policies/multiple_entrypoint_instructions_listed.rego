@@ -16,16 +16,16 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-getEntryPoints(image) = r {
+get_entry_points(image) = r {
 	r := [i | image[j].Cmd == "entrypoint"; vals := image[j].Value; i := concat(" ", vals)]
 }
 
-failEntryPoints {
-	count(getEntryPoints(input.stages[_])) > 1
+fail_entry_points {
+	count(get_entry_points(input.stages[_])) > 1
 }
 
 deny[res] {
-	failEntryPoints
-	args := getEntryPoints(input.stages[_])
+	fail_entry_points
+	args := get_entry_points(input.stages[_])
 	res := sprintf("Duplicate ENTRYPOINT %s in Dockerfile", [args])
 }

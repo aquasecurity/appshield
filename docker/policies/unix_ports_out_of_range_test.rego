@@ -1,6 +1,6 @@
 package appshield.DS010
 
-test_entry_point_positive {
+test_deny_65536_positive {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",
@@ -33,7 +33,7 @@ test_entry_point_positive {
 	startswith(r[_], "'EXPOSE' contains port which is out of range [0, 65535]: 65536")
 }
 
-test_entry_point_negative {
+test_deny_within_range_negative {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",

@@ -16,7 +16,7 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-getAliasFromCopy[args] {
+get_alias_from_copy[args] {
 	some i, j, name
 	input.stages[name][i].Cmd == "copy"
 
@@ -25,28 +25,28 @@ getAliasFromCopy[args] {
 	contains(cmd.Flags[j], "--from=")
 	parts := split(cmd.Flags[j], "=")
 
-	isAliasCurrentFromAlias(name, parts[1])
+	is_alias_current_from_alias(name, parts[1])
 	args := parts[1]
 }
 
-isAliasCurrentFromAlias(currentName, currentAlias) = allow {
-	currentNameLower := lower(currentName)
-	currentAliasLower := lower(currentAlias)
+is_alias_current_from_alias(current_name, current_alias) = allow {
+	current_name_lower := lower(current_name)
+	current_alias_lower := lower(current_alias)
 
 	#expecting stage name as "myimage:tag as dep"
-	parts := split(currentNameLower, " as ")
+	parts := split(current_name_lower, " as ")
 
-	parts[1] == currentAlias
+	parts[1] == current_alias
 
 	allow = true
 }
 
-failFromAlias {
-	count(getAliasFromCopy) > 0
+fail_from_alias {
+	count(get_alias_from_copy) > 0
 }
 
 deny[res] {
-	failFromAlias
-	args := getAliasFromCopy[_]
+	fail_from_alias
+	args := get_alias_from_copy[_]
 	res := sprintf("COPY from shouldn't mention current alias '%s'", [args])
 }

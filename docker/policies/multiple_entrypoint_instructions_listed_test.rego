@@ -1,6 +1,6 @@
 package appshield.DS009
 
-test_entry_point_positive {
+test_deny_basic_positive {
 	r := deny with input as {"stages": {
 		"golang": [
 			{
@@ -44,7 +44,7 @@ test_entry_point_positive {
 	startswith(r[_], "Duplicate ENTRYPOINT")
 }
 
-test_entry_point_negative {
+test_deny_basic_negative {
 	r := deny with input as {"stages": {
 		"golang": [
 			{

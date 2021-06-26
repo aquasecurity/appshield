@@ -1,6 +1,6 @@
 package appshield.DS007
 
-test_entry_point_positive {
+test_deny_basic_positive {
 	r := deny with input as {"stages": {
 		"golang:1.7.3 as dep": [
 			{
@@ -36,7 +36,7 @@ test_entry_point_positive {
 	startswith(r[_], "COPY from shouldn't mention current alias")
 }
 
-test_entry_point_negative {
+test_deny_basic_negative {
 	r := deny with input as {"stages": {
 		"golang:1.7.3 AS builder": [
 			{

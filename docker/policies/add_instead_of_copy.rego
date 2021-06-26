@@ -16,7 +16,7 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-getAdd[args] {
+get_add[args] {
 	some i, name
 	input.stages[name][i].Cmd == "add"
 
@@ -25,12 +25,12 @@ getAdd[args] {
 	not contains(args, ".tar")
 }
 
-failAdd {
-	count(getAdd) > 0
+fail_add {
+	count(get_add) > 0
 }
 
 deny[res] {
-	failAdd
-	args := getAdd[_]
+	fail_add
+	args := get_add[_]
 	res := sprintf("expected COPY %s instead of ADD %s", [args, args])
 }

@@ -10,7 +10,7 @@ __rego_metadata__ := {
 	"recommended_actions": "Add 'RUN apt-get clean' line to the Dockerfile",
 }
 
-# runsAPT is true if there is `apt` command.
+# runs_apt is true if there is `apt` command.
 runs_apt {
 	some i, name
 	input.stages[name][i].Cmd == "run"
@@ -18,24 +18,24 @@ runs_apt {
 	re_match(`\bapt\b`, val)
 }
 
-# APTCleanCache is true if there is an apt-get clean
+# apt_clean_cache is true if there is an apt-get clean
 # command.
-APTCleanCache {
+apt_clean_cache {
 	some i
 	input.stages[name][i].Cmd == "run"
 	val := input.stages[name][i].Value[_]
 	re_match(`apt clean|apt-get clean`, val)
 }
 
-# failAPTCleanCache is true if apt-get clean
+# fail_apt_clean_cache is true if apt-get clean
 # is included.
-failAPTCleanCache {
+fail_apt_clean_cache {
 	runs_apt
-	not APTCleanCache
+	not apt_clean_cache
 }
 
 deny[res] {
-	failAPTCleanCache
+	fail_apt_clean_cache
 	msg := "Clean apt cache"
 
 	res := {

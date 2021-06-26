@@ -16,23 +16,21 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-getUpdate[args] {
+get_update[args] {
 	some i
 	input.stages[name][i].Cmd == "run"
 
-	merged := concat(" ", input.stages[name][i].Value)
+	args := concat(" ", input.stages[name][i].Value)
 
-	regex.match("(yum update)|(yum update-to)|(yum upgrade)|(yum upgrade-to)", merged)
-
-	args := merged
+	regex.match("(yum update)|(yum update-to)|(yum upgrade)|(yum upgrade-to)", args)
 }
 
-failUpdate {
-	count(getUpdate) > 0
+fail_update {
+	count(get_update) > 0
 }
 
 deny[res] {
-	failUpdate
-	args := getUpdate[_]
+	fail_update
+	args := get_update[_]
 	res := sprintf("Shouldn't use %s in Dockerfile", [args])
 }

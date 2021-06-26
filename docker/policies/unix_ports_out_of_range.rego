@@ -16,7 +16,7 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-getPorts[args] {
+get_ports[args] {
 	some i, name
 	input.stages[name][i].Cmd == "expose"
 	cmd := input.stages[name][i]
@@ -26,12 +26,12 @@ getPorts[args] {
 	args := port
 }
 
-failExposePorts {
-	count(getPorts) > 0
+fail_expose_ports {
+	count(get_ports) > 0
 }
 
 deny[res] {
-	failExposePorts
-	port := getPorts[_]
+	fail_expose_ports
+	port := get_ports[_]
 	res := sprintf("'EXPOSE' contains port which is out of range [0, 65535]: %d", [port])
 }
