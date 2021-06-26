@@ -18,6 +18,10 @@
   file: multiple_entrypoint_instructions_listed.rego
 - id: DS010
   file: unix_ports_out_of_range.rego
+- id: DS011
+  file: workdir_path_not_absolute.rego
+- id: DS012
+  file: run_using_dnf_update.rego
 
 
 
