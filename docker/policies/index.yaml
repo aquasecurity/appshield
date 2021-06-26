@@ -28,6 +28,8 @@
   file: run_using_sudo.rego
 - id: DS015
   file: copy_with_more_than_two_arguments_not_ending_with_slash.rego
+- id: DS016
+  file: same_alias_in_different_froms.rego
 
 
 
