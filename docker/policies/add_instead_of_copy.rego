@@ -20,11 +20,9 @@ getAdd[args] {
 	some i, name
 	input.stages[name][i].Cmd == "add"
 
-	merged := concat(" ", input.stages[name][i].Value)
+	args := concat(" ", input.stages[name][i].Value)
 
-	not contains(merged, ".tar")
-
-	args := merged
+	not contains(args, ".tar")
 }
 
 failAdd {
