@@ -1,4 +1,4 @@
-package appshield.DS010
+package appshield.DS008
 
 __rego_metadata__ := {
 	"id": "DS010",

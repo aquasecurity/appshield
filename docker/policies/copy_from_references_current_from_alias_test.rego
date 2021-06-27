@@ -1,4 +1,4 @@
-package appshield.DS007
+package appshield.DS006
 
 test_deny_basic_positive {
 	r := deny with input as {"stages": {
