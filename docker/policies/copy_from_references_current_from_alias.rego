@@ -1,7 +1,7 @@
 package appshield.DS006
 
 __rego_metadata__ := {
-	"id": "DS007",
+	"id": "DS006",
 	"title": "COPY '--from' references current image FROM alias",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",

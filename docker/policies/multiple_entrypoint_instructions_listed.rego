@@ -1,7 +1,7 @@
 package appshield.DS007
 
 __rego_metadata__ := {
-	"id": "DS009",
+	"id": "DS007",
 	"title": "Multiple ENTRYPOINT Instructions Listed",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",

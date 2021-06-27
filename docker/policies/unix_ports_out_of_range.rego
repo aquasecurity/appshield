@@ -1,7 +1,7 @@
 package appshield.DS008
 
 __rego_metadata__ := {
-	"id": "DS010",
+	"id": "DS008",
 	"title": "UNIX Ports Out Of Range",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
