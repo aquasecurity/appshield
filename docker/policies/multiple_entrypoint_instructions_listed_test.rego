@@ -40,8 +40,8 @@ test_denied {
 		],
 	}}
 
-	count(r) == 2
-	startswith(r[_], "Duplicate ENTRYPOINT")
+	count(r) == 1
+	r[_] == "There are 2 duplicate ENTRYPOINT instructions"
 }
 
 test_allowed {
