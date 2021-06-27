@@ -1,0 +1,24 @@
+- id: DS001
+  file: latest_tag.rego
+- id: DS002
+  file: root_user.rego
+- id: DS003
+  file: apt_cache.rego
+- id: DS004
+  file: port22.rego
+- id: DS005
+  file: add_instead_of_copy.rego
+- id: DS006
+  file: copy_from_references_current_from_alias.rego
+- id: DS007
+  file: multiple_entrypoint_instructions_listed.rego
+- id: DS008
+  file: unix_ports_out_of_range.rego
+
+
+
+
+
+
+
+

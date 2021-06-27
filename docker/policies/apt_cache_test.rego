@@ -1,25 +1,34 @@
 package appshield.dockerfile.DS003
 
-test_failAPTCleanCache_empty {
-	not failAPTCleanCache with input as [{"Cmd": "run", "Value": []}]
+test_empty_allowed {
+	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "run", "Value": []}]}}
+	count(r) == 0
 }
 
-test_failAPTCleanCache_apt_install {
-	failAPTCleanCache with input as [{"Cmd": "run", "Value": ["apt install"]}]
+test_apt_install_denied {
+	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "run", "Value": ["apt install"]}]}}
+	count(r) == 1
+	r[_].msg == "Clean apt cache"
 }
 
-test_failAPTCleanCache_apt_get_install {
-	failAPTCleanCache with input as [{"Cmd": "run", "Value": ["apt-get install"]}]
+test_apt_get_install_denied {
+	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "run", "Value": ["apt-get install"]}]}}
+	r > 0
+	r[_].msg == "Clean apt cache"
 }
 
-test_failAPTCleanCache_apt_get_update {
-	failAPTCleanCache with input as [{"Cmd": "run", "Value": ["apt-get update"]}]
+test_apt_get_update_denied {
+	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "run", "Value": ["apt-get update"]}]}}
+	count(r) == 1
+	r[_].msg == "Clean apt cache"
 }
 
-test_failAPTCleanCache_apt_install {
-	not failAPTCleanCache with input as [{"Cmd": "run", "Value": ["apt install", "apt-get clean"]}]
+test_apt_install_allowed {
+	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "run", "Value": ["apt install", "apt-get clean"]}]}}
+	count(r) == 0
 }
 
-test_failAPTCleanCache_apt_get_update {
-	not failAPTCleanCache with input as [{"Cmd": "run", "Value": ["apt-get update", "apt clean"]}]
+test_apt_get_update_allowed {
+	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "run", "Value": ["apt-get update", "apt clean"]}]}}
+	count(r) == 0
 }

@@ -4,41 +4,41 @@ __rego_metadata__ := {
 	"id": "DS002",
 	"title": "Image user should not be 'root'",
 	"version": "v1.0.0",
-	"severity": "High",
+	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
 	"description": "It is a good practice to run the container as a non-root user.",
 	"recommended_actions": "Add 'USER <non root user name>' line to the Dockerfile",
 }
 
-# getUser returns all the usernames from
+# get_user returns all the usernames from
 # the USER command.
-getUser[user] {
+get_user[user] {
 	some i
-	input[i].Cmd == "user"
-	val := input[i].Value
+	input.stages[name][i].Cmd == "user"
+	val := input.stages[name][i].Value
 	user := val[_]
 }
 
-# failUserCount is true if there is no USER command.
-failUserCount {
-	count(getUser) < 1
+# fail_user_count is true if there is no USER command.
+fail_user_count {
+	count(get_user) < 1
 }
 
-# failLastUserRoot is true if the last USER command
+# fail_last_user_root is true if the last USER command
 # value is "root"
-failLastUserRoot {
-	user := cast_array(getUser)
-	len := count(getUser)
+fail_last_user_root {
+	user := cast_array(get_user)
+	len := count(get_user)
 	user[minus(len, 1)] == "root"
 }
 
 deny[msg] {
-	failUserCount
+	fail_user_count
 	msg = "Specify at least 1 USER command in Dockerfile"
 }
 
 deny[res] {
-	failLastUserRoot
+	fail_last_user_root
 	msg := "Last USER command in Dockerfile should not be root"
 	res := {
 		"msg": msg,
