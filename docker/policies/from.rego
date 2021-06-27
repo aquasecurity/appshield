@@ -4,7 +4,7 @@ __rego_metadata__ := {
 	"id": "DS001",
 	"title": "Use a tag name in FROM statement",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",
 	"description": "When using 'FROM' statement you should use a specific tag to avoid uncontrolled behavior when image is updated",
 	"recommended_actions": "Add a tag to the image in the FROM statement",

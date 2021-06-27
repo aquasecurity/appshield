@@ -4,7 +4,7 @@ __rego_metadata__ := {
 	"id": "DS002",
 	"title": "Image user should not be 'root'",
 	"version": "v1.0.0",
-	"severity": "High",
+	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
 	"description": "It is a good practice to run the container as a non-root user.",
 	"recommended_actions": "Add 'USER <non root user name>' line to the Dockerfile",

@@ -4,7 +4,7 @@ __rego_metadata__ := {
 	"id": "DS003",
 	"title": "Clean APT cache",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",
 	"description": "It is a good practice to clean the APT cache.",
 	"recommended_actions": "Add 'RUN apt-get clean' line to the Dockerfile",
