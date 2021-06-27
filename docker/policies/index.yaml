@@ -1,7 +1,7 @@
 - id: DS001
-  file: from.rego
+  file: latest_tag.rego
 - id: DS002
-  file: user.rego
+  file: root_user.rego
 - id: DS003
   file: apt_cache.rego
 - id: DS004

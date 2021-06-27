@@ -17,7 +17,7 @@ __rego_input__ := {
 }
 
 get_entrypoints(image) = entrypoints {
-	entrypoints := [v| image[i].Cmd == "entrypoint"; v := concat(" ", image[i].Value)]
+	entrypoints := [v | image[i].Cmd == "entrypoint"; v := concat(" ", image[i].Value)]
 }
 
 deny[res] {
