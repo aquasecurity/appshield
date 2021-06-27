@@ -1,6 +1,6 @@
 package appshield.DS006
 
-test_deny_basic_positive {
+test_basic_denied {
 	r := deny with input as {"stages": {
 		"golang:1.7.3 as dep": [
 			{
@@ -36,7 +36,7 @@ test_deny_basic_positive {
 	r[_] == "COPY from shouldn't mention current alias 'dep'"
 }
 
-test_deny_extra_spaces_positive {
+test_extra_spaces_denied {
 	r := deny with input as {"stages": {
 		"golang:1.7.3 as   dep": [
 			{
@@ -72,7 +72,7 @@ test_deny_extra_spaces_positive {
 	r[_] == "COPY from shouldn't mention current alias 'dep'"
 }
 
-test_deny_basic_negative {
+test_basic_allowed {
 	r := deny with input as {"stages": {
 		"golang:1.7.3 AS builder": [
 			{
