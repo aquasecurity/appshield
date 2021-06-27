@@ -15,37 +15,35 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-# get_image returns the image in FROM statement.
-get_image = image {
+# image_names returns the image in FROM statement.
+image_names[image_name] {
 	some i
 	input.stages[name][i].Cmd == "from"
-	val := input.stages[name][i].Value
-	image = val[i]
+	image_name := input.stages[name][i].Value[0]
 }
 
-# get_image_tag returns the image and tag.
-get_image_tag = [img, tag] {
-	i := get_image
-	[img, tag] = split(i, ":")
+# image_tags returns the image and tag.
+image_tags[[img, tag]] {
+	name := image_names[_]
+	[img, tag] = split(name, ":")
 }
 
-# get_image_tag returns the image and "latest" if
-# a tag is not specified.
-get_image_tag = [img, "latest"] {
-	img := get_image
+# image_tags returns the image and "latest" if a tag is not specified.
+image_tags[[img, "latest"]] {
+	img := image_names[_]
 	not contains(img, ":")
 }
 
 # fail_latest is true if image is not scratch and
 # tag is latest.
 fail_latest {
-	[img, tag] := get_image_tag
+	[img, tag] := image_tags[_]
 	img != "scratch"
 	tag == "latest"
 }
 
 deny[res] {
 	fail_latest
-	[img, _] := get_image_tag
+	[img, _] := image_tags[_]
 	res := sprintf("Specify tag for image %s", [img])
 }

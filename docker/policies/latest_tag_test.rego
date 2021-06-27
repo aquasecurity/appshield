@@ -16,6 +16,31 @@ test_no_tag_denied {
 
 # Test FROM with scratch
 test_scratch_allowed {
-	r := deny with input as {"stages": {"scratch": [{"Cmd": "from", "Value": ["scratch"]}]}}
+	r := deny with input as {"stages": {"scratch": [{
+		"Cmd": "from",
+		"Value": ["scratch"],
+	}]}}
+
+	count(r) == 0
+}
+
+test_multi_stage_allowed {
+	r := deny with input as {"stages": {
+		"golang:1.15 as builder": [
+			{
+				"Cmd": "from",
+				"Value": ["golang:1.15", "as", "builder"],
+			},
+			{
+				"Cmd": "run",
+				"Value": ["apt-get update"],
+			},
+		],
+		"alpine:3.13": [{
+			"Cmd": "from",
+			"Value": ["alpine:3.13"],
+		}],
+	}}
+
 	count(r) == 0
 }
