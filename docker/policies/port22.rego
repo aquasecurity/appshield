@@ -1,4 +1,4 @@
-package appshield.dockerfile.DS004
+package appshield.DS004
 
 __rego_metadata__ := {
 	"id": "DS004",
@@ -8,6 +8,11 @@ __rego_metadata__ := {
 	"type": "Dockerfile Security Check",
 	"description": "Exposing Port 22 allows users to SSH inside the container.",
 	"recommended_actions": "Remove port 22 from the dockerfile",
+}
+
+__rego_input__ := {
+	"combine": "false",
+	"selector": [{"type": "dockerfile"}],
 }
 
 # deny_list contains the port numbers which needs to be denied.
@@ -23,12 +28,5 @@ fail_port_check {
 
 deny[res] {
 	fail_port_check
-	msg := "Specify Port to SSH into the container"
-	res := {
-		"msg": msg,
-		"id": __rego_metadata__.id,
-		"title": __rego_metadata__.title,
-		"severity": __rego_metadata__.severity,
-		"type": __rego_metadata__.type,
-	}
+	res := "Specify Port to SSH into the container"
 }

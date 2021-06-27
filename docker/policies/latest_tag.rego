@@ -1,4 +1,4 @@
-package appshield.dockerfile.DS001
+package appshield.DS001
 
 __rego_metadata__ := {
 	"id": "DS001",
@@ -8,6 +8,11 @@ __rego_metadata__ := {
 	"type": "Dockerfile Security Check",
 	"description": "When using 'FROM' statement you should use a specific tag to avoid uncontrolled behavior when image is updated",
 	"recommended_actions": "Add a tag to the image in the FROM statement",
+}
+
+__rego_input__ := {
+	"combine": "false",
+	"selector": [{"type": "dockerfile"}],
 }
 
 # get_image returns the image in FROM statement.
@@ -42,12 +47,5 @@ fail_latest {
 deny[res] {
 	fail_latest
 	[img, _] := get_image_tag
-	msg := sprintf("Specify tag for image %s", [img])
-	res := {
-		"msg": msg,
-		"id": __rego_metadata__.id,
-		"title": __rego_metadata__.title,
-		"severity": __rego_metadata__.severity,
-		"type": __rego_metadata__.type,
-	}
+	res := sprintf("Specify tag for image %s", [img])
 }
