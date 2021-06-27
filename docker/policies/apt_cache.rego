@@ -1,4 +1,4 @@
-package appshield.dockerfile.DS003
+package appshield.DS003
 
 __rego_metadata__ := {
 	"id": "DS003",
@@ -8,6 +8,11 @@ __rego_metadata__ := {
 	"type": "Dockerfile Security Check",
 	"description": "It is a good practice to clean the APT cache.",
 	"recommended_actions": "Add 'RUN apt-get clean' line to the Dockerfile",
+}
+
+__rego_input__ := {
+	"combine": "false",
+	"selector": [{"type": "dockerfile"}],
 }
 
 # runs_apt is true if there is `apt` command.
@@ -36,13 +41,5 @@ fail_apt_clean_cache {
 
 deny[res] {
 	fail_apt_clean_cache
-	msg := "Clean apt cache"
-
-	res := {
-		"msg": msg,
-		"id": __rego_metadata__.id,
-		"title": __rego_metadata__.title,
-		"severity": __rego_metadata__.severity,
-		"type": __rego_metadata__.type,
-	}
+	res := "Clean apt cache"
 }

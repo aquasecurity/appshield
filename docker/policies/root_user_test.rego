@@ -1,4 +1,4 @@
-package appshield.dockerfile.DS002
+package appshield.DS002
 
 test_not_root_allowed {
 	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "user", "Value": ["user1", "user2"]}]}}
@@ -17,7 +17,7 @@ test_root_denied {
 	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "user", "Value": ["user1", "root"]}]}}
 
 	count(r) > 0
-	startswith(r[_].msg, "Last USER command in Dockerfile should not be root")
+	startswith(r[_], "Last USER command in Dockerfile should not be root")
 }
 
 test_empty_user_denied {
