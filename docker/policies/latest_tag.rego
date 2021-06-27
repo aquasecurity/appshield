@@ -1,5 +1,7 @@
 package appshield.DS001
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS001",
 	"title": "Use a tag name in FROM statement",
@@ -17,9 +19,8 @@ __rego_input__ := {
 
 # image_names returns the image in FROM statement.
 image_names[image_name] {
-	some i
-	input.stages[name][i].Cmd == "from"
-	image_name := input.stages[name][i].Value[0]
+	from := docker.from[_]
+	image_name := from.Value[0]
 }
 
 # image_tags returns the image and tag.

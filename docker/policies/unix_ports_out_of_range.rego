@@ -1,5 +1,7 @@
 package appshield.DS008
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS008",
 	"title": "UNIX Ports Out Of Range",
@@ -16,15 +18,13 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-get_ports[port] {
-	some i, name
-	input.stages[name][i].Cmd == "expose"
-	cmd := input.stages[name][i]
-	port := to_number(split(cmd.Value[_], "/")[0])
+invalid_ports[port] {
+	expose := docker.expose[_]
+	port := to_number(split(expose.Value[_], "/")[0])
 	port > 65535
 }
 
 deny[res] {
-	port := get_ports[_]
+	port := invalid_ports[_]
 	res := sprintf("'EXPOSE' contains port which is out of range [0, 65535]: %d", [port])
 }

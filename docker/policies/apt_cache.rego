@@ -1,5 +1,7 @@
 package appshield.DS003
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS003",
 	"title": "Clean APT cache",
@@ -15,27 +17,23 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-# runs_apt is true if there is `apt` command.
-runs_apt {
-	some i, name
-	input.stages[name][i].Cmd == "run"
-	val := input.stages[name][i].Value[_]
-	re_match(`\bapt\b`, val)
+# run_apt is true if there is `apt` command.
+run_apt {
+	run := docker.run[_]
+	re_match(`\bapt\b`, run.Value[_])
 }
 
 # apt_clean_cache is true if there is an apt-get clean
 # command.
 apt_clean_cache {
-	some i
-	input.stages[name][i].Cmd == "run"
-	val := input.stages[name][i].Value[_]
-	re_match(`apt clean|apt-get clean`, val)
+	run := docker.run[_]
+	re_match(`apt clean|apt-get clean`, run.Value[_])
 }
 
 # fail_apt_clean_cache is true if apt-get clean
 # is included.
 fail_apt_clean_cache {
-	runs_apt
+	run_apt
 	not apt_clean_cache
 }
 
