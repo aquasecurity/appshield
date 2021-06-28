@@ -24,18 +24,16 @@ deny[res] {
 
 	count(wget) > 0
 	count(curl) > 0
-    
-    res := "Shouldn't use both curl and wget"
-}
 
+	res := "Shouldn't use both curl and wget"
+}
 
 get_tool_usage(cmd, cmd_name) = wget {
 	count(cmd.Value) == 1
 
 	commandsList = split(cmd.Value[0], "&&")
-    
-    reg_exp = sprintf("^( )*%s", [cmd_name])
 
+	reg_exp = sprintf("^( )*%s", [cmd_name])
 
 	wget := [x | instruction := commandsList[i]; not contains(instruction, "install "); regex.match(reg_exp, instruction) == true; x := cmd.Value[0]]
 }

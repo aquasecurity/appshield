@@ -76,4 +76,3 @@ test_basic_allowed {
 
 	count(r) == 0
 }
-
