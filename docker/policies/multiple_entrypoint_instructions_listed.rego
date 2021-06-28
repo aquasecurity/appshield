@@ -1,5 +1,7 @@
 package appshield.DS007
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS007",
 	"title": "Multiple ENTRYPOINT Instructions Listed",
@@ -16,12 +18,8 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-get_entrypoints(image) = entrypoints {
-	entrypoints := [v | image[i].Cmd == "entrypoint"; v := concat(" ", image[i].Value)]
-}
-
 deny[res] {
-	args := get_entrypoints(input.stages[_])
-	count(args) > 1
-	res := sprintf("There are %d duplicate ENTRYPOINT instructions", [count(args)])
+	entrypoints := docker.stage_entrypoints[_]
+	count(entrypoints) > 1
+	res := sprintf("There are %d duplicate ENTRYPOINT instructions", [count(entrypoints)])
 }

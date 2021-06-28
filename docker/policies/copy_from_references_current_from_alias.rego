@@ -1,5 +1,7 @@
 package appshield.DS006
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS006",
 	"title": "COPY '--from' references current image FROM alias",
@@ -17,15 +19,13 @@ __rego_input__ := {
 }
 
 get_alias_from_copy[args] {
-	some i, j, name
-	input.stages[name][i].Cmd == "copy"
+	copies := docker.stage_copies[stage]
 
-	cmd := input.stages[name][i]
+	flag := copies[_].Flags[_]
+	contains(flag, "--from=")
+	parts := split(flag, "=")
 
-	contains(cmd.Flags[j], "--from=")
-	parts := split(cmd.Flags[j], "=")
-
-	is_alias_current_from_alias(name, parts[1])
+	is_alias_current_from_alias(stage, parts[1])
 	args := parts[1]
 }
 
