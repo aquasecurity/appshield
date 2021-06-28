@@ -1,5 +1,7 @@
 package appshield.DS004
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS004",
 	"title": "Exposing Port 22",
@@ -20,10 +22,8 @@ deny_list := [22]
 
 # fail_port_check is true if the Dockerfile contains an expose statement for value 22
 fail_port_check {
-	some i
-	input.stages[name][i].Cmd == "EXPOSE"
-	val := input.stages[name][i].Value
-	val[_] == deny_list[_]
+	expose := docker.expose[_]
+	expose.Value[_] == deny_list[_]
 }
 
 deny[res] {

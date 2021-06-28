@@ -5,7 +5,7 @@ test_basic_denied {
 		"golang:1.7.3 as dep": [
 			{
 				"Cmd": "from",
-				"Value": ["golang:1.7.3"],
+				"Value": ["golang:1.7.3", "as", "dep"],
 			},
 			{
 				"Cmd": "copy",

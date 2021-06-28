@@ -1,5 +1,7 @@
 package appshield.DS005
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS005",
 	"title": "COPY Instead of ADD",
@@ -17,10 +19,8 @@ __rego_input__ := {
 }
 
 get_add[args] {
-	some i, name
-	input.stages[name][i].Cmd == "add"
-
-	args := concat(" ", input.stages[name][i].Value)
+	add := docker.add[_]
+	args := concat(" ", add.Value)
 
 	not contains(args, ".tar")
 }
