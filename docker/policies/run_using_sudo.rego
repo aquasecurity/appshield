@@ -1,7 +1,7 @@
-package appshield.DS014
+package appshield.DS010
 
 __rego_metadata__ := {
-	"id": "DS014",
+	"id": "DS010",
 	"title": "Run Using Sudo",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",

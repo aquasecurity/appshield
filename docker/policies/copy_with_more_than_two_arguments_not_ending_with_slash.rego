@@ -1,7 +1,7 @@
-package appshield.DS015
+package appshield.DS011
 
 __rego_metadata__ := {
-	"id": "DS015",
+	"id": "DS011",
 	"title": "Copy With More Than Two Arguments Not Ending With Slash",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",

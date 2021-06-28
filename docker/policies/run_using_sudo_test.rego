@@ -1,4 +1,4 @@
-package appshield.DS014
+package appshield.DS010
 
 test_deny_basic_positive {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [

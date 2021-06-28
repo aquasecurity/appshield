@@ -1,7 +1,7 @@
-package appshield.DS016
+package appshield.DS012
 
 __rego_metadata__ := {
-	"id": "DS016",
+	"id": "DS012",
 	"title": "Same Alias In Different Froms",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",

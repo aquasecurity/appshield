@@ -1,7 +1,7 @@
-package appshield.DS011
+package appshield.DS009
 
 __rego_metadata__ := {
-	"id": "DS011",
+	"id": "DS009",
 	"title": "WORKDIR Path Not Absolute",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
