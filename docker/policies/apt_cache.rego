@@ -13,7 +13,7 @@ __rego_metadata__ := {
 }
 
 __rego_input__ := {
-	"combine": "false",
+	"combine": false,
 	"selector": [{"type": "dockerfile"}],
 }
 
