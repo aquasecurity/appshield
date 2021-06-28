@@ -1,13 +1,18 @@
-package appshield.dockerfile.DS002
+package appshield.DS002
 
 __rego_metadata__ := {
 	"id": "DS002",
 	"title": "Image user should not be 'root'",
 	"version": "v1.0.0",
-	"severity": "High",
+	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
 	"description": "It is a good practice to run the container as a non-root user.",
 	"recommended_actions": "Add 'USER <non root user name>' line to the Dockerfile",
+}
+
+__rego_input__ := {
+	"combine": "false",
+	"selector": [{"type": "dockerfile"}],
 }
 
 # get_user returns all the usernames from
@@ -39,12 +44,5 @@ deny[msg] {
 
 deny[res] {
 	fail_last_user_root
-	msg := "Last USER command in Dockerfile should not be root"
-	res := {
-		"msg": msg,
-		"id": __rego_metadata__.id,
-		"title": __rego_metadata__.title,
-		"severity": __rego_metadata__.severity,
-		"type": __rego_metadata__.type,
-	}
+	res := "Last USER command in Dockerfile should not be root"
 }

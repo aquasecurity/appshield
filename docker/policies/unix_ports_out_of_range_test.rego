@@ -1,6 +1,6 @@
-package appshield.DS010
+package appshield.DS008
 
-test_deny_65536_positive {
+test_denied {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",
@@ -30,10 +30,10 @@ test_deny_65536_positive {
 	]}}
 
 	count(r) == 1
-	startswith(r[_], "'EXPOSE' contains port which is out of range [0, 65535]: 65536")
+	r[_] == "'EXPOSE' contains port which is out of range [0, 65535]: 65536"
 }
 
-test_deny_within_range_negative {
+test_allowed {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",

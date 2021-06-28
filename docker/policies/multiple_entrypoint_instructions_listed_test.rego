@@ -1,6 +1,6 @@
-package appshield.DS009
+package appshield.DS007
 
-test_deny_basic_positive {
+test_denied {
 	r := deny with input as {"stages": {
 		"golang": [
 			{
@@ -40,11 +40,11 @@ test_deny_basic_positive {
 		],
 	}}
 
-	count(r) == 2
-	startswith(r[_], "Duplicate ENTRYPOINT")
+	count(r) == 1
+	r[_] == "There are 2 duplicate ENTRYPOINT instructions"
 }
 
-test_deny_basic_negative {
+test_allowed {
 	r := deny with input as {"stages": {
 		"golang": [
 			{

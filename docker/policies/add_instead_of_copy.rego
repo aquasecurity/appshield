@@ -25,12 +25,7 @@ get_add[args] {
 	not contains(args, ".tar")
 }
 
-fail_add {
-	count(get_add) > 0
-}
-
 deny[res] {
-	fail_add
 	args := get_add[_]
 	res := sprintf("expected COPY %s instead of ADD %s", [args, args])
 }

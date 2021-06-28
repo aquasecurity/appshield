@@ -1,7 +1,7 @@
-package appshield.DS007
+package appshield.DS006
 
 __rego_metadata__ := {
-	"id": "DS007",
+	"id": "DS006",
 	"title": "COPY '--from' references current image FROM alias",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
@@ -34,19 +34,14 @@ is_alias_current_from_alias(current_name, current_alias) = allow {
 	current_alias_lower := lower(current_alias)
 
 	#expecting stage name as "myimage:tag as dep"
-	parts := split(current_name_lower, " as ")
+	[_, alias] := regex.split(`\s+as\s+`, current_name_lower)
 
-	parts[1] == current_alias
+	alias == current_alias
 
 	allow = true
 }
 
-fail_from_alias {
-	count(get_alias_from_copy) > 0
-}
-
 deny[res] {
-	fail_from_alias
 	args := get_alias_from_copy[_]
 	res := sprintf("COPY from shouldn't mention current alias '%s'", [args])
 }
