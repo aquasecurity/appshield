@@ -1,6 +1,6 @@
 package appshield.DS010
 
-test_deny_basic_positive {
+test_basic_denied {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
 		{
 			"Cmd": "from",
@@ -53,10 +53,10 @@ test_deny_basic_positive {
 	]}}
 
 	count(r) == 1
-	startswith(r[_], "Shouldn't use sudo pip install --upgrade pip in Dockerfile")
+	r[_] == "Shouldn't use sudo pip install --upgrade pip in Dockerfile"
 }
 
-test_deny_basic_negative {
+test_basic_allowed {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",

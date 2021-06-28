@@ -1,6 +1,6 @@
 package appshield.DS011
 
-test_deny_basic_positive {
+test_basic_denied {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",
@@ -13,10 +13,10 @@ test_deny_basic_positive {
 	]}}
 
 	count(r) == 1
-	startswith(r[_], "Slash is expected at the end of my_app")
+	r[_] == "Slash is expected at the end of my_app"
 }
 
-test_deny_two_arg_negative {
+test_two_args_allowed {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",
@@ -31,7 +31,7 @@ test_deny_two_arg_negative {
 	count(r) == 0
 }
 
-test_deny_three_arg_negative {
+test_three_arg_denied {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",

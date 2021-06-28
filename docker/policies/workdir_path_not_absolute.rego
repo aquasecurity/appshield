@@ -1,5 +1,7 @@
 package appshield.DS009
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS009",
 	"title": "WORKDIR Path Not Absolute",
@@ -17,20 +19,13 @@ __rego_input__ := {
 }
 
 get_work_dir[arg] {
-	some i
-	cmd_obj := input.stages[name][i]
-	cmd_obj.Cmd == "workdir"
-	arg := cmd_obj.Value[0]
+	workdir := docker.workdir[_]
+	arg := workdir.Value[0]
 
 	not regex.match("(^/[A-z0-9-_+]*)|(^[A-z0-9-_+]:\\\\.*)|(^\\$[{}A-z0-9-_+].*)", arg)
 }
 
-fail_work_dir {
-	count(get_work_dir) > 0
-}
-
 deny[res] {
-	fail_work_dir
 	arg := get_work_dir[_]
 	res := sprintf("Path %s isn't absolute", [arg])
 }

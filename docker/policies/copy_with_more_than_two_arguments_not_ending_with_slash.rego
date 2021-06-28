@@ -1,5 +1,7 @@
 package appshield.DS011
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS011",
 	"title": "Copy With More Than Two Arguments Not Ending With Slash",
@@ -17,25 +19,18 @@ __rego_input__ := {
 }
 
 get_copy_arg[arg] {
-	some i
-	cmd_obj := input.stages[name][i]
-	cmd_obj.Cmd == "copy"
+	copy := docker.copy[_]
 
-	cnt := count(cmd_obj.Value)
+	cnt := count(copy.Value)
 
 	cnt > 2
 
-	arg := cmd_obj.Value[minus(cnt, 1)]
+	arg := copy.Value[minus(cnt, 1)]
 
 	not endswith(arg, "/")
 }
 
-fail_copy {
-	count(get_copy_arg) > 0
-}
-
 deny[res] {
-	fail_copy
 	arg := get_copy_arg[_]
 	res := sprintf("Slash is expected at the end of %s", [arg])
 }

@@ -1,6 +1,6 @@
 package appshield.DS009
 
-test_deny_basic_positive {
+test_basic_denied {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
 		{"Cmd": "from", "Value": ["alpine:3.5"]},
 		{
@@ -46,10 +46,10 @@ test_deny_basic_positive {
 	]}}
 
 	count(r) == 1
-	startswith(r[_], "Path workdir isn't absolute")
+	r[_] == "Path workdir isn't absolute"
 }
 
-test_deny_no_work_dir_negative {
+test_no_work_dir_allowed {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",
@@ -81,7 +81,7 @@ test_deny_no_work_dir_negative {
 	count(r) == 0
 }
 
-test_deny_absolute_work_dir_negative {
+test_absolute_work_dir_allowed {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",

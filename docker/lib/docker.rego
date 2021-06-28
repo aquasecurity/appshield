@@ -44,3 +44,8 @@ user[instruction] {
 	instruction := input.stages[_][_]
 	instruction.Cmd == "user"
 }
+
+workdir[instruction] {
+	instruction := input.stages[_][_]
+	instruction.Cmd == "workdir"
+}

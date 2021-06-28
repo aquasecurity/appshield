@@ -1,5 +1,7 @@
 package appshield.DS010
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS010",
 	"title": "Run Using Sudo",
@@ -21,26 +23,19 @@ has_sudo(commands) {
 
 	some i
 	instruction := parts[i]
-	regex.match("^( )*sudo", instruction)
+	regex.match(`^\s*sudo`, instruction)
 }
 
 get_sudo[arg] {
-	some i
-	cmd_obj := input.stages[name][i]
-	cmd_obj.Cmd == "run"
-	count(cmd_obj.Value) == 1
+	run = docker.run[_]
+	count(run.Value) == 1
 
-	arg := cmd_obj.Value[0]
+	arg := run.Value[0]
 
 	has_sudo(arg)
 }
 
-fail_sudo {
-	count(get_sudo) > 0
-}
-
 deny[res] {
-	fail_sudo
 	args := get_sudo[_]
 	res := sprintf("Shouldn't use %s in Dockerfile", [args])
 }
