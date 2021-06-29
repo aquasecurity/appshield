@@ -1,9 +1,9 @@
-package appshield.DS017
+package appshield.DS016
 
 import data.lib.docker
 
 __rego_metadata__ := {
-	"id": "DS017",
+	"id": "DS016",
 	"title": "Multiple CMD Instructions Listed",
 	"version": "v1.0.0",
 	"severity": "HIGH",
