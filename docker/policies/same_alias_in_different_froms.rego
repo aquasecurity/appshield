@@ -6,24 +6,19 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "Different FROMS cant have the same alias defined",
+	"description": "Different FROMS can't have the same alias defined",
 	"recommended_actions": "Change aliases to make them different",
 	"url": "https://docs.docker.com/develop/develop-images/multistage-build/",
 }
 
 __rego_input__ := {
-	"combine": "false",
+	"combine": false,
 	"selector": [{"type": "dockerfile"}],
 }
 
 get_alias[alias] {
-	some name
-	input.stages[name]
-
-	name_lower = lower(name)
-	contains(name_lower, " as ")
-
-	[_, alias] := regex.split(`\s+as\s+`, name_lower)
+	name := get_aliased_name[_]
+	[_, alias] := regex.split(`\s+as\s+`, name)
 }
 
 get_aliased_name[arg] {
@@ -40,5 +35,5 @@ fail_same_alias {
 
 deny[res] {
 	fail_same_alias
-	res := sprintf("Duplicate alias found among: [%s]", [concat(",", get_aliased_name)])
+	res := sprintf("Duplicate alias found among: [%s]", [concat(", ", get_aliased_name)])
 }

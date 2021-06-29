@@ -14,15 +14,14 @@ __rego_metadata__ := {
 }
 
 __rego_input__ := {
-	"combine": "false",
+	"combine": false,
 	"selector": [{"type": "dockerfile"}],
 }
 
 has_sudo(commands) {
 	parts = split(commands, "&&")
 
-	some i
-	instruction := parts[i]
+	instruction := parts[_]
 	regex.match(`^\s*sudo`, instruction)
 }
 
@@ -36,6 +35,6 @@ get_sudo[arg] {
 }
 
 deny[res] {
-	args := get_sudo[_]
-	res := sprintf("Shouldn't use %s in Dockerfile", [args])
+	count(get_sudo) > 0
+	res := "Shouldn't use sudo in Dockerfile"
 }

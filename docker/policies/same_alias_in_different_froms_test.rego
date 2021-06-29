@@ -43,7 +43,7 @@ test_basic_denied {
 	}}
 
 	count(r) == 1
-	r[_] == "Duplicate alias found among: [baseimage as bi,debian:jesse1 as build,debian:jesse2 as build]"
+	r[_] == "Duplicate alias found among: [baseimage as bi, debian:jesse1 as build, debian:jesse2 as build]"
 }
 
 test_missed_alias_denied {
@@ -89,7 +89,7 @@ test_missed_alias_denied {
 	}}
 
 	count(r) == 1
-	r[_] == "Duplicate alias found among: [debian:jesse1 as build,debian:jesse2 as build]"
+	r[_] == "Duplicate alias found among: [debian:jesse1 as build, debian:jesse2 as build]"
 }
 
 test_no_alias_allowed {
@@ -166,7 +166,7 @@ test_extra_spaces_denied {
 	}}
 
 	count(r) == 1
-	r[_] == "Duplicate alias found among: [debian:jesse1 as    build,debian:jesse2 as build]"
+	r[_] == "Duplicate alias found among: [debian:jesse1 as    build, debian:jesse2 as build]"
 }
 
 test_basic_allowed {
