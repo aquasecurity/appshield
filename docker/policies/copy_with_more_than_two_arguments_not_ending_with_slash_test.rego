@@ -1,7 +1,7 @@
 package appshield.DS011
 
 test_basic_denied {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
+	r := deny with input as {"stages": {"alpine:3.3": [
 		{
 			"Cmd": "from",
 			"Value": ["node:carbon2"],
@@ -17,7 +17,7 @@ test_basic_denied {
 }
 
 test_two_args_allowed {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
+	r := deny with input as {"stages": {"alpine:3.3": [
 		{
 			"Cmd": "from",
 			"Value": ["node:carbon2"],
@@ -32,7 +32,7 @@ test_two_args_allowed {
 }
 
 test_three_arg_allowed {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
+	r := deny with input as {"stages": {"alpine:3.3": [
 		{
 			"Cmd": "from",
 			"Value": ["node:carbon2"],
