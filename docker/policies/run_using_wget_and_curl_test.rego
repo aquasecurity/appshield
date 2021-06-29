@@ -2,7 +2,7 @@ package appshield.DS014
 
 test_basic_denied {
 	r := deny with input as {"stages": {
-		"gliderlabs/alpine:3.5": [
+		"alpine:3.5": [
 			{
 				"Cmd": "from",
 				"Value": ["debian"],
@@ -45,7 +45,7 @@ test_basic_denied {
 
 test_basic_allowed {
 	r := deny with input as {"stages": {
-		"gliderlabs/alpine:3.5": [
+		"alpine:3.5": [
 			{
 				"Cmd": "from",
 				"Value": ["debian"],
