@@ -1,7 +1,7 @@
 package appshield.DS009
 
 test_basic_denied {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
+	r := deny with input as {"stages": {"alpine:3.5": [
 		{"Cmd": "from", "Value": ["alpine:3.5"]},
 		{
 			"Cmd": "run",
@@ -15,14 +15,6 @@ test_basic_denied {
 			"Cmd": "workdir",
 			"Value": ["workdir"],
 		},
-		{
-			"Cmd": "expose",
-			"Value": ["5000"],
-		},
-		{
-			"Cmd": "cmd",
-			"Value": ["python", "/usr/src/app/app.py"],
-		},
 	]}}
 
 	count(r) == 1
@@ -30,31 +22,14 @@ test_basic_denied {
 }
 
 test_no_work_dir_allowed {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
+	r := deny with input as {"stages": {"alpine:3.3": [
 		{
 			"Cmd": "from",
-			"Value": ["gliderlabs/alpine:3.3"],
+			"Value": ["alpine:3.3"],
 		},
 		{
 			"Cmd": "run",
 			"Value": ["apk --no-cache add nginx"],
-		},
-		{
-			"Cmd": "expose",
-			"Value": [
-				"65530/tcp",
-				"80",
-				"443",
-				"22",
-			],
-		},
-		{
-			"Cmd": "cmd",
-			"Value": [
-				"nginx",
-				"-g",
-				"daemon off;",
-			],
 		},
 	]}}
 
@@ -62,10 +37,10 @@ test_no_work_dir_allowed {
 }
 
 test_absolute_work_dir_allowed {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
+	r := deny with input as {"stages": {"alpine:3.3": [
 		{
 			"Cmd": "from",
-			"Value": ["gliderlabs/alpine:3.3"],
+			"Value": ["alpine:3.3"],
 		},
 		{
 			"Cmd": "run",
@@ -74,14 +49,6 @@ test_absolute_work_dir_allowed {
 		{
 			"Cmd": "workdir",
 			"Value": ["/path/to/workdir"],
-		},
-		{
-			"Cmd": "expose",
-			"Value": ["65530/tcp", "80", "443", "22"],
-		},
-		{
-			"Cmd": "cmd",
-			"Value": ["nginx", "-g", "daemon off;"],
 		},
 	]}}
 
