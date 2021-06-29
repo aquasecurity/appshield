@@ -53,7 +53,43 @@ test_basic_denied {
 	]}}
 
 	count(r) == 1
-	r[_] == "Shouldn't use sudo pip install --upgrade pip in Dockerfile"
+	r[_] == "Shouldn't use sudo in Dockerfile"
+}
+
+test_chaining_denied {
+	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
+		{
+			"Cmd": "from",
+			"Value": ["alpine:3.5"],
+		},
+		{
+			"Cmd": "run",
+			"Value": ["RUN apk add bash && sudo pip install --upgrade pip"],
+		},
+	]}}
+
+	count(r) == 1
+	r[_] == "Shouldn't use sudo in Dockerfile"
+}
+
+test_multi_vuls_denied {
+	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
+		{
+			"Cmd": "from",
+			"Value": ["alpine:3.5"],
+		},
+		{
+			"Cmd": "run",
+			"Value": ["RUN sudo pip install --upgrade pip"],
+		},
+		{
+			"Cmd": "run",
+			"Value": ["RUN apk add bash && sudo pip install --upgrade pip"],
+		},
+	]}}
+
+	count(r) == 1
+	r[_] == "Shouldn't use sudo in Dockerfile"
 }
 
 test_basic_allowed {

@@ -22,11 +22,9 @@ get_copy_arg[arg] {
 	copy := docker.copy[_]
 
 	cnt := count(copy.Value)
-
 	cnt > 2
 
 	arg := copy.Value[minus(cnt, 1)]
-
 	not endswith(arg, "/")
 }
 

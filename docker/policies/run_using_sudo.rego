@@ -21,8 +21,7 @@ __rego_input__ := {
 has_sudo(commands) {
 	parts = split(commands, "&&")
 
-	some i
-	instruction := parts[i]
+	instruction := parts[_]
 	regex.match(`^\s*sudo`, instruction)
 }
 
@@ -36,6 +35,6 @@ get_sudo[arg] {
 }
 
 deny[res] {
-	args := get_sudo[_]
-	res := sprintf("Shouldn't use %s in Dockerfile", [args])
+	count(get_sudo) > 0
+	res := "Shouldn't use sudo in Dockerfile"
 }

@@ -8,32 +8,12 @@ test_basic_denied {
 			"Value": ["apk add --update py2-pip"],
 		},
 		{
-			"Cmd": "run",
-			"Value": ["pip install --upgrade pip"],
-		},
-		{
 			"Cmd": "workdir",
 			"Value": ["/path/to/workdir"],
 		},
 		{
 			"Cmd": "workdir",
 			"Value": ["workdir"],
-		},
-		{
-			"Cmd": "copy",
-			"Value": ["requirements.txt", "/usr/src/app/"],
-		},
-		{
-			"Cmd": "run",
-			"Value": ["pip install --no-cache-dir -r /usr/src/app/requirements.txt"],
-		},
-		{
-			"Cmd": "copy",
-			"Value": ["app.py", "/usr/src/app/"],
-		},
-		{
-			"Cmd": "copy",
-			"Value": ["templates/index.html", "/usr/src/app/templates/"],
 		},
 		{
 			"Cmd": "expose",

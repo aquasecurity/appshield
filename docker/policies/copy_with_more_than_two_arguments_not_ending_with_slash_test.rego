@@ -31,7 +31,7 @@ test_two_args_allowed {
 	count(r) == 0
 }
 
-test_three_arg_denied {
+test_three_arg_allowed {
 	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
 		{
 			"Cmd": "from",
