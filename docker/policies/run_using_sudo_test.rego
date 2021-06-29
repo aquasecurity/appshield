@@ -1,7 +1,7 @@
 package appshield.DS010
 
 test_basic_denied {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
+	r := deny with input as {"stages": {"alpine:3.5": [
 		{
 			"Cmd": "from",
 			"Value": ["alpine:3.5"],
@@ -13,35 +13,6 @@ test_basic_denied {
 		{
 			"Cmd": "run",
 			"Value": ["sudo pip install --upgrade pip"],
-		},
-		{
-			"Cmd": "copy",
-			"Value": [
-				"requirements.txt",
-				"/usr/src/app/",
-			],
-		},
-		{
-			"Cmd": "run",
-			"Value": ["pip install --no-cache-dir -r /usr/src/app/requirements.txt"],
-		},
-		{
-			"Cmd": "copy",
-			"Value": [
-				"app.py",
-				"/usr/src/app/",
-			],
-		},
-		{
-			"Cmd": "copy",
-			"Value": [
-				"templates/index.html",
-				"/usr/src/app/templates/",
-			],
-		},
-		{
-			"Cmd": "expose",
-			"Value": ["5000"],
 		},
 		{
 			"Cmd": "cmd",
@@ -57,7 +28,7 @@ test_basic_denied {
 }
 
 test_chaining_denied {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
+	r := deny with input as {"stages": {"alpine:3.5": [
 		{
 			"Cmd": "from",
 			"Value": ["alpine:3.5"],
@@ -73,7 +44,7 @@ test_chaining_denied {
 }
 
 test_multi_vuls_denied {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
+	r := deny with input as {"stages": {"alpine:3.5": [
 		{
 			"Cmd": "from",
 			"Value": ["alpine:3.5"],
@@ -93,7 +64,7 @@ test_multi_vuls_denied {
 }
 
 test_basic_allowed {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
+	r := deny with input as {"stages": {"alpine:3.3": [
 		{
 			"Cmd": "from",
 			"Value": ["alpine:3.5"],
@@ -104,34 +75,7 @@ test_basic_allowed {
 		},
 		{
 			"Cmd": "run",
-			"Value": ["pip install --upgrade pip"],
-		},
-		{
-			"Cmd": "run",
 			"Value": ["apt-get install sudo"],
-		},
-		{
-			"Cmd": "copy",
-			"Value": [
-				"sudoers",
-				"/usr/src/app/",
-			],
-		},
-		{
-			"Cmd": "run",
-			"Value": ["pip install --no-cache-dir -r /usr/src/app/requirements.txt"],
-		},
-		{
-			"Cmd": "copy",
-			"Value": ["app.py", "/usr/src/app/"],
-		},
-		{
-			"Cmd": "copy",
-			"Value": ["templates/index.html", "/usr/src/app/templates/"],
-		},
-		{
-			"Cmd": "expose",
-			"Value": ["5000"],
 		},
 		{
 			"Cmd": "cmd",

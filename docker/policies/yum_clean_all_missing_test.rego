@@ -2,7 +2,7 @@ package appshield.DS015
 
 test_basic_denied {
 	r := deny with input as {"stages": {
-		"gliderlabs/alpine:3.5": [
+		"alpine:3.5": [
 			{
 				"Cmd": "from",
 				"Value": ["alpine:3.5"],
@@ -52,7 +52,7 @@ test_basic_denied {
 				],
 			},
 		],
-		"gliderlabs/alpine:3.4": [
+		"alpine:3.4": [
 			{
 				"Cmd": "from",
 				"Value": ["alpine:3.4"],
@@ -69,10 +69,10 @@ test_basic_denied {
 }
 
 test_wrong_order_of_commands_denied {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
+	r := deny with input as {"stages": {"alpine:3.5": [
 		{
 			"Cmd": "from",
-			"Value": ["alpine:3.4"],
+			"Value": ["alpine:3.5"],
 		},
 		{
 			"Cmd": "run",
@@ -86,7 +86,7 @@ test_wrong_order_of_commands_denied {
 
 test_basic_allowed {
 	r := deny with input as {"stages": {
-		"gliderlabs/alpine:3.5": [
+		"alpine:3.5": [
 			{
 				"Cmd": "from",
 				"Value": ["alpine:3.5"],
@@ -136,7 +136,7 @@ test_basic_allowed {
 				],
 			},
 		],
-		"gliderlabs/alpine:3.4": [
+		"alpine:3.4": [
 			{
 				"Cmd": "from",
 				"Value": ["alpine:3.4"],

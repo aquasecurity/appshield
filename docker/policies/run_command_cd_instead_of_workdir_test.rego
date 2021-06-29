@@ -1,7 +1,7 @@
 package appshield.DS013
 
 test_basic_denied {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
+	r := deny with input as {"stages": {"nginx": [
 		{
 			"Cmd": "from",
 			"Value": ["nginx"],
@@ -35,7 +35,7 @@ test_basic_denied {
 }
 
 test_basic_allowed {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.5": [
+	r := deny with input as {"stages": {"nginx": [
 		{
 			"Cmd": "from",
 			"Value": ["nginx"],
