@@ -45,7 +45,6 @@ test_allowed {
 	count(r) == 0
 }
 
-#todo
 test_wrong_order_of_commands_denied {
 	r := deny with input as {"stages": {"alpine:3.5": [
 		{

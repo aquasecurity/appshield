@@ -36,3 +36,5 @@
   file: copy_from_without_from_alias_defined_previously.rego
 - id: DS019
   file: missing_dnf_clean_all.rego
+- id: DS020
+  file: missing_zypper_clean.rego
