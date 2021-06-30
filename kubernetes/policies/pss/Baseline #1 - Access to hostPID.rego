@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV008
+package appshield.KSV008
 
 import data.lib.kubernetes
 
@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV008",
 	"title": "Access to host IPC namespace",
 	"version": "v1.0.0",
-	"severity": "High",
+	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "Sharing the host’s IPC namespace allows container processes to communicate with processes on the host.",
 	"recommended_actions": "Do not set 'spec.template.spec.hostIPC' to true.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # failHostIPC is true if spec.hostIPC is set to true (on all resources)

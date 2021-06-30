@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV013
+package appshield.KSV013
 
 import data.lib.kubernetes
 
@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV013",
 	"title": "Image tag \":latest\" used",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "It is best to avoid using the ':latest' image tag when deploying containers in production. Doing so makes it hard to track which version of the image is running, and hard to roll back the version.",
 	"recommended_actions": "Use a specific container image tag that is not 'latest'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getTaggedContainers returns the names of all containers which

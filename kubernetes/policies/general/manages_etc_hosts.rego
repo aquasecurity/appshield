@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV007
+package appshield.KSV007
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV007",
 	"title": "Manages /etc/hosts",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "Managing /etc/hosts aliases can prevent the container engine from modifying the file after a pod’s containers have already been started.",
 	"recommended_actions": "Do not set 'spec.template.spec.hostAliases'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # failHostAliases is true if spec.hostAliases is set (on all controllers)
