@@ -29,15 +29,15 @@ deny[res] {
 }
 
 #chained commands
-get_tool_usage(cmd, cmd_name) = wget {
+get_tool_usage(cmd, cmd_name) = r {
 	count(cmd.Value) == 1
 
 	commands_list = split(cmd.Value[0], "&&")
 
 	reg_exp = sprintf("^( )*%s", [cmd_name])
 
-	wget := [x |
-		instruction := commands_list[i]
+	r := [x |
+		instruction := commands_list[_]
 
 		#install is allowed (it may be required by installed app)
 		not contains(instruction, "install ")
@@ -46,6 +46,7 @@ get_tool_usage(cmd, cmd_name) = wget {
 	]
 }
 
+#JSON array is specified
 get_tool_usage(cmd, cmd_name) = wget {
 	count(cmd.Value) > 1
 
