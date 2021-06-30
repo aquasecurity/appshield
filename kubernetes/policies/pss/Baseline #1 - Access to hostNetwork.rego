@@ -15,8 +15,8 @@ __rego_metadata__ := {
 }
 
 __rego_input__ := {
-    "combine": false,
-    "selector": [{"type": "kubernetes"}],
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # failHostNetwork is true if spec.hostNetwork is set to true (on all controllers)

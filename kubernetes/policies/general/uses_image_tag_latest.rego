@@ -15,8 +15,8 @@ __rego_metadata__ := {
 }
 
 __rego_input__ := {
-    "combine": false,
-    "selector": [{"type": "kubernetes"}],
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getTaggedContainers returns the names of all containers which

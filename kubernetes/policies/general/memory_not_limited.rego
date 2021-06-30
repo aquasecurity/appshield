@@ -16,8 +16,8 @@ __rego_metadata__ := {
 }
 
 __rego_input__ := {
-    "combine": false,
-    "selector": [{"type": "kubernetes"}],
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getLimitsMemoryContainers returns all containers which have set resources.limits.memory

@@ -16,8 +16,8 @@ __rego_metadata__ := {
 }
 
 __rego_input__ := {
-    "combine": false,
-    "selector": [{"type": "kubernetes"}],
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getNoPrivilegeEscalationContainers returns the names of all containers which have

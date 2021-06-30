@@ -17,8 +17,8 @@ __rego_metadata__ := {
 }
 
 __rego_input__ := {
-    "combine": false,
-    "selector": [{"type": "kubernetes"}],
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # checkDockerSocket is true if volumes.hostPath.path is set to /var/run/docker.sock

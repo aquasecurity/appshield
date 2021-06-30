@@ -16,10 +16,9 @@ __rego_metadata__ := {
 }
 
 __rego_input__ := {
-    "combine": false,
-    "selector": [{"type": "kubernetes"}],
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
-
 
 # getLimitsCPUContainers returns all containers which have set resources.limits.cpu
 getLimitsCPUContainers[container] {
