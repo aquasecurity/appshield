@@ -76,3 +76,37 @@ test_basic_allowed {
 
 	count(r) == 0
 }
+
+test_install_allowed {
+	r := deny with input as {"stages": {
+		"alpine:3.5": [
+			{
+				"Cmd": "from",
+				"Value": ["debian"],
+			},
+			{
+				"Cmd": "run",
+				"Value": ["curl http://bing.com"],
+			},
+			{
+				"Cmd": "run",
+				"Value": ["apt-get update && apt-get install wget"],
+			},
+		],
+		"baseimage:1.0": [
+			{
+				"Cmd": "from",
+				"Value": ["baseImage"],
+			},
+			{
+				"Cmd": "run",
+				"Value": [
+					"curl",
+					"http://bing.com",
+				],
+			},
+		],
+	}}
+
+	count(r) == 0
+}

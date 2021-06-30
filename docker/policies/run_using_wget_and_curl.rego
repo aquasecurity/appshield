@@ -28,14 +28,22 @@ deny[res] {
 	res := "Shouldn't use both curl and wget"
 }
 
+#chained commands
 get_tool_usage(cmd, cmd_name) = wget {
 	count(cmd.Value) == 1
 
-	commandsList = split(cmd.Value[0], "&&")
+	commands_list = split(cmd.Value[0], "&&")
 
 	reg_exp = sprintf("^( )*%s", [cmd_name])
 
-	wget := [x | instruction := commandsList[i]; not contains(instruction, "install "); regex.match(reg_exp, instruction) == true; x := cmd.Value[0]]
+	wget := [x |
+		instruction := commands_list[i]
+
+		#install is allowed (it may be required by installed app)
+		not contains(instruction, "install ")
+		regex.match(reg_exp, instruction) == true
+		x := cmd.Value[0]
+	]
 }
 
 get_tool_usage(cmd, cmd_name) = wget {
