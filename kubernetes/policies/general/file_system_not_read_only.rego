@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV014
+package appshield.KSV014
 
 import data.lib.kubernetes
 
@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV014",
 	"title": "Root file system is not read-only",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.",
 	"recommended_actions": "Change 'containers[].securityContext.readOnlyRootFilesystem' to 'true'.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # getReadOnlyRootFilesystemContainers returns all containers that have

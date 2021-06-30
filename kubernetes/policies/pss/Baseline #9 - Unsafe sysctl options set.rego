@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV026
+package appshield.KSV026
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV026",
 	"title": "Unsafe sysctl options set",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed 'safe' subset. A sysctl is considered safe if it is namespaced in the container or the pod, and is isolated from other pods and processes on the same node.",
 	"recommended_actions": "Do not set 'spec.securityContext.sysctls' or set to values in allowed subset.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # Add allowed sysctls

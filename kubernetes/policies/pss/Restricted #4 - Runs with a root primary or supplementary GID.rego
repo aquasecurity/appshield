@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV029
+package appshield.KSV029
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV029",
 	"title": "Runs with a root primary or supplementary GID",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "According to pod security standard 'Non-root groups', containers should be forbidden from running with a root primary or supplementary GID.",
 	"recommended_actions": "Set 'containers[].securityContext.runAsGroup' to a non-zero integer or leave undefined.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # getContainersWithRootGroupId returns a list of containers

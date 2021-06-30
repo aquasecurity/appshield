@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV012
+package appshield.KSV012
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV012",
 	"title": "Runs as root user",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Force the running image to run as a non-root user to ensure least privileges.",
 	"recommended_actions": "Set 'containers[].securityContext.runAsNonRoot' to true.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # getNonRootContainers returns the names of all containers which have

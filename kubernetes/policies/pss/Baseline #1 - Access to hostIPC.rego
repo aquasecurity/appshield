@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV010
+package appshield.KSV010
 
 import data.lib.kubernetes
 
@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV010",
 	"title": "Access to host PID",
 	"version": "v1.0.0",
-	"severity": "High",
+	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "Sharing the host’s PID namespace allows visibility on host processes, potentially leaking information such as environment variables and configuration.",
 	"recommended_actions": "Do not set 'spec.template.spec.hostPID' to true.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # failHostPID is true if spec.hostPID is set to true (on all controllers)

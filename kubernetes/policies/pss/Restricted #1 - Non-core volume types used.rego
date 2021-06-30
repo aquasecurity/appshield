@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV028
+package appshield.KSV028
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -7,10 +7,15 @@ __rego_metadata__ := {
 	"id": "KSV028",
 	"title": "Non-core volume types used.",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "According to pod security standard 'Volume types', non-core volume types must not be used.",
 	"recommended_actions": "Do not Set 'spec.volumes[*]' to any of the disallowed volume types.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # Add disallowed volume type

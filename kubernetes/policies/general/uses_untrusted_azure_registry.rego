@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV032
+package appshield.KSV032
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV032",
 	"title": "Container images from non-ACR registries used",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Containers should only use images from trusted registries.",
 	"recommended_actions": "Use images from trusted Azure registries.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # getContainersWithTrustedAzureRegistry returns a list of containers

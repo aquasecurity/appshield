@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV017
+package appshield.KSV017
 
 import data.lib.kubernetes
 
@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV017",
 	"title": "Privileged",
 	"version": "v1.0.0",
-	"severity": "High",
+	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "Privileged containers share namespaces with the host system and do not offer any security. They should be used exclusively for system containers that require high privileges.",
 	"recommended_actions": "Change 'containers[].securityContext.privileged' to 'false'.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # getPrivilegedContainers returns all containers which have

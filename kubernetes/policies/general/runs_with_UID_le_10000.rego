@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV020
+package appshield.KSV020
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV020",
 	"title": "Runs with UID <= 10000",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Force the container to run with user ID > 10000 to avoid conflicts with the host’s user table.",
 	"recommended_actions": "Set 'containers[].securityContext.runAsUser' to an integer > 10000.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # getUserIdContainers returns the names of all containers which have

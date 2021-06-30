@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV033
+package appshield.KSV033
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV033",
 	"title": "Uses images from untrusted GCR registries.",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Containers should only use images from trusted GCR registries.",
 	"recommended_actions": "Use images from trusted GCR registries.",
+}
+
+__rego_input__ := {
+    "combine": false,
+    "selector": [{"type": "kubernetes"}],
 }
 
 # list of trusted GCR registries
