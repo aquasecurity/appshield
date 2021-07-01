@@ -30,15 +30,9 @@ deny[res] {
 }
 
 is_valid_update(command) {
-	contains(command, " update ")
-}
+	chained_parts := regex.split(`\s*&&\s*`, command)
 
-is_valid_update(command) {
-	contains(command, " --update ")
-}
-
-is_valid_update(command) {
-	array_split := split(command, " ")
+	array_split := split(chained_parts[_], " ")
 
 	len = count(array_split)
 
@@ -54,7 +48,7 @@ update_followed_by_install(command) {
 		"reinstall",
 		"groupinstall",
 		"localinstall",
-		"add",
+		"apk add",
 	]
 
 	update := indexof(command, "update")
