@@ -7,22 +7,8 @@ test_basic_denied {
 			"Value": ["nginx"],
 		},
 		{
-			"Cmd": "env",
-			"Value": [
-				"AUTHOR",
-				"Docker",
-			],
-		},
-		{
 			"Cmd": "run",
 			"Value": ["cd /usr/share/nginx/html"],
-		},
-		{
-			"Cmd": "copy",
-			"Value": [
-				"Hello_docker.html",
-				"/usr/share/nginx/html",
-			],
 		},
 		{
 			"Cmd": "cmd",
@@ -52,13 +38,6 @@ test_chaining_denied {
 			"Value": ["apt-get install vim && cd /usr/share/nginx/html"],
 		},
 		{
-			"Cmd": "copy",
-			"Value": [
-				"Hello_docker.html",
-				"/usr/share/nginx/html",
-			],
-		},
-		{
 			"Cmd": "cmd",
 			"Value": ["cd /usr/share/nginx/html && sed -e s/Docker/\"$AUTHOR\"/ Hello_docker.html > index.html ; nginx -g 'daemon off;'"],
 		},
@@ -73,13 +52,6 @@ test_basic_allowed {
 		{
 			"Cmd": "from",
 			"Value": ["nginx"],
-		},
-		{
-			"Cmd": "env",
-			"Value": [
-				"AUTHOR",
-				"Docker",
-			],
 		},
 		{
 			"Cmd": "workdir",

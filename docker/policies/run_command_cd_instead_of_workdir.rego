@@ -19,10 +19,9 @@ __rego_input__ := {
 }
 
 get_cd[args] {
-	some i, j, k
-	run := docker.run[i]
-	parts = regex.split(`\s+&&\s+`, run.Value[j])
-	startswith(parts[k], "cd ")
+	run := docker.run[_]
+	parts = regex.split(`\s*&&\s*`, run.Value[_])
+	startswith(parts[_], "cd ")
 	args := concat(" ", run.Value)
 }
 
