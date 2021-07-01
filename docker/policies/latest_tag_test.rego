@@ -89,3 +89,24 @@ test_with_variables_denied {
 	count(r) == 1
 	r[_] == "Specify tag for image all-in-one"
 }
+
+test_multi_stage_allowed {
+	r := deny with input as {"stages": {
+		"golang:1.15 as builder": [
+			{
+				"Cmd": "from",
+				"Value": ["golang:1.15", "as", "builder"],
+			},
+			{
+				"Cmd": "run",
+				"Value": ["apt-get update"],
+			},
+		],
+		"alpine:3.13": [{
+			"Cmd": "from",
+			"Value": ["alpine:3.13"],
+		}],
+	}}
+
+	count(r) == 0
+}
