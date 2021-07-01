@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV001
+package appshield.KSV001
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV001",
 	"title": "Can elevate its own privileges",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can elevate its own privileges and run as root, which might give the program control over the container and node.",
 	"recommended_actions": "Set 'set containers[].securityContext.allowPrivilegeEscalation' to 'false'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getNoPrivilegeEscalationContainers returns the names of all containers which have
