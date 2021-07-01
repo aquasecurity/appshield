@@ -40,3 +40,9 @@
   file: missing_zypper_clean.rego
 - id: DS021
   file: apt_get_missing_yes_flag_to_avoid_manual_input.rego
+- id: DS022
+  file: maintainer_is_deprecated.rego
+- id: DS023
+  file: multiple_healthcheck_instructions.rego
+- id: DS024
+  file: run_apt_get_dist_upgrade.rego
