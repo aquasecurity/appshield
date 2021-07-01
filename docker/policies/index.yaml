@@ -22,6 +22,12 @@
   file: copy_with_more_than_two_arguments_not_ending_with_slash.rego
 - id: DS012
   file: same_alias_in_different_froms.rego
+- id: DS013
+  file: run_command_cd_instead_of_workdir.rego
+- id: DS014
+  file: run_using_wget_and_curl.rego
+- id: DS015
+  file: yum_clean_all_missing.rego
 
 
 

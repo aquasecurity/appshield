@@ -1,10 +1,10 @@
 package appshield.DS008
 
 test_denied {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
+	r := deny with input as {"stages": {"alpine:3.3": [
 		{
 			"Cmd": "from",
-			"Value": ["gliderlabs/alpine:3.3"],
+			"Value": ["alpine:3.3"],
 		},
 		{
 			"Cmd": "run",
@@ -34,10 +34,10 @@ test_denied {
 }
 
 test_allowed {
-	r := deny with input as {"stages": {"gliderlabs/alpine:3.3": [
+	r := deny with input as {"stages": {"alpine:3.3": [
 		{
 			"Cmd": "from",
-			"Value": ["gliderlabs/alpine:3.3"],
+			"Value": ["alpine:3.3"],
 		},
 		{
 			"Cmd": "run",
