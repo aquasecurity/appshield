@@ -28,7 +28,8 @@ deny[res] {
 	res := "Shouldn't use both curl and wget"
 }
 
-#chained commands
+# chained commands
+# e.g. RUN curl http://example.com
 get_tool_usage(cmd, cmd_name) = r {
 	count(cmd.Value) == 1
 
@@ -41,16 +42,17 @@ get_tool_usage(cmd, cmd_name) = r {
 
 		#install is allowed (it may be required by installed app)
 		not contains(instruction, "install ")
-		regex.match(reg_exp, instruction) == true
+		regex.match(reg_exp, instruction)
 		x := cmd.Value[0]
 	]
 }
 
-#JSON array is specified
-get_tool_usage(cmd, cmd_name) = wget {
+# JSON array is specified
+# e.g. RUN ["curl", "http://example.com"]
+get_tool_usage(cmd, cmd_name) = res {
 	count(cmd.Value) > 1
 
 	cmd.Value[0] == cmd_name
 
-	wget := [concat(" ", cmd.Value)]
+	res := [concat(" ", cmd.Value)]
 }

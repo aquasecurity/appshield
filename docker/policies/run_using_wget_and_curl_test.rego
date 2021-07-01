@@ -16,27 +16,6 @@ test_basic_denied {
 				"Value": ["curl http://bing.com"],
 			},
 		],
-		"baseimage:1.0": [
-			{
-				"Cmd": "from",
-				"Value": ["baseImage"],
-			},
-			{
-				"Cmd": "run",
-				"Value": ["wget http://test.com"],
-			},
-			{
-				"Cmd": "run",
-				"Value": ["curl http://bing.com"],
-			},
-			{
-				"Cmd": "run",
-				"Value": [
-					"curl",
-					"http://bing.com",
-				],
-			},
-		],
 	}}
 
 	count(r) == 1
@@ -48,29 +27,11 @@ test_json_array_denied {
 		"alpine:3.5": [
 			{
 				"Cmd": "from",
-				"Value": ["debian"],
-			},
-			{
-				"Cmd": "run",
-				"Value": ["wget", "http://google.com"],
-			},
-			{
-				"Cmd": "run",
-				"Value": ["curl", "http://bing.com"],
-			},
-		],
-		"baseimage:1.0": [
-			{
-				"Cmd": "from",
 				"Value": ["baseImage"],
 			},
 			{
 				"Cmd": "run",
-				"Value": ["wget", "http://test.com"],
-			},
-			{
-				"Cmd": "run",
-				"Value": ["curl", "http://bing.com"],
+				"Value": ["wget http://google.com"],
 			},
 			{
 				"Cmd": "run",
@@ -133,19 +94,9 @@ test_json_array_allowed {
 			},
 			{
 				"Cmd": "run",
-				"Value": ["curl", "http://google.com"],
-			},
-		],
-		"baseimage:1.0": [
-			{
-				"Cmd": "from",
-				"Value": ["baseImage"],
-			},
-			{
-				"Cmd": "run",
 				"Value": [
 					"curl",
-					"http://bing.com",
+					"http://google.com",
 				],
 			},
 		],
@@ -168,19 +119,6 @@ test_install_allowed {
 			{
 				"Cmd": "run",
 				"Value": ["apt-get update && apt-get install wget"],
-			},
-		],
-		"baseimage:1.0": [
-			{
-				"Cmd": "from",
-				"Value": ["baseImage"],
-			},
-			{
-				"Cmd": "run",
-				"Value": [
-					"curl",
-					"http://bing.com",
-				],
 			},
 		],
 	}}
