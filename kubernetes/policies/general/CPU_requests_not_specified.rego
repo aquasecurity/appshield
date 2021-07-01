@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV015
+package appshield.KSV015
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV015",
 	"title": "CPU requests not specified",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "When containers have resource requests specified, the scheduler can make better decisions about which nodes to place pods on, and how to deal with resource contention.",
 	"recommended_actions": "Set 'containers[].resources.requests.cpu'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getRequestsCPUContainers returns all containers which have set resources.requests.cpu

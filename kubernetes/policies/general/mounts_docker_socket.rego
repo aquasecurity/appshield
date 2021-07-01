@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV006
+package appshield.KSV006
 
 import data.lib.kubernetes
 
@@ -10,10 +10,15 @@ __rego_metadata__ := {
 	"id": "KSV006",
 	"title": "hostPath volume mounted with docker.sock",
 	"version": "v1.0.0",
-	"severity": "High",
+	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "Mounting docker.sock from the host can give the container full root access to the host.",
 	"recommended_actions": "Do not specify /var/run/docker.socker in 'spec.template.volumes.hostPath.path'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # checkDockerSocket is true if volumes.hostPath.path is set to /var/run/docker.sock

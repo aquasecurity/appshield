@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV003
+package appshield.KSV003
 
 import data.lib.kubernetes
 
@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV003",
 	"title": "Default capabilities: some containers do not drop all",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "The container should drop all default capabilities and add only those that are needed for its execution.",
 	"recommended_actions": "Add 'ALL' to containers[].securityContext.capabilities.drop.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # Get all containers which include 'ALL' in security.capabilities.drop

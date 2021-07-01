@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV025
+package appshield.KSV025
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV025",
 	"title": "SELinux custom options set",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "According to pod security standard 'SElinux', setting custom SELinux options should be disallowed.",
 	"recommended_actions": "Do not set 'spec.securityContext.seLinuxOptions', spec.containers[*].securityContext.seLinuxOptions and spec.initContainers[*].securityContext.seLinuxOptions.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # failSELinuxOpts is true if securityContext.seLinuxOptions is set in any container
