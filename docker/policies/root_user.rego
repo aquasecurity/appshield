@@ -1,5 +1,7 @@
 package appshield.DS002
 
+import data.lib.docker
+
 __rego_metadata__ := {
 	"id": "DS002",
 	"title": "Image user should not be 'root'",
@@ -17,11 +19,9 @@ __rego_input__ := {
 
 # get_user returns all the usernames from
 # the USER command.
-get_user[user] {
-	some i
-	input.stages[name][i].Cmd == "user"
-	val := input.stages[name][i].Value
-	user := val[_]
+get_user[username] {
+	user := docker.user[_]
+	username := user.Value[_]
 }
 
 # fail_user_count is true if there is no USER command.
