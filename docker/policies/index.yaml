@@ -38,3 +38,5 @@
   file: missing_dnf_clean_all.rego
 - id: DS020
   file: missing_zypper_clean.rego
+- id: DS021
+  file: apt_get_missing_yes_flag_to_avoid_manual_input.rego
