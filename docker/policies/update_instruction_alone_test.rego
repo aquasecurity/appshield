@@ -24,6 +24,27 @@ test_denied {
 	r[_] == "apt-get update should be followed by install"
 }
 
+test_json_array_denied {
+	r := deny with input as {"stages": {"ubuntu:18.04": [
+		{
+			"Cmd": "from",
+			"Value": ["ubuntu:18.04"],
+		},
+		{
+			"Cmd": "run",
+			"Value": ["apt-get", "update"],
+		},
+		{
+			"Cmd": "entrypoint",
+			"Value": ["mysql"],
+		},
+	]}}
+
+	count(r) == 1
+	r[_] == "apt-get update should be followed by install"
+}
+
+
 test_chained_denied {
 	r := deny with input as {"stages": {"ubuntu:18.04": [
 		{
