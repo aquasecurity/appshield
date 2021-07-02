@@ -46,7 +46,6 @@ test_shortflag_denied {
 	r[_] == "apt-get update && apt-get -q dist-upgrade shouldn't be used in dockerfile"
 }
 
-
 test_longflag_denied {
 	r := deny with input as {"stages": {"debian": [
 		{
@@ -70,9 +69,6 @@ test_longflag_denied {
 	r[_] == "apt-get update && apt-get --quiet dist-upgrade shouldn't be used in dockerfile"
 }
 
-
-
-
 test_allowed {
 	r := deny with input as {"stages": {"debian": [
 		{
@@ -94,4 +90,3 @@ test_allowed {
 
 	count(r) == 0
 }
-

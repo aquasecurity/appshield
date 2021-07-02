@@ -19,8 +19,8 @@ __rego_input__ := {
 }
 
 deny[res] {
-	healthchecks := docker.stage_healthcheck[_]
+	healthchecks := docker.stage_healthcheck[name]
 	cnt := count(healthchecks)
 	cnt > 1
-	res := sprintf("There are %d duplicate HEALTHCHECK instructions", [cnt])
+	res := sprintf("There are %d duplicate HEALTHCHECK instructions for: %s", [cnt, name])
 }

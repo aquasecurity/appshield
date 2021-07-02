@@ -42,7 +42,7 @@ test_denied {
 	}}
 
 	count(r) == 1
-	r[_] == "There are 2 duplicate HEALTHCHECK instructions"
+	r[_] == "There are 2 duplicate HEALTHCHECK instructions for: golang:1.7.3"
 }
 
 test_allowed {
