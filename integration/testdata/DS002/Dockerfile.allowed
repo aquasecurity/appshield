@@ -1,0 +1,5 @@
+FROM debian:9
+
+RUN apt-get update
+
+USER foo
