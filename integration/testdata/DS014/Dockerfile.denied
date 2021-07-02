@@ -1,0 +1,6 @@
+FROM debian:stable-20210621
+RUN wget http://bing.com
+RUN curl http://google.com
+
+FROM baseimage:1.0
+RUN curl http://bing.com
