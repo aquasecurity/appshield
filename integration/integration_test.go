@@ -25,7 +25,7 @@ func TestDockerfile(t *testing.T) {
 		want         []types.Misconfiguration
 	}{
 		{
-			name:  "DS002 allowed",
+			name:  "DS002: root user",
 			input: "testdata/DS002",
 			want: []types.Misconfiguration{
 				{
