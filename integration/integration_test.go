@@ -76,7 +76,6 @@ func TestDockerfile(t *testing.T) {
 				},
 			},
 		},
-		/*there is separate issue with DS004
 		{
 			name:  "DS004: Exposing Port 22",
 			input: "testdata/DS004",
@@ -102,8 +101,7 @@ func TestDockerfile(t *testing.T) {
 					},
 				},
 			},
-		},*/
-
+		},
 		{
 			name:  "DS005: COPY Instead of ADD",
 			input: "testdata/DS005",
