@@ -25,6 +25,32 @@ func TestDockerfile(t *testing.T) {
 		want         []types.Misconfiguration
 	}{
 		{
+			name:  "DS001: latest tag",
+			input: "testdata/DS001",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.DS001",
+							Message:   "Specify tag for image debian",
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS001",
+								Type:     "Dockerfile Security Check",
+								Title:    "Use a tag name in FROM statement",
+								Severity: "MEDIUM",
+							},
+						},
+					},
+				},
+			},
+		},
+		{
 			name:  "DS002: root user",
 			input: "testdata/DS002",
 			want: []types.Misconfiguration{
