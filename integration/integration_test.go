@@ -429,20 +429,6 @@ func TestDockerfile(t *testing.T) {
 				return mergedLayer.Misconfigurations[i].FilePath < mergedLayer.Misconfigurations[j].FilePath
 			})
 
-			for _, m := range mergedLayer.Misconfigurations {
-				t.Logf("Filetype: %v\n", m.FileType)
-				t.Logf("Filename: %s\n", m.FilePath)
-				t.Logf("Failures:\n")
-
-				if len(m.Failures) == 0 {
-					t.Logf("	No failures!\n")
-				}
-
-				for _, f := range m.Failures {
-					t.Logf("	Namespace: %s\n", f.Namespace)
-					t.Logf("	Message: %s\n", f.Message)
-				}
-			}
 			// Assert the scan result
 			assert.Equal(t, tt.want, mergedLayer.Misconfigurations)
 		})
