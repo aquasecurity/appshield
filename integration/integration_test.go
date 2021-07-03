@@ -325,11 +325,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.DS012",
-							Message:   `Duplicate alias found among: [debian:jesse1 as build, debian:jesse2 as build]`,
+							Message:   `Duplicate aliases 'build' found in different FROMs`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS012",
 								Type:     "Dockerfile Security Check",
-								Title:    "Same Alias In Different Froms",
+								Title:    "Same Alias In Different FROMs",
 								Severity: "CRITICAL",
 							},
 						},
