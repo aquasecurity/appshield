@@ -10,6 +10,8 @@ on:
     paths-ignore:
       - '**/*.md'
       - 'LICENSE'
+env:
+  GO_VERSION: "1.16"
 jobs:
   opa-tests:
     name: OPA tests
@@ -32,3 +34,15 @@ jobs:
           fi
       - name: OPA Test
         run: opa test -v kubernetes/ docker/
+  integration-tests:
+    name: Integration tests
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - name: Run integration tests
+        run: go test -v ./...

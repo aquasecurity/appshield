@@ -28,11 +28,7 @@
   file: run_using_wget_and_curl.rego
 - id: DS015
   file: yum_clean_all_missing.rego
-
-
-
-
-
-
-
-
+- id: DS016
+  file: multiple_cmd_instructions_listed.rego
+- id: DS017
+  file: update_instruction_alone.rego

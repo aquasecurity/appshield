@@ -1,4 +1,4 @@
-package appshield.DS007
+package appshield.dockerfile.DS007
 
 import data.lib.docker
 
@@ -19,7 +19,7 @@ __rego_input__ := {
 }
 
 deny[res] {
-	entrypoints := docker.stage_entrypoints[_]
+	entrypoints := docker.stage_entrypoints[name]
 	count(entrypoints) > 1
-	res := sprintf("There are %d duplicate ENTRYPOINT instructions", [count(entrypoints)])
+	res := sprintf("There are %d duplicate ENTRYPOINT instructions for stage '%s'", [count(entrypoints), name])
 }

@@ -35,6 +35,11 @@ stage_entrypoints[stage_name] = entrypoints {
 	entrypoints := [entrypoint | entrypoint := stage[_]; entrypoint.Cmd == "entrypoint"]
 }
 
+stage_cmd[stage_name] = cmds {
+	stage := input.stages[stage_name]
+	cmds := [cmd | cmd := stage[_]; cmd.Cmd == "cmd"]
+}
+
 expose[instruction] {
 	instruction := input.stages[_][_]
 	instruction.Cmd == "expose"

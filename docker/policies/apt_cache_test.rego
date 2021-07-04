@@ -1,4 +1,4 @@
-package appshield.DS003
+package appshield.dockerfile.DS003
 
 test_empty_allowed {
 	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "run", "Value": []}]}}
