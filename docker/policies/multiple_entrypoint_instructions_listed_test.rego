@@ -1,4 +1,4 @@
-package appshield.DS007
+package appshield.dockerfile.DS007
 
 test_denied {
 	r := deny with input as {"stages": {
@@ -41,7 +41,7 @@ test_denied {
 	}}
 
 	count(r) == 1
-	r[_] == "There are 2 duplicate ENTRYPOINT instructions"
+	r[_] == "There are 2 duplicate ENTRYPOINT instructions for stage 'golang'"
 }
 
 test_allowed {

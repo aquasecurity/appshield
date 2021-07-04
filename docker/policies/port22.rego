@@ -1,4 +1,4 @@
-package appshield.DS004
+package appshield.dockerfile.DS004
 
 import data.lib.docker
 
@@ -18,12 +18,12 @@ __rego_input__ := {
 }
 
 # deny_list contains the port numbers which needs to be denied.
-deny_list := [22]
+denied_ports := ["22", "22/tcp", "22/udp"]
 
 # fail_port_check is true if the Dockerfile contains an expose statement for value 22
 fail_port_check {
 	expose := docker.expose[_]
-	expose.Value[_] == deny_list[_]
+	expose.Value[_] == denied_ports[_]
 }
 
 deny[res] {
