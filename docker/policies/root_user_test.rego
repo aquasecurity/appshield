@@ -1,4 +1,4 @@
-package appshield.DS002
+package appshield.dockerfile.DS002
 
 test_not_root_allowed {
 	r := deny with input as {"stages": {"alpine:3.13": [{

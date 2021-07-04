@@ -1,4 +1,4 @@
-package appshield.DS007
+package appshield.dockerfile.DS007
 
 test_denied {
 	r := deny with input as {"stages": {
