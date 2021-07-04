@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS011",
-	"title": "Copy With More Than Two Arguments Not Ending With Slash",
+	"title": "COPY with more than two arguments not ending with slash",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
@@ -30,5 +30,5 @@ get_copy_arg[arg] {
 
 deny[res] {
 	arg := get_copy_arg[_]
-	res := sprintf("Slash is expected at the end of %s", [arg])
+	res := sprintf("Slash is expected at the end of COPY command argument '%s'", [arg])
 }

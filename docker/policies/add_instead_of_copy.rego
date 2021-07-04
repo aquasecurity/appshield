@@ -4,12 +4,12 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS005",
-	"title": "COPY Instead of ADD",
+	"title": "Use COPY instead of ADD",
 	"version": "v1.0.0",
-	"severity": "MEDIUM",
+	"severity": "LOW",
 	"type": "Dockerfile Security Check",
-	"description": "Should use COPY instead of ADD unless, running a tar file",
-	"recommended_actions": "Replace ADD by COPY",
+	"description": "Should use COPY instead of ADD unless you want to extract a tar file. Note that ADD command will extract a tar file, which adds the risk of Zip based vulnerabilities. Due to that it is adviced to use COPY command, which does not extract tar files.",
+	"recommended_actions": "Use COPY instead of ADD",
 	"url": "https://docs.docker.com/engine/reference/builder/#add",
 }
 
@@ -27,5 +27,5 @@ get_add[args] {
 
 deny[res] {
 	args := get_add[_]
-	res := sprintf("expected COPY %s instead of ADD %s", [args, args])
+	res := sprintf("Consider using 'COPY %s' command instead of 'ADD %s'", [args, args])
 }
