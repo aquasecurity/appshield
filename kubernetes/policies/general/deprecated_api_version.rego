@@ -1,4 +1,5 @@
 package appshield.kubernetes.KSV101
+
 import data.lib.kubernetes
 import data.lib.utils
 
@@ -33,6 +34,8 @@ recommendedVersions := {
 getDeprecatedApi[name] {
 	allContainers := kubernetes.containers[_]
 	utils.has_key(recommendedVersions, kubernetes.apiVersion)
+	trace(sprintf("Check has key %v", [utils.has_key(recommendedVersions, kubernetes.apiVersion)]))
+	trace(sprintf("%v Should use %v", [kubernetes.kind, recommendedVersions[kubernetes.apiVersion][kubernetes.kind]]))
 	name := allContainers.name
 }
 
