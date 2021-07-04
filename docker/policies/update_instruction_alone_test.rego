@@ -44,7 +44,6 @@ test_json_array_denied {
 	r[_] == "Instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement"
 }
 
-
 test_chained_denied {
 	r := deny with input as {"stages": {"ubuntu:18.04": [
 		{
