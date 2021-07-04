@@ -195,7 +195,7 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.DS007",
-							Message:   `There are 2 duplicate ENTRYPOINT instructions`,
+							Message:   "There are 2 duplicate ENTRYPOINT instructions for stage 'golang:1.7.3 as dep'",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS007",
 								Type:     "Dockerfile Security Check",
