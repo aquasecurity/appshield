@@ -1,4 +1,4 @@
-package appshield.DS017
+package appshield.dockerfile.DS017
 
 test_denied {
 	r := deny with input as {"stages": {"ubuntu:18.04": [

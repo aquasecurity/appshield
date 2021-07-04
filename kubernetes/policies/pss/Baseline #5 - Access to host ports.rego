@@ -1,4 +1,4 @@
-package appshield.KSV024
+package appshield.kubernetes.KSV024
 
 import data.lib.kubernetes
 

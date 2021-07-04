@@ -37,7 +37,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS001",
+							Namespace: "appshield.dockerfile.DS001",
 							Message:   "Specify tag for image debian",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS001",
@@ -63,7 +63,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS002",
+							Namespace: "appshield.dockerfile.DS002",
 							Message:   "Specify at least 1 USER command in Dockerfile",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS002",
@@ -89,7 +89,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS003",
+							Namespace: "appshield.dockerfile.DS003",
 							Message:   "Clean apt cache",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS003",
@@ -115,7 +115,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS004",
+							Namespace: "appshield.dockerfile.DS004",
 							Message:   "Specify Port to SSH into the container",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS004",
@@ -141,7 +141,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS005",
+							Namespace: "appshield.dockerfile.DS005",
 							Message:   `expected COPY "/target/app.jar" "app.jar" instead of ADD "/target/app.jar" "app.jar"`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS005",
@@ -168,7 +168,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS006",
+							Namespace: "appshield.dockerfile.DS006",
 							Message:   `expected COPY "/target/app.jar" "app.jar" instead of ADD "/target/app.jar" "app.jar"`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS006",
@@ -194,7 +194,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS007",
+							Namespace: "appshield.dockerfile.DS007",
 							Message:   "There are 2 duplicate ENTRYPOINT instructions for stage 'golang:1.7.3 as dep'",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS007",
@@ -220,7 +220,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS008",
+							Namespace: "appshield.dockerfile.DS008",
 							Message:   `'EXPOSE' contains port which is out of range [0, 65535]: 65536`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS008",
@@ -246,7 +246,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS009",
+							Namespace: "appshield.dockerfile.DS009",
 							Message:   `Path path/to/workdir isn't absolute`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS009",
@@ -272,7 +272,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS010",
+							Namespace: "appshield.dockerfile.DS010",
 							Message:   `Shouldn't use sudo in Dockerfile`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS010",
@@ -298,7 +298,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS011",
+							Namespace: "appshield.dockerfile.DS011",
 							Message:   `Slash is expected at the end of myapp`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS011",
@@ -324,7 +324,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS012",
+							Namespace: "appshield.dockerfile.DS012",
 							Message:   `Duplicate aliases 'build' found in different FROMs`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS012",
@@ -350,7 +350,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS013",
+							Namespace: "appshield.dockerfile.DS013",
 							Message:   `RUN shouldn't be used to change directory: 'cd /usr/share/nginx/html'`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS013",
@@ -376,7 +376,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS014",
+							Namespace: "appshield.dockerfile.DS014",
 							Message:   `Shouldn't use both curl and wget`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS014",
@@ -402,7 +402,7 @@ func TestDockerfile(t *testing.T) {
 					FilePath: "Dockerfile.denied",
 					Failures: types.MisconfResults{
 						{
-							Namespace: "appshield.DS015",
+							Namespace: "appshield.dockerfile.DS015",
 							Message:   `'yum clean all' is missed: yum install vim`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS015",

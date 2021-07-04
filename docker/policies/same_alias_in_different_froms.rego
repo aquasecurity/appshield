@@ -1,4 +1,4 @@
-package appshield.DS012
+package appshield.dockerfile.DS012
 
 __rego_metadata__ := {
 	"id": "DS012",
