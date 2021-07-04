@@ -26,7 +26,7 @@ deny[res] {
 	is_valid_update(command)
 	not update_followed_by_install(command)
 
-	res := sprintf("%s should be followed by install", [concat(" ", run.Value)])
+	res := __rego_metadata__.description
 }
 
 is_valid_update(command) {
