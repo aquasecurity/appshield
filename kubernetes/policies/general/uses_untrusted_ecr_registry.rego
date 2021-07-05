@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV035",
 	"title": "Container images from non-ECR registries used",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Containers should only use images from trusted registries.",
 	"recommended_actions": "Use images from trusted registries.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # list of trusted ECR registries

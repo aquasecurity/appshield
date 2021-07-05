@@ -1,4 +1,4 @@
-package appshield.DS016
+package appshield.dockerfile.DS016
 
 import data.lib.docker
 
@@ -19,8 +19,8 @@ __rego_input__ := {
 }
 
 deny[res] {
-	cmds := docker.stage_cmd[_]
+	cmds := docker.stage_cmd[name]
 	cnt := count(cmds)
 	cnt > 1
-	res := sprintf("There are %d duplicate CMD instructions", [cnt])
+	res := sprintf("There are %d duplicate CMD instructions for stage '%s'", [cnt, name])
 }

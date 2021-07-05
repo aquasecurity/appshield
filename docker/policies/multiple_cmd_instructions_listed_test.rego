@@ -1,4 +1,4 @@
-package appshield.DS016
+package appshield.dockerfile.DS016
 
 test_denied {
 	r := deny with input as {"stages": {
@@ -29,7 +29,7 @@ test_denied {
 	}}
 
 	count(r) == 1
-	r[_] == "There are 2 duplicate CMD instructions"
+	r[_] == "There are 2 duplicate CMD instructions for stage 'golang:1.7.3'"
 }
 
 test_allowed {

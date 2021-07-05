@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV019",
 	"title": "Seccomp policies disabled",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can bypass Seccomp protection policies.",
 	"recommended_actions": "Remove the 'unconfined' value from 'container.seccomp.security.alpha.kubernetes.io'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getSeccompContainers returns all containers which have a seccomp

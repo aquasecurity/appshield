@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV009",
 	"title": "Access to host network",
 	"version": "v1.0.0",
-	"severity": "High",
+	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "Sharing the host’s network namespace permits processes in the pod to communicate with processes bound to the host’s loopback adapter.",
 	"recommended_actions": "Do not set 'spec.template.spec.hostNetwork' to true.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # failHostNetwork is true if spec.hostNetwork is set to true (on all controllers)

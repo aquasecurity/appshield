@@ -1,4 +1,4 @@
-package appshield.DS005
+package appshield.dockerfile.DS005
 
 test_mixed_commands_denied {
 	r := deny with input as {"stages": {"alpine:3.13": [

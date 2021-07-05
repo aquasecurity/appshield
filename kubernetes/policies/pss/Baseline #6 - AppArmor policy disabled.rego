@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV002",
 	"title": "AppArmor policies disabled",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can bypass AppArmor protection policies.",
 	"recommended_actions": "Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getApparmorContainers returns all containers which have an AppArmor

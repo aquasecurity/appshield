@@ -1,4 +1,4 @@
-package appshield.DS017
+package appshield.dockerfile.DS017
 
 import data.lib.docker
 
@@ -20,31 +20,25 @@ __rego_input__ := {
 
 deny[res] {
 	run := docker.run[_]
-	count(run.Value) == 1
-	command := run.Value[0]
+
+	command = concat(" ", run.Value)
 
 	is_valid_update(command)
 	not update_followed_by_install(command)
 
-	res := sprintf("%s should be followed by install", [concat(" ", run.Value)])
+	res := __rego_metadata__.description
 }
 
 is_valid_update(command) {
-	contains(command, " update ")
-}
+	chained_parts := regex.split(`\s*&&\s*`, command)
 
-is_valid_update(command) {
-	contains(command, " --update ")
-}
-
-is_valid_update(command) {
-	array_split := split(command, " ")
+	array_split := split(chained_parts[_], " ")
 
 	len = count(array_split)
 
 	update := {"update", "--update"}
 
-	array_split[minus(len, 1)] == update[j]
+	array_split[minus(len, 1)] == update[_]
 }
 
 update_followed_by_install(command) {
@@ -54,7 +48,7 @@ update_followed_by_install(command) {
 		"reinstall",
 		"groupinstall",
 		"localinstall",
-		"add",
+		"apk add",
 	]
 
 	update := indexof(command, "update")

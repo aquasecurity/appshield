@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV004",
 	"title": "Default capabilities: some containers do not drop any",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "Security best practices require containers to run with minimal required capabilities.",
 	"recommended_actions": "Specify at least one unneeded capability in 'containers[].securityContext.capabilities.drop'",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getCapsDropAnyContainers returns names of all containers

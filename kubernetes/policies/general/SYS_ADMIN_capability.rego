@@ -8,10 +8,15 @@ __rego_metadata__ := {
 	"id": "KSV005",
 	"title": "SYS_ADMIN capability added",
 	"version": "v1.0.0",
-	"severity": "High",
+	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "SYS_ADMIN gives the processes running inside the container privileges that are equivalent to root.",
 	"recommended_actions": "Remove the SYS_ADMIN capability from 'containers[].securityContext.capabilities.add'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getCapsSysAdmin returns the names of all containers which include

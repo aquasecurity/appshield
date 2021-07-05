@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV023",
 	"title": "HostPath volumes mounted",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "According to pod security standard 'HostPath Volumes', HostPath volumes must be forbidden.",
 	"recommended_actions": "Do not set 'spec.volumes[*].hostPath'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 failHostPathVolume {

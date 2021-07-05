@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV021",
 	"title": "Runs with GID <= 10000",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Force the container to run with group ID > 10000 to avoid conflicts with the host’s user table.",
 	"recommended_actions": "Set 'containers[].securityContext.runAsGroup' to an integer > 10000.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getGroupIdContainers returns the names of all containers which have
