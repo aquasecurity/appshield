@@ -12,7 +12,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "SYS_ADMIN gives the processes running inside the container privileges that are equivalent to root.",
 	"recommended_actions": "Remove the SYS_ADMIN capability from 'containers[].securityContext.capabilities.add'.",
-	"url": "https://kubesec.io/basics/containers-securitycontext-capabilities-add-index-sys-admin/"
+	"url": "https://kubesec.io/basics/containers-securitycontext-capabilities-add-index-sys-admin/",
 }
 
 __rego_input__ := {

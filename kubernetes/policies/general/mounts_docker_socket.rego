@@ -14,7 +14,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "Mounting docker.sock from the host can give the container full root access to the host.",
 	"recommended_actions": "Do not specify /var/run/docker.socket in 'spec.template.volumes.hostPath.path'.",
-	"url": "https://kubesec.io/basics/spec-volumes-hostpath-path-var-run-docker-sock/"
+	"url": "https://kubesec.io/basics/spec-volumes-hostpath-path-var-run-docker-sock/",
 }
 
 __rego_input__ := {

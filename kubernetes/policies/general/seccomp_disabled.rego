@@ -12,7 +12,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can bypass Seccomp protection policies.",
 	"recommended_actions": "Remove the 'unconfined' value from 'container.seccomp.security.alpha.kubernetes.io'.",
-	"url": "https://kubesec.io/basics/metadata-annotations-container-seccomp-security-alpha-kubernetes-io-pod/"
+	"url": "https://kubesec.io/basics/metadata-annotations-container-seccomp-security-alpha-kubernetes-io-pod/",
 }
 
 __rego_input__ := {
