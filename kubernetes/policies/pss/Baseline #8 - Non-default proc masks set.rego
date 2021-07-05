@@ -13,6 +13,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "According to pod security standard '/proc Mount Type', the default /proc masks are set up to reduce attack surface, and should be required.",
 	"recommended_actions": "Do not set spec.containers[*].securityContext.procMount and spec.initContainers[*].securityContext.procMount.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
 __rego_input__ := {

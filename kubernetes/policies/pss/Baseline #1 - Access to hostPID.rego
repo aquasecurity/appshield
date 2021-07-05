@@ -12,6 +12,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "Sharing the host’s IPC namespace allows container processes to communicate with processes on the host.",
 	"recommended_actions": "Do not set 'spec.template.spec.hostIPC' to true.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
 __rego_input__ := {

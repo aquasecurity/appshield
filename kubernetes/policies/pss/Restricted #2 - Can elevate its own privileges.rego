@@ -13,6 +13,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can elevate its own privileges and run as root, which might give the program control over the container and node.",
 	"recommended_actions": "Set 'set containers[].securityContext.allowPrivilegeEscalation' to 'false'.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
 }
 
 __rego_input__ := {

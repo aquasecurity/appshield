@@ -11,6 +11,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "According to pod security standard 'Volume types', non-core volume types must not be used.",
 	"recommended_actions": "Do not Set 'spec.volumes[*]' to any of the disallowed volume types.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
 }
 
 __rego_input__ := {

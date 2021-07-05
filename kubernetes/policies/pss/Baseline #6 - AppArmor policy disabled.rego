@@ -12,6 +12,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can bypass AppArmor protection policies.",
 	"recommended_actions": "Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
 __rego_input__ := {
