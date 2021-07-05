@@ -5,11 +5,6 @@ test_allowed {
 	count(r) == 0
 }
 
-test_allowed {
-	r := deny with input as {"stages": {"openjdk:8u292-oracle": [{"Cmd": "from", "Value": ["openjdk:8u292-oracle"]}]}}
-	count(r) == 0
-}
-
 # Test FROM image with latest tag
 test_latest_tag_denied {
 	r := deny with input as {"stages": {"openjdk": [{"Cmd": "from", "Value": ["openjdk:latest"]}]}}
