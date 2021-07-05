@@ -13,6 +13,8 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "Security best practices require containers to run with minimal required capabilities.",
 	"recommended_actions": "Specify at least one unneeded capability in 'containers[].securityContext.capabilities.drop'",
+	"url": "https://kubesec.io/basics/containers-securitycontext-capabilities-drop-index-all/"
+
 }
 
 __rego_input__ := {

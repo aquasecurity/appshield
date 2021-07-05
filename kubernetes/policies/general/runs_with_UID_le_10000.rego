@@ -13,6 +13,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "Force the container to run with user ID > 10000 to avoid conflicts with the host’s user table.",
 	"recommended_actions": "Set 'containers[].securityContext.runAsUser' to an integer > 10000.",
+	"url": "https://kubesec.io/basics/containers-securitycontext-runasuser/"
 }
 
 __rego_input__ := {

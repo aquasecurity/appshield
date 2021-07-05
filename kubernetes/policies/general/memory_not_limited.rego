@@ -13,6 +13,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "Enforcing memory limits prevents DoS via resource exhaustion.",
 	"recommended_actions": "Set a limit value under 'containers[].resources.limits.memory'.",
+	"url": "https://kubesec.io/basics/containers-resources-limits-memory/",
 }
 
 __rego_input__ := {
