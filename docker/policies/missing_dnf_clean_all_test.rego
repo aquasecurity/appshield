@@ -1,4 +1,4 @@
-package appshield.DS019
+package appshield.dockerfile.DS019
 
 test_denied {
 	r := deny with input as {"stages": {"fedora:27": [
