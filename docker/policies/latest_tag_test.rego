@@ -97,61 +97,21 @@ test_with_variables_denied {
 
 test_multi_stage_allowed {
 	r := deny with input as {"stages": {
-		"alpine:3.5": [
+		"golang:1.15 as builder": [
 			{
 				"Cmd": "from",
-				"Value": ["alpine:3.5"],
+				"Value": ["golang:1.15", "as", "builder"],
 			},
 			{
-				"Cmd": "arg",
-				"Value": ["IMAGE=alpine:3.12"],
+				"Cmd": "run",
+				"Value": ["apt-get update"],
 			},
 		],
-		"image": [
-			{
-				"Cmd": "from",
-				"Value": ["$IMAGE"],
-			},
-			{
-				"Cmd": "cmd",
-				"Value": [
-					"python",
-					"/usr/src/app/app.py",
-				],
-			},
-		],
+		"alpine:3.13": [{
+			"Cmd": "from",
+			"Value": ["alpine:3.13"],
+		}],
 	}}
 
 	count(r) == 0
-}
-
-test_with_variables_denied {
-	r := deny with input as {"stages": {
-		"alpine:3.5": [
-			{
-				"Cmd": "from",
-				"Value": ["alpine:3.5"],
-			},
-			{
-				"Cmd": "arg",
-				"Value": ["IMAGE=all-in-one"],
-			},
-		],
-		"image": [
-			{
-				"Cmd": "from",
-				"Value": ["$IMAGE"],
-			},
-			{
-				"Cmd": "cmd",
-				"Value": [
-					"python",
-					"/usr/src/app/app.py",
-				],
-			},
-		],
-	}}
-
-	count(r) == 1
-	r[_] == "Specify tag for image all-in-one"
 }
