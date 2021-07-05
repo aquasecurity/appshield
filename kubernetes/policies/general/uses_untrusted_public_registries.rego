@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV034",
 	"title": "Container images from public registries used",
 	"version": "v1.0.0",
-	"severity": "Medium",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Container images must not start with an empty prefix or a defined public registry domain.",
 	"recommended_actions": "Use images from private registries.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # list of untrusted public registries

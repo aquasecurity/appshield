@@ -1,4 +1,4 @@
-package appshield.DS001
+package appshield.dockerfile.DS001
 
 import data.lib.docker
 
@@ -37,7 +37,7 @@ parse_tag(img) = [img, tag] {
 #base scenario
 image_tags[[img, tag]] {
 	name := image_names[_]
-	not contains(name, "$")
+	not startswith(name, "$")
 	[img, tag] = parse_tag(name)
 }
 

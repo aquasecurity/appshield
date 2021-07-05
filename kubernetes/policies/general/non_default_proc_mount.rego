@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV031",
 	"title": "Proc mount not default or undefined",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "The default /proc masks are set up to reduce attack surface, and should be required.",
 	"recommended_actions": "Do not set spec.containers[*].securityContext.procMount and spec.initContainers[*].securityContext.procMount, or set to 'Default'",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getContainersWithDefaultProcMount returns the names of all containers which

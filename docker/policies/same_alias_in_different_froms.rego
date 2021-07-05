@@ -1,8 +1,8 @@
-package appshield.DS012
+package appshield.dockerfile.DS012
 
 __rego_metadata__ := {
 	"id": "DS012",
-	"title": "Same Alias In Different Froms",
+	"title": "Same Alias In Different FROMs",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
@@ -16,9 +16,14 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-get_alias[alias] {
-	name := get_aliased_name[_]
-	[_, alias] := regex.split(`\s+as\s+`, name)
+get_duplicate_alias[alias1] {
+	name1 := get_aliased_name[_]
+	name2 := get_aliased_name[_]
+	name1 != name2
+
+	[_, alias1] := regex.split(`\s+as\s+`, name1)
+	[_, alias2] := regex.split(`\s+as\s+`, name2)
+	alias1 == alias2
 }
 
 get_aliased_name[arg] {
@@ -29,11 +34,7 @@ get_aliased_name[arg] {
 	contains(arg, " as ")
 }
 
-fail_same_alias {
-	count(get_aliased_name) != count(get_alias)
-}
-
 deny[res] {
-	fail_same_alias
-	res := sprintf("Duplicate alias found among: [%s]", [concat(", ", get_aliased_name)])
+	alias := get_duplicate_alias[_]
+	res := sprintf("Duplicate aliases '%s' found in different FROMs", [alias])
 }

@@ -9,10 +9,15 @@ __rego_metadata__ := {
 	"id": "KSV018",
 	"title": "Memory not limited",
 	"version": "v1.0.0",
-	"severity": "Low",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "Enforcing memory limits prevents DoS via resource exhaustion.",
 	"recommended_actions": "Set a limit value under 'containers[].resources.limits.memory'.",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # getLimitsMemoryContainers returns all containers which have set resources.limits.memory
