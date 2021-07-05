@@ -12,12 +12,35 @@ __rego_metadata__ := {
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "According to pod security standard '/proc Mount Type', the default /proc masks are set up to reduce attack surface, and should be required.",
-	"recommended_actions": "Do not set spec.containers[*].securityContext.procMount and spec.initContainers[*].securityContext.procMount.",
+	"recommended_actions": "Do not set spec.containers[*].securityContext.procMount and spec.initContainers[*].securityContext.procMount."
 }
 
 __rego_input__ := {
-	"combine": false,
-	"selector": [{"type": "kubernetes"}],
+  "combine": false,
+  "selector": [{
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "pod"
+  },
+  {
+   "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "replicaset"
+  },
+  {
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "replicationcontroller"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "deployment"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "statefulset"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "daemonset"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "cronjob"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "job"
+  }]
 }
 
 # failProcMountOpts is true if securityContext.procMount is set in any container

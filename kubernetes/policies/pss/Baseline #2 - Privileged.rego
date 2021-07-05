@@ -11,12 +11,35 @@ __rego_metadata__ := {
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "Privileged containers share namespaces with the host system and do not offer any security. They should be used exclusively for system containers that require high privileges.",
-	"recommended_actions": "Change 'containers[].securityContext.privileged' to 'false'.",
+	"recommended_actions": "Change 'containers[].securityContext.privileged' to 'false'."
 }
 
 __rego_input__ := {
-	"combine": false,
-	"selector": [{"type": "kubernetes"}],
+  "combine": false,
+  "selector": [{
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "pod"
+  },
+  {
+   "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "replicaset"
+  },
+  {
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "replicationcontroller"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "deployment"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "statefulset"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "daemonset"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "cronjob"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "job"
+  }]
 }
 
 # getPrivilegedContainers returns all containers which have

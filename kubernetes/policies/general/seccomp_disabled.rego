@@ -11,12 +11,35 @@ __rego_metadata__ := {
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can bypass Seccomp protection policies.",
-	"recommended_actions": "Remove the 'unconfined' value from 'container.seccomp.security.alpha.kubernetes.io'.",
+	"recommended_actions": "Remove the 'unconfined' value from 'container.seccomp.security.alpha.kubernetes.io'."
 }
 
 __rego_input__ := {
-	"combine": false,
-	"selector": [{"type": "kubernetes"}],
+  "combine": false,
+  "selector": [{
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "pod"
+  },
+  {
+   "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "replicaset"
+  },
+  {
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "replicationcontroller"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "deployment"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "statefulset"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "daemonset"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "cronjob"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "job"
+  }]
 }
 
 # getSeccompContainers returns all containers which have a seccomp

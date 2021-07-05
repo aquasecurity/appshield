@@ -12,12 +12,35 @@ __rego_metadata__ := {
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Force the running image to run as a non-root user to ensure least privileges.",
-	"recommended_actions": "Set 'containers[].securityContext.runAsNonRoot' to true.",
+	"recommended_actions": "Set 'containers[].securityContext.runAsNonRoot' to true."
 }
 
 __rego_input__ := {
-	"combine": false,
-	"selector": [{"type": "kubernetes"}],
+  "combine": false,
+  "selector": [{
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "pod"
+  },
+  {
+   "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "replicaset"
+  },
+  {
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "replicationcontroller"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "deployment"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "statefulset"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "daemonset"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "cronjob"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "job"
+  }]
 }
 
 # getNonRootContainers returns the names of all containers which have

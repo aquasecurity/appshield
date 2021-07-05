@@ -12,12 +12,35 @@ __rego_metadata__ := {
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "Enforcing memory limits prevents DoS via resource exhaustion.",
-	"recommended_actions": "Set a limit value under 'containers[].resources.limits.memory'.",
+	"recommended_actions": "Set a limit value under 'containers[].resources.limits.memory'."
 }
 
 __rego_input__ := {
-	"combine": false,
-	"selector": [{"type": "kubernetes"}],
+  "combine": false,
+  "selector": [{
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "pod"
+  },
+  {
+   "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "replicaset"
+  },
+  {
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "replicationcontroller"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "deployment"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "statefulset"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "daemonset"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "cronjob"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "job"
+  }]
 }
 
 # getLimitsMemoryContainers returns all containers which have set resources.limits.memory

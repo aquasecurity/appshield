@@ -11,12 +11,35 @@ __rego_metadata__ := {
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "Sharing the host’s IPC namespace allows container processes to communicate with processes on the host.",
-	"recommended_actions": "Do not set 'spec.template.spec.hostIPC' to true.",
+	"recommended_actions": "Do not set 'spec.template.spec.hostIPC' to true."
 }
 
 __rego_input__ := {
-	"combine": false,
-	"selector": [{"type": "kubernetes"}],
+  "combine": false,
+  "selector": [{
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "pod"
+  },
+  {
+   "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "replicaset"
+  },
+  {
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "replicationcontroller"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "deployment"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "statefulset"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "daemonset"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "cronjob"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "job"
+  }]
 }
 
 # failHostIPC is true if spec.hostIPC is set to true (on all resources)

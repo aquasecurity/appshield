@@ -13,12 +13,35 @@ __rego_metadata__ := {
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "Mounting docker.sock from the host can give the container full root access to the host.",
-	"recommended_actions": "Do not specify /var/run/docker.socker in 'spec.template.volumes.hostPath.path'.",
+	"recommended_actions": "Do not specify /var/run/docker.socker in 'spec.template.volumes.hostPath.path'."
 }
 
 __rego_input__ := {
-	"combine": false,
-	"selector": [{"type": "kubernetes"}],
+  "combine": false,
+  "selector": [{
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "pod"
+  },
+  {
+   "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "replicaset"
+  },
+  {
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "replicationcontroller"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "deployment"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "statefulset"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "daemonset"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "cronjob"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "job"
+  }]
 }
 
 # checkDockerSocket is true if volumes.hostPath.path is set to /var/run/docker.sock

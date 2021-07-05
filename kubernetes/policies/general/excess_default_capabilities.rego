@@ -11,12 +11,35 @@ __rego_metadata__ := {
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "The container should drop all default capabilities and add only those that are needed for its execution.",
-	"recommended_actions": "Add 'ALL' to containers[].securityContext.capabilities.drop.",
+	"recommended_actions": "Add 'ALL' to containers[].securityContext.capabilities.drop."
 }
 
 __rego_input__ := {
-	"combine": false,
-	"selector": [{"type": "kubernetes"}],
+  "combine": false,
+  "selector": [{
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "pod"
+  },
+  {
+   "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "replicaset"
+  },
+  {
+    "type" : "kubernetes", "group": "core", "version": "v1", "kind": "replicationcontroller"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "deployment"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "statefulset"
+  },
+  {
+    "type" : "kubernetes", "group": "apps", "version": "v1", "kind": "daemonset"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "cronjob"
+  },
+  {
+    "type" : "kubernetes", "group": "batch", "version": "v1", "kind": "job"
+  }]
 }
 
 # Get all containers which include 'ALL' in security.capabilities.drop
