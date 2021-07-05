@@ -1,4 +1,4 @@
-package appshield.DS020
+package appshield.dockerfile.DS020
 
 import data.lib.docker
 
