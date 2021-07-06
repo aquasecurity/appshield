@@ -7,12 +7,12 @@ default failSysctls = false
 
 __rego_metadata__ := {
 	"id": "KSV026",
-	"title": "Unsafe sysctl options set",
+	"title": "Sysctls should be disallowed except for an allowed 'safe' subset",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
-	"description": "Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed 'safe' subset. A sysctl is considered safe if it is namespaced in the container or the pod, and is isolated from other pods and processes on the same node.",
-	"recommended_actions": "Do not set 'spec.securityContext.sysctls' or set to values in allowed subset.",
+	"description": "Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed 'safe' subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.",
+	"recommended_actions": sprintf("Do not set 'spec.securityContext.sysctls' or set to values in an allowed subset, %s", [allowed_sysctls]),
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
@@ -37,15 +37,10 @@ failSysctls {
 	count(sysctls_not_allowed) > 0
 }
 
-# sysctl_msg is a string of allowed sysctls to be print as part of deny message
-sysctl_msg = msg {
-	msg := sprintf(" or set it to the following allowed values: %s", [concat(", ", allowed_sysctls)])
-}
-
 deny[res] {
 	failSysctls
 
-	msg := kubernetes.format(sprintf("%s %s in %s namespace should not set securityContext.sysctl%s", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, sysctl_msg]))
+	msg := kubernetes.format(sprintf("%s '%s' should set securityContext.sysctl to the allowed values", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
