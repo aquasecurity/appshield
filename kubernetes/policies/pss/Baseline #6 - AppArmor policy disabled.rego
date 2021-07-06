@@ -11,7 +11,7 @@ __rego_metadata__ := {
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can bypass AppArmor protection policies.",
-	"recommended_actions": "Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'.",
+	"recommended_actions": "Remove 'container.apparmor.security.beta.kubernetes.io' annotation or set it to 'runtime/default'.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
@@ -20,39 +20,56 @@ __rego_input__ := {
 	"selector": [{"type": "kubernetes"}],
 }
 
-# getApparmorContainers returns all containers which have an AppArmor
-# profile set and is profile not set to "unconfined"
-getApparmorContainers[container] {
-	some i
-	keys := [key | key := sprintf("%s/%s", [
+get_app_armor_keys[key] {
+	key := sprintf("%s/%s", [
 		"container.apparmor.security.beta.kubernetes.io",
 		kubernetes.containers[_].name,
-	])]
-
-	apparmor := object.filter(kubernetes.annotations[_], keys)
-	val := apparmor[i]
-	val != "unconfined"
-	[a, c] := split(i, "/")
-	container = c
+	])
 }
 
-# getNoApparmorContainers returns all containers which do not have
-# an AppArmor profile specified or profile set to "unconfined"
-getNoApparmorContainers[container] {
+get_app_armor := object.filter(kubernetes.annotations[_], get_app_armor_keys)
+
+# no container.apparmor.security.beta.kubernetes.io at all
+get_apparmor_containers[container] {
+	key := get_app_armor_keys[_]
+	not get_app_armor
+	[_, c] := split(key, "/")
+	container := c
+}
+
+# container has no container.apparmor.security.beta.kubernetes.io annotation (but others have) 
+get_apparmor_containers[container] {
+	key := get_app_armor_keys[_]
+
+	not get_app_armor[key]
+
+	[_, c] := split(key, "/")
+	container := c
+}
+
+# container has container.apparmor.security.beta.kubernetes.io annotation set to runtime/default
+get_apparmor_containers[container] {
+	key := get_app_armor_keys[_]
+	val := get_app_armor[key]
+	val == "runtime/default"
+
+	[_, c] := split(key, "/")
+	container := c
+}
+
+get_no_apparmor_containers[container] {
 	container := kubernetes.containers[_].name
-	not getApparmorContainers[container]
+	not get_apparmor_containers[container]
 }
 
-# failApparmor is true if there is ANY container without an AppArmor profile
-# or has an AppArmor profile set to "unconfined"
-failApparmor {
-	count(getNoApparmorContainers) > 0
+fail_apparmor {
+	count(get_no_apparmor_containers) > 0
 }
 
 deny[res] {
-	failApparmor
+	fail_apparmor
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should specify an AppArmor profile", [getNoApparmorContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should specify an AppArmor profile", [get_no_apparmor_containers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,
