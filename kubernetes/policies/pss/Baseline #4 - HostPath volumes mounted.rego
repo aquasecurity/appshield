@@ -13,6 +13,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "According to pod security standard 'HostPath Volumes', HostPath volumes must be forbidden.",
 	"recommended_actions": "Do not set 'spec.volumes[*].hostPath'.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
 __rego_input__ := {

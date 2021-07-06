@@ -12,6 +12,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "The container should drop all default capabilities and add only those that are needed for its execution.",
 	"recommended_actions": "Add 'ALL' to containers[].securityContext.capabilities.drop.",
+	"url": "https://kubesec.io/basics/containers-securitycontext-capabilities-drop-index-all/",
 }
 
 __rego_input__ := {
