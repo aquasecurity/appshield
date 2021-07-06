@@ -22,8 +22,10 @@ get_copy_arg[arg] {
 	copy := docker.copy[_]
 
 	arg := copy.Flags[x]
+
 	contains(arg, "--from=")
-	arg != "--from=0"
+	not regex.match("--from=\\d+", arg)
+
 	aux_split := split(arg, "=")
 
 	not alias_exists(aux_split[1])

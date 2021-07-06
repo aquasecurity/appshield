@@ -19,7 +19,7 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-short_flags := `(-[^ya..zA..Z]*y[^ya..zA..Z]*)`
+short_flags := `(-([a-xzA-XZ])*y([a-xzA-XZ])*)`
 
 long_flags := `(--yes)|(--assume-yes)`
 
