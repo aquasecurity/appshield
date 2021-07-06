@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "COPY '--from' should not mention the current FROM alias, since it is impossible to copy from itself",
+	"description": "COPY '--from' should not mention the current FROM alias, since it is impossible to copy from itself.",
 	"recommended_actions": "Change the '--form' so that it will not refer to itself",
 	"url": "https://docs.docker.com/develop/develop-images/multistage-build/",
 }
