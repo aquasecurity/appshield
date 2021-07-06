@@ -1,6 +1,5 @@
 package appshield.dockerfile.DS021
 
-import data.lib.common
 import data.lib.docker
 
 __rego_metadata__ := {
@@ -47,15 +46,15 @@ get_apt_get[arg] {
 
 	count(run.Value) > 1
 
-	common.contains_in_array(run.Value, {"apt-get", "install"})
+	arg := concat(" ", run.Value)
+
+	is_apt_get(arg)
 
 	not flag_includes_assume_yes(run.Value)
-
-	arg := concat(" ", run.Value)
 }
 
 is_apt_get(command) {
-	regex.match("apt-get (-(-)?[a-z]+ *)*install(-(-)?[a-z]+ *)*", command)
+	regex.match("apt-get (-(-)?[a-zA-Z]+ *)*install(-(-)?[a-zA-Z]+ *)*", command)
 }
 
 flag_includes_assume_yes(parts) {

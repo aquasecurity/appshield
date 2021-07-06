@@ -28,7 +28,7 @@ get_copy_arg[arg] {
 
 	aux_split := split(arg, "=")
 
-	not alias_exists(aux_split[1])
+	not alias_exists(aux_split[1], copy.Stage)
 }
 
 deny[res] {
@@ -36,20 +36,24 @@ deny[res] {
 	res := sprintf("Invalid alias: %s", [arg])
 }
 
-alias_exists(from_alias) {
-	alias := get_alias[_]
+alias_exists(from_alias, max_stage_idx) {
+	alias := get_alias(max_stage_idx)[_]
 	from_alias == alias
 }
 
-get_alias[alias] {
-	name := get_aliased_name[_]
-	[_, alias] := regex.split(`\s+as\s+`, name)
+get_alias(max_stage_idx) = res {
+	res := {alias |
+		name := get_aliased_name(max_stage_idx)[_]
+		[_, alias] := regex.split(`\s+as\s+`, name)
+	}
 }
 
-get_aliased_name[arg] {
-	some name
-	input.stages[name]
-
-	arg = lower(name)
-	contains(arg, " as ")
+get_aliased_name(max_stage_idx) = res {
+	res := {n |
+		c := input.stages[name][_]
+		c.Stage <= max_stage_idx #there is another rule that covers self reference
+		name_lower = lower(name)
+		contains(name_lower, " as ")
+		n := name_lower
+	}
 }
