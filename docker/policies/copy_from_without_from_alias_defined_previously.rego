@@ -21,7 +21,7 @@ __rego_input__ := {
 get_copy_arg[arg] {
 	copy := docker.copy[_]
 
-	arg := copy.Flags[x]
+	arg := copy.Flags[_]
 
 	contains(arg, "--from=")
 	not regex.match("--from=\\d+", arg)

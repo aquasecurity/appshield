@@ -18,12 +18,6 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-short_flags := `(-([a-xzA-XZ])*y([a-xzA-XZ])*)`
-
-long_flags := `(--yes)|(--assume-yes)`
-
-combined_flags := sprintf(`(%s|%s)`, [short_flags, long_flags])
-
 deny[res] {
 	args := get_apt_get[_]
 	res := sprintf("-y flag is missed: %s", [args])
@@ -50,25 +44,29 @@ get_apt_get[arg] {
 
 	is_apt_get(arg)
 
-	not flag_includes_assume_yes(run.Value)
+	not includes_assume_yes(arg)
 }
 
 is_apt_get(command) {
 	regex.match("apt-get (-(-)?[a-zA-Z]+ *)*install(-(-)?[a-zA-Z]+ *)*", command)
 }
 
-flag_includes_assume_yes(parts) {
-	regex.match(combined_flags, parts[_])
-}
+short_flags := `(-([a-xzA-XZ])*y([a-xzA-XZ])*)`
+
+long_flags := `(--yes)|(--assume-yes)`
+
+optional_not_related_flags := `\s*(-(-)?[a-zA-Z]+\s*)*`
+
+combined_flags := sprintf(`%s(%s|%s)%s`, [optional_not_related_flags, short_flags, long_flags, optional_not_related_flags])
 
 #flags before command
 includes_assume_yes(command) {
-	install_regexp := sprintf(`apt-get\s*%s\s*install`, [combined_flags])
+	install_regexp := sprintf(`apt-get%sinstall`, [combined_flags])
 	regex.match(install_regexp, command)
 }
 
-#flags after command
+#flags behind command
 includes_assume_yes(command) {
-	install_regexp := sprintf(`apt-get\s+install\s+%s`, [combined_flags])
+	install_regexp := sprintf(`apt-get%sinstall%s`, [optional_not_related_flags, combined_flags])
 	regex.match(install_regexp, command)
 }
