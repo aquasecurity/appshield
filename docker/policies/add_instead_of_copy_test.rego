@@ -7,14 +7,17 @@ test_mixed_commands_denied {
 	]}}
 
 	count(r) == 1
-	r[_] == "expected COPY /target/app.jar app.jar instead of ADD /target/app.jar app.jar"
+	r[_] == "Consider using 'COPY /target/app.jar app.jar' command instead of 'ADD /target/app.jar app.jar'"
 }
 
 test_add_command_denied {
-	r := deny with input as {"stages": {"alpine:3.13": [{"Cmd": "add", "Value": ["/target/app.jar", "app.jar"]}]}}
+	r := deny with input as {"stages": {"alpine:3.13": [{
+		"Cmd": "add",
+		"Value": ["/target/app.jar", "app.jar"],
+	}]}}
 
 	count(r) == 1
-	r[_] == "expected COPY /target/app.jar app.jar instead of ADD /target/app.jar app.jar"
+	r[_] == "Consider using 'COPY /target/app.jar app.jar' command instead of 'ADD /target/app.jar app.jar'"
 }
 
 test_run_allowed {

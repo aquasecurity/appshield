@@ -1,22 +1,34 @@
 package appshield.dockerfile.DS001
 
 test_allowed {
-	r := deny with input as {"stages": {"openjdk:8u292-oracle": [{"Cmd": "from", "Value": ["openjdk:8u292-oracle"]}]}}
+	r := deny with input as {"stages": {"openjdk:8u292-oracle": [{
+		"Cmd": "from",
+		"Value": ["openjdk:8u292-oracle"],
+	}]}}
+
 	count(r) == 0
 }
 
 # Test FROM image with latest tag
 test_latest_tag_denied {
-	r := deny with input as {"stages": {"openjdk": [{"Cmd": "from", "Value": ["openjdk:latest"]}]}}
+	r := deny with input as {"stages": {"openjdk": [{
+		"Cmd": "from",
+		"Value": ["openjdk:latest"],
+	}]}}
+
 	count(r) == 1
-	r[_] == "Specify tag for image openjdk"
+	r[_] == "Specify a tag in the 'FROM' statement for image 'openjdk'"
 }
 
 # Test FROM image with no tag
 test_no_tag_denied {
-	r := deny with input as {"stages": {"openjdk": [{"Cmd": "from", "Value": ["openjdk"]}]}}
+	r := deny with input as {"stages": {"openjdk": [{
+		"Cmd": "from",
+		"Value": ["openjdk"],
+	}]}}
+
 	count(r) == 1
-	r[_] == "Specify tag for image openjdk"
+	r[_] == "Specify a tag in the 'FROM' statement for image 'openjdk'"
 }
 
 # Test FROM with scratch
@@ -87,7 +99,7 @@ test_with_variables_denied {
 	}}
 
 	count(r) == 1
-	r[_] == "Specify tag for image all-in-one"
+	r[_] == "Specify a tag in the 'FROM' statement for image 'all-in-one'"
 }
 
 test_multi_stage_allowed {
