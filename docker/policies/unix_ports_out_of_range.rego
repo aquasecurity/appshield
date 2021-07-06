@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "Exposing UNIX ports out of range from 0 to 65535",
+	"description": "Exposing UNIX ports out of range from 0 to 65535.",
 	"recommended_actions": "Use port number within range",
 	"url": "https://docs.docker.com/engine/reference/builder/#expose",
 }
@@ -26,5 +26,5 @@ invalid_ports[port] {
 
 deny[res] {
 	port := invalid_ports[_]
-	res := sprintf("'EXPOSE' contains port which is out of range [0, 65535]: %d", [port])
+	res := sprintf("'EXPOSE' contains port which is out of range [0, 65535]: '%d'", [port])
 }

@@ -56,7 +56,7 @@ failPublicRegistry {
 deny[res] {
 	failPublicRegistry
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should restrict container image to use private registries", [getContainersWithPublicRegistries[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("container '%s' of '%s' '%s' in '%s' namespace should restrict container image to use private registries", [getContainersWithPublicRegistries[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,

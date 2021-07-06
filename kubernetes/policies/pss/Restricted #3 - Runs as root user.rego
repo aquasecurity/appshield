@@ -7,11 +7,11 @@ default checkRunAsNonRoot = false
 
 __rego_metadata__ := {
 	"id": "KSV012",
-	"title": "Runs as root user",
+	"title": "Running containers with non root user",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
-	"description": "Force the running image to run as a non-root user to ensure least privileges.",
+	"description": "Using runAsNonRoot' force the running image to run as a non-root user to ensure least privileges.",
 	"recommended_actions": "Set 'containers[].securityContext.runAsNonRoot' to true.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
 }
@@ -45,7 +45,7 @@ checkRunAsNonRoot {
 deny[res] {
 	checkRunAsNonRoot
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set securityContext.runAsNonRoot to true", [getRootContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("container '%s' of '%s' '%s' in '%s' namespace should set securityContext.runAsNonRoot to true", [getRootContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,

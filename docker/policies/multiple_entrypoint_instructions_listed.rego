@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "There can only be one ENTRYPOINT instruction in a Dockerfile. Only the last ENTRYPOINT instruction in the Dockerfile will have an effect",
+	"description": "There can only be one ENTRYPOINT instruction in a Dockerfile. Only the last ENTRYPOINT instruction in the Dockerfile will have an effect.",
 	"recommended_actions": "Remove unnecessary ENTRYPOINT instruction.",
 	"url": "https://docs.docker.com/engine/reference/builder/#entrypoint",
 }
@@ -21,5 +21,5 @@ __rego_input__ := {
 deny[res] {
 	entrypoints := docker.stage_entrypoints[name]
 	count(entrypoints) > 1
-	res := sprintf("There are %d duplicate ENTRYPOINT instructions for stage '%s'", [count(entrypoints), name])
+	res := sprintf("There are '%d' duplicate ENTRYPOINT instructions for stage '%s'", [count(entrypoints), name])
 }

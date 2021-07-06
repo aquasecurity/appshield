@@ -7,7 +7,7 @@ default failRequestsCPU = false
 
 __rego_metadata__ := {
 	"id": "KSV015",
-	"title": "CPU requests not specified",
+	"title": "CPU requests is not specified",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
@@ -44,7 +44,7 @@ failRequestsCPU {
 deny[res] {
 	failRequestsCPU
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set resources.requests.cpu", [getNoRequestsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("container '%s' of '%s' '%s' in '%s' namespace should set resources.requests.cpu", [getNoRequestsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,

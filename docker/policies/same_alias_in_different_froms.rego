@@ -6,7 +6,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "Different FROMs can't have the same alias defined",
+	"description": "Different FROMs can't have the same alias defined.",
 	"recommended_actions": "Change aliases to make them different",
 	"url": "https://docs.docker.com/develop/develop-images/multistage-build/",
 }

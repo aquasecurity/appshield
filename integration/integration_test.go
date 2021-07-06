@@ -169,7 +169,7 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS007",
-							Message:   "There are 2 duplicate ENTRYPOINT instructions for stage 'golang:1.7.3 as dep'",
+							Message:   "There are '2' duplicate ENTRYPOINT instructions for stage 'golang:1.7.3 as dep'",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS007",
 								Type:     "Dockerfile Security Check",
@@ -195,7 +195,7 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS008",
-							Message:   `'EXPOSE' contains port which is out of range [0, 65535]: 65536`,
+							Message:   `'EXPOSE' contains port which is out of range [0, 65535]: '65536'`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS008",
 								Type:     "Dockerfile Security Check",

@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "When a COPY command has more than two arguments, the last one should end with a slash",
+	"description": "When a COPY command has more than two arguments, the last one should end with a slash.",
 	"recommended_actions": "Add slash to last COPY argument",
 	"url": "https://docs.docker.com/engine/reference/builder/#copy",
 }
