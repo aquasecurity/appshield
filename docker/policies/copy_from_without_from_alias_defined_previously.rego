@@ -9,7 +9,7 @@ __rego_metadata__ := {
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
 	"description": "COPY command with the flag '--from' should mention a previously defined FROM alias",
-	"recommended_actions": "Fix alias",
+	"recommended_actions": "Specify an alias defined previously",
 	"url": "https://docs.docker.com/develop/develop-images/multistage-build/",
 }
 
@@ -33,7 +33,7 @@ get_copy_arg[arg] {
 
 deny[res] {
 	arg := get_copy_arg[_]
-	res := sprintf("Invalid alias: %s", [arg])
+	res := sprintf("The alias '%s' is not defined in the previous stages", [arg])
 }
 
 alias_exists(from_alias, max_stage_idx) {
@@ -51,7 +51,7 @@ get_alias(max_stage_idx) = res {
 get_aliased_name(max_stage_idx) = res {
 	res := {n |
 		c := input.stages[name][_]
-		c.Stage <= max_stage_idx #there is another rule that covers self reference
+		c.Stage <= max_stage_idx # there is another rule that covers self reference
 		name_lower = lower(name)
 		contains(name_lower, " as ")
 		n := name_lower

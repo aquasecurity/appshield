@@ -8,8 +8,8 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "Check if apt-get calls use the flag -y to avoid user manual input.",
-	"recommended_actions": "Add -y flag to apt-get",
+	"description": "Check if 'apt-get' calls use the flag '-y' to avoid user manual input.",
+	"recommended_actions": "Add '-y' flag to 'apt-get'",
 	"url": "https://docs.docker.com/engine/reference/builder/#run",
 }
 
@@ -20,7 +20,7 @@ __rego_input__ := {
 
 deny[res] {
 	args := get_apt_get[_]
-	res := sprintf("-y flag is missed: %s", [args])
+	res := sprintf("'-y' flag is missed: '%s'", [args])
 }
 
 get_apt_get[arg] {
@@ -34,7 +34,7 @@ get_apt_get[arg] {
 	not includes_assume_yes(arg)
 }
 
-#checking json array
+# checking json array
 get_apt_get[arg] {
 	run = docker.run[_]
 
@@ -59,13 +59,13 @@ optional_not_related_flags := `\s*(-(-)?[a-zA-Z]+\s*)*`
 
 combined_flags := sprintf(`%s(%s|%s)%s`, [optional_not_related_flags, short_flags, long_flags, optional_not_related_flags])
 
-#flags before command
+# flags before command
 includes_assume_yes(command) {
 	install_regexp := sprintf(`apt-get%sinstall`, [combined_flags])
 	regex.match(install_regexp, command)
 }
 
-#flags behind command
+# flags behind command
 includes_assume_yes(command) {
 	install_regexp := sprintf(`apt-get%sinstall%s`, [optional_not_related_flags, combined_flags])
 	regex.match(install_regexp, command)
