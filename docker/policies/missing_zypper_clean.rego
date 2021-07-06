@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS020",
-	"title": "Missing Zypper Clean",
+	"title": "Missing 'zypper clean' after running zypper",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
@@ -33,7 +33,7 @@ get_zypper[arg] {
 
 deny[res] {
 	args := get_zypper[_]
-	res := sprintf("'zypper clean' is missed: %s", [args])
+	res := sprintf("'zypper clean' is missed: '%s'", [args])
 }
 
 contains_zipper_clean(cmd) {

@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS018",
-	"title": "COPY '--from' Without FROM Alias Defined Previously",
+	"title": "'COPY --from' without FROM alias defined previously",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

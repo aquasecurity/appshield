@@ -142,7 +142,7 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS006",
-							Message:   `COPY --from' shouldn't mention current alias 'dep' since it is impossible to copy from itself`,
+							Message:   `'COPY --from' shouldn't mention current alias 'dep' since it is impossible to copy from itself`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS006",
 								Type:     "Dockerfile Security Check",

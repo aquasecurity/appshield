@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS019",
-	"title": "Missing Dnf Clean All",
+	"title": "Missing 'dnf clean all' after installing packages",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
