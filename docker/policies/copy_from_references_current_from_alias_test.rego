@@ -33,7 +33,7 @@ test_basic_denied {
 	}}
 
 	count(r) == 1
-	r[_] == "COPY from shouldn't mention current alias 'dep'"
+	r[_] == "'COPY --from' shouldn't mention current alias 'dep' since it is impossible to copy from itself"
 }
 
 test_extra_spaces_denied {
@@ -69,7 +69,7 @@ test_extra_spaces_denied {
 	}}
 
 	count(r) == 1
-	r[_] == "COPY from shouldn't mention current alias 'dep'"
+	r[_] == "'COPY --from' shouldn't mention current alias 'dep' since it is impossible to copy from itself"
 }
 
 test_basic_allowed {

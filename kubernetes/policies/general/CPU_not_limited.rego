@@ -13,6 +13,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "Enforcing CPU limits prevents DoS via resource exhaustion.",
 	"recommended_actions": "Set a limit value under 'containers[].resources.limits.cpu'.",
+	"url": "https://cloud.google.com/blog/products/containers-kubernetes/kubernetes-best-practices-resource-requests-and-limits",
 }
 
 __rego_input__ := {

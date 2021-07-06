@@ -13,6 +13,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "When containers have memory requests specified, the scheduler can make better decisions about which nodes to place pods on, and how to deal with resource contention.",
 	"recommended_actions": "Set 'containers[].resources.requests.memory'.",
+	"url": "https://kubesec.io/basics/containers-resources-limits-memory/",
 }
 
 __rego_input__ := {

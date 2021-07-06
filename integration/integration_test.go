@@ -38,11 +38,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS001",
-							Message:   "Specify tag for image debian",
+							Message:   "Specify a tag in the 'FROM' statement for image 'debian'",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS001",
 								Type:     "Dockerfile Security Check",
-								Title:    "Use a tag name in FROM statement",
+								Title:    "Use a tag name in the 'FROM' statement",
 								Severity: "MEDIUM",
 							},
 						},
@@ -64,38 +64,12 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS002",
-							Message:   "Specify at least 1 USER command in Dockerfile",
+							Message:   "Specify at least 1 USER command in Dockerfile with non-root user as argument",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS002",
 								Type:     "Dockerfile Security Check",
 								Title:    "Image user should not be 'root'",
 								Severity: "HIGH",
-							},
-						},
-					},
-				},
-			},
-		},
-		{
-			name:  "DS003: apt cache",
-			input: "testdata/DS003",
-			want: []types.Misconfiguration{
-				{
-					FileType: types.Dockerfile,
-					FilePath: "Dockerfile.allowed",
-				},
-				{
-					FileType: types.Dockerfile,
-					FilePath: "Dockerfile.denied",
-					Failures: types.MisconfResults{
-						{
-							Namespace: "appshield.dockerfile.DS003",
-							Message:   "Clean apt cache",
-							PolicyMetadata: types.PolicyMetadata{
-								ID:       "DS003",
-								Type:     "Dockerfile Security Check",
-								Title:    "Clean APT cache",
-								Severity: "MEDIUM",
 							},
 						},
 					},
@@ -116,11 +90,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS004",
-							Message:   "Specify Port to SSH into the container",
+							Message:   "Port 22 is exposed via the Dockerfile",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS004",
 								Type:     "Dockerfile Security Check",
-								Title:    "Exposing Port 22",
+								Title:    "Exposing port 22",
 								Severity: "MEDIUM",
 							},
 						},
@@ -142,12 +116,12 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS005",
-							Message:   `expected COPY "/target/app.jar" "app.jar" instead of ADD "/target/app.jar" "app.jar"`,
+							Message:   `Consider using 'COPY "/target/app.jar" "app.jar"' command instead of 'ADD "/target/app.jar" "app.jar"'`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS005",
 								Type:     "Dockerfile Security Check",
-								Title:    "COPY Instead of ADD",
-								Severity: "MEDIUM",
+								Title:    "Use COPY instead of ADD",
+								Severity: "LOW",
 							},
 						},
 					},
@@ -198,7 +172,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS007",
 								Type:     "Dockerfile Security Check",
-								Title:    "Multiple ENTRYPOINT Instructions Listed",
+								Title:    "Multiple ENTRYPOINT instructions listed",
 								Severity: "CRITICAL",
 							},
 						},
@@ -224,7 +198,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS008",
 								Type:     "Dockerfile Security Check",
-								Title:    "UNIX Ports Out Of Range",
+								Title:    "UNIX ports out of range",
 								Severity: "CRITICAL",
 							},
 						},
@@ -246,12 +220,12 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS009",
-							Message:   `Path path/to/workdir isn't absolute`,
+							Message:   `WORKDIR path 'path/to/workdir' isn't absolute`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS009",
 								Type:     "Dockerfile Security Check",
-								Title:    "WORKDIR Path Not Absolute",
-								Severity: "CRITICAL",
+								Title:    "WORKDIR path not absolute",
+								Severity: "HIGH",
 							},
 						},
 					},
@@ -272,11 +246,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS010",
-							Message:   `Shouldn't use sudo in Dockerfile`,
+							Message:   `Using 'sudo' in Dockerfile should be avoided`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS010",
 								Type:     "Dockerfile Security Check",
-								Title:    "Run Using Sudo",
+								Title:    "Avoid using 'sudo' in containers",
 								Severity: "CRITICAL",
 							},
 						},
@@ -298,11 +272,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS011",
-							Message:   `Slash is expected at the end of myapp`,
+							Message:   `Slash is expected at the end of COPY command argument 'myapp'`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS011",
 								Type:     "Dockerfile Security Check",
-								Title:    "Copy With More Than Two Arguments Not Ending With Slash",
+								Title:    "COPY with more than two arguments not ending with slash",
 								Severity: "CRITICAL",
 							},
 						},
@@ -328,7 +302,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS012",
 								Type:     "Dockerfile Security Check",
-								Title:    "Same Alias In Different FROMs",
+								Title:    "Same alias in different FROMs",
 								Severity: "CRITICAL",
 							},
 						},
@@ -350,12 +324,12 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS013",
-							Message:   `RUN shouldn't be used to change directory: 'cd /usr/share/nginx/html'`,
+							Message:   `RUN shouldn't be used to change directory: 'cd /usr/share/nginx/html'. Use 'WORKDIR' statement instead.`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS013",
 								Type:     "Dockerfile Security Check",
-								Title:    "RUN Instruction Using 'cd' Instead of WORKDIR",
-								Severity: "HIGH",
+								Title:    "Use 'WORKDIR' instead of 'RUN cd ...'",
+								Severity: "MEDIUM",
 							},
 						},
 					},
@@ -380,8 +354,8 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS014",
 								Type:     "Dockerfile Security Check",
-								Title:    "Run Using 'wget' and 'curl'",
-								Severity: "HIGH",
+								Title:    "Run using 'wget' and 'curl'",
+								Severity: "LOW",
 							},
 						},
 					},
