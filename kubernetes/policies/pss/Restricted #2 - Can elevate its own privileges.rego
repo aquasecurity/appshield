@@ -7,7 +7,7 @@ default checkAllowPrivilegeEscalation = false
 
 __rego_metadata__ := {
 	"id": "KSV001",
-	"title": "Can elevate its own privileges",
+	"title": "Privilege escalation should not be allowed",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
@@ -45,7 +45,7 @@ checkAllowPrivilegeEscalation {
 deny[res] {
 	checkAllowPrivilegeEscalation
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set securityContext.allowPrivilegeEscalation to false", [getPrivilegeEscalationContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of '%s' '%s' in '%s' namespace should set securityContext.allowPrivilegeEscalation to false", [getPrivilegeEscalationContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,
