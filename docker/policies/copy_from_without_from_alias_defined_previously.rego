@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "COPY command with the flag '--from' should mention a previously defined FROM alias",
+	"description": "COPY command with the flag '--from' should mention a previously defined FROM alias.",
 	"recommended_actions": "Specify an alias defined previously",
 	"url": "https://docs.docker.com/develop/develop-images/multistage-build/",
 }
