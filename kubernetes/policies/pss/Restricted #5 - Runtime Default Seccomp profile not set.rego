@@ -21,27 +21,26 @@ __rego_input__ := {
 	"selector": [{"type": "kubernetes"}],
 }
 
-# getContainersWithDisallowedSeccompProfileType returns a list of containers
-# with seccompProfile type set to anything other than RuntimeDefault
+# containers
 getContainersWithDisallowedSeccompProfileType[name] {
 	container := kubernetes.containers[_]
 	type := container.securityContext.seccompProfile.type
-	not type == "RuntimeDefault"
+	not type == "runtime/default"
 	name := container.name
 }
 
-# failSeccompProfileType is true if pod seccompprofile type is set to any
-# value other "RuntimeDefault"
+# pods
 failSeccompProfileType {
 	pod := kubernetes.pods[_]
 	type := pod.spec.securityContext.seccompProfile.type
-	not type == "RuntimeDefault"
+	not type == "runtime/default"
 }
 
+# pods
 deny[res] {
 	failSeccompProfileType
 
-	msg := kubernetes.format(sprintf("%s '%s' should set spec.securityContext.seccompProfile.type to 'RuntimeDefault'", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should set spec.securityContext.seccompProfile.type to 'runtime/default'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
@@ -52,10 +51,11 @@ deny[res] {
 	}
 }
 
+# containers
 deny[res] {
 	count(getContainersWithDisallowedSeccompProfileType) > 0
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set spec.containers[*].securityContext.seccompProfile.type to 'RuntimeDefault'", [getContainersWithDisallowedSeccompProfileType[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set spec.containers[*].securityContext.seccompProfile.type to 'runtime/default'", [getContainersWithDisallowedSeccompProfileType[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
