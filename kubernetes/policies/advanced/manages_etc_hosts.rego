@@ -7,7 +7,7 @@ default failHostAliases = false
 
 __rego_metadata__ := {
 	"id": "KSV007",
-	"title": "Manages /etc/hosts",
+	"title": "hostAliases is set",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
@@ -28,7 +28,7 @@ failHostAliases {
 deny[res] {
 	failHostAliases
 
-	msg := kubernetes.format(sprintf("%s %s in %s namespace should not set spec.template.spec.hostAliases", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("'%s' '%s' in '%s' namespace should not set spec.template.spec.hostAliases", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,
