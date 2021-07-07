@@ -42,9 +42,8 @@ recommendedVersions := {
 }
 
 deny[res] {
-	utils.has_key(recommendedVersions, kubernetes.apiVersion)
-	utils.has_key(recommendedVersions[kubernetes.apiVersion], kubernetes.kind)
-	msg := kubernetes.format(sprintf("%s is using deprecated 'apiVersion: %s', it should be 'apiVersion: %s'", [lower(kubernetes.name), kubernetes.apiVersion, recommendedVersions[kubernetes.apiVersion][kubernetes.kind]]))
+	version := recommendedVersions[kubernetes.apiVersion][kubernetes.kind]
+	msg := kubernetes.format(sprintf("%s is using deprecated 'apiVersion: %s', it should be 'apiVersion: %s'", [lower(kubernetes.name), kubernetes.apiVersion, version]))
 
 	res := {
 		"msg": msg,
