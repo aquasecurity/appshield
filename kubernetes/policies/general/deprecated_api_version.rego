@@ -5,12 +5,12 @@ import data.lib.utils
 
 __rego_metadata__ := {
 	"id": "KSV101",
-	"title": "Using A Deprecated API Version",
+	"title": "Resource is using a deprecated API version",
 	"version": "v1.0.0",
-	"severity": "Critical",
+	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Check if any objects are using a deprecated version of API.",
-	"recommended_actions": "Don't use deprecated API versions",
+	"recommended_actions": "Update to use a newer API version.",
 	"url": "https://kubernetes.io/docs/reference/using-api/deprecation-guide/",
 }
 
