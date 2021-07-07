@@ -7,7 +7,7 @@ default failRunAsUser = false
 
 __rego_metadata__ := {
 	"id": "KSV020",
-	"title": "Container running with low user Id",
+	"title": "Container is running with low user ID",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

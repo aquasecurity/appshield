@@ -7,11 +7,11 @@ default failHostPathVolume = false
 
 __rego_metadata__ := {
 	"id": "KSV023",
-	"title": "Mount hostpath volumes should not be allowed",
+	"title": "HostPath volume is mounted",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
-	"description": "According to pod security standard 'HostPath Volumes', HostPath volumes must be forbidden.",
+	"description": "HostPath volumes must be forbidden.",
 	"recommended_actions": "Do not set 'spec.volumes[*].hostPath'.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }

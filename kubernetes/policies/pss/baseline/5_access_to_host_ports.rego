@@ -6,11 +6,11 @@ default failHostPorts = false
 
 __rego_metadata__ := {
 	"id": "KSV024",
-	"title": "Access to host ports should not be allowed",
+	"title": "HostPort is binded",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
-	"description": "According to pod security standard 'Host Ports', hostPorts should be disallowed, or at minimum restricted to a known list.",
+	"description": "HostPorts should be disallowed, or at minimum restricted to a known list.",
 	"recommended_actions": "Do not set spec.containers[*].ports[*].hostPort and spec.initContainers[*].ports[*].hostPort.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }

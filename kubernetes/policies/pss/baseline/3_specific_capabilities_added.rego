@@ -6,11 +6,11 @@ default failAdditionalCaps = false
 
 __rego_metadata__ := {
 	"id": "KSV022",
-	"title": "Adding capabilities beyond the default set should not be allowed",
+	"title": "Capabilities beyond the default set is allowed",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
-	"description": "According to pod security standard 'Capabilities', capabilities beyond the default set must not be added.",
+	"description": "Adding NET_RAW or capabilities beyond the default set must be disallowed.",
 	"recommended_actions": "Do not set spec.containers[*].securityContext.capabilities.add and spec.initContainers[*].securityContext.capabilities.add",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }

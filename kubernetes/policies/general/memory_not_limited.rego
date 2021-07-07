@@ -7,7 +7,7 @@ default failLimitsMemory = false
 
 __rego_metadata__ := {
 	"id": "KSV018",
-	"title": "Assign memory limit to containers",
+	"title": "Memory is not limited",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

@@ -6,7 +6,7 @@ default failPrivileged = false
 
 __rego_metadata__ := {
 	"id": "KSV017",
-	"title": "Privileged pods disable most security mechanisms and must not be allowed",
+	"title": "Container is privileged",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
