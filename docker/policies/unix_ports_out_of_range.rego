@@ -26,5 +26,5 @@ invalid_ports[port] {
 
 deny[res] {
 	port := invalid_ports[_]
-	res := sprintf("'EXPOSE' contains port which is out of range [0, 65535]: '%d'", [port])
+	res := sprintf("'EXPOSE' contains port which is out of range [0, 65535]: %d", [port])
 }

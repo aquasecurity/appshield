@@ -21,5 +21,5 @@ __rego_input__ := {
 deny[res] {
 	entrypoints := docker.stage_entrypoints[name]
 	count(entrypoints) > 1
-	res := sprintf("There are '%d' duplicate ENTRYPOINT instructions for stage '%s'", [count(entrypoints), name])
+	res := sprintf("There are %d duplicate ENTRYPOINT instructions for stage '%s'", [count(entrypoints), name])
 }
