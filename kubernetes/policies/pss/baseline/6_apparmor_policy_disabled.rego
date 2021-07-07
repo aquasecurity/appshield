@@ -11,7 +11,7 @@ __rego_metadata__ := {
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can bypass AppArmor protection policies.",
-	"recommended_actions": "Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'.",
+	"recommended_actions": "Remove 'container.apparmor.security.beta.kubernetes.io' annotation or set it to 'runtime/default'.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
@@ -20,39 +20,22 @@ __rego_input__ := {
 	"selector": [{"type": "kubernetes"}],
 }
 
-# getApparmorContainers returns all containers which have an AppArmor
-# profile set and is profile not set to "unconfined"
-getApparmorContainers[container] {
-	some i
-	keys := [key | key := sprintf("%s/%s", [
-		"container.apparmor.security.beta.kubernetes.io",
-		kubernetes.containers[_].name,
-	])]
-
-	apparmor := object.filter(kubernetes.annotations[_], keys)
-	val := apparmor[i]
-	val != "unconfined"
-	[a, c] := split(i, "/")
-	container = c
-}
-
-# getNoApparmorContainers returns all containers which do not have
-# an AppArmor profile specified or profile set to "unconfined"
-getNoApparmorContainers[container] {
+apparmor_keys[container] = key {
 	container := kubernetes.containers[_].name
-	not getApparmorContainers[container]
+	key := sprintf("%s/%s", ["container.apparmor.security.beta.kubernetes.io", container])
 }
 
-# failApparmor is true if there is ANY container without an AppArmor profile
-# or has an AppArmor profile set to "unconfined"
-failApparmor {
-	count(getNoApparmorContainers) > 0
+custom_apparmor_containers[container] {
+	key := apparmor_keys[container]
+	annotations := kubernetes.annotations[_]
+	val := annotations[key]
+	val != "runtime/default"
 }
 
 deny[res] {
-	failApparmor
+	container := custom_apparmor_containers[_]
 
-	msg := kubernetes.format(sprintf("Container '%s' of '%s' '%s' in '%s' namespace should specify an AppArmor profile", [getNoApparmorContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should specify an AppArmor profile", [container, kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
