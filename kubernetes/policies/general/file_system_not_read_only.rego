@@ -44,7 +44,7 @@ failReadOnlyRootFilesystem {
 deny[res] {
 	failReadOnlyRootFilesystem
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set securityContext.readOnlyRootFilesystem to true", [getNotReadOnlyRootFilesystemContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set securityContext.readOnlyRootFilesystem to true", [getNotReadOnlyRootFilesystemContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
