@@ -7,7 +7,7 @@ default failProcMount = false
 
 __rego_metadata__ := {
 	"id": "KSV027",
-	"title": "The default /proc masks should not be modified",
+	"title": "The default /proc masks are not used",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

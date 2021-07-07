@@ -7,7 +7,7 @@ default failSeccompProfileType = false
 
 __rego_metadata__ := {
 	"id": "KSV030",
-	"title": "The default seccomp profile should not be modified",
+	"title": "The default seccomp profile is not used",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

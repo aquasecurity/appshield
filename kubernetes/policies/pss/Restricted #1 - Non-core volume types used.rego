@@ -5,7 +5,7 @@ import data.lib.utils
 
 __rego_metadata__ := {
 	"id": "KSV028",
-	"title": "Usage of non-ephemeral volume types should be limited to those defined through PersistentVolumes",
+	"title": "Non-ephemeral volume type not defined through PersistentVolumes is used",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

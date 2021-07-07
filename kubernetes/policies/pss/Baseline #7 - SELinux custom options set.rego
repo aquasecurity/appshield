@@ -7,7 +7,7 @@ default failSELinux = false
 
 __rego_metadata__ := {
 	"id": "KSV025",
-	"title": "A custom SELinux user or role option should not be set",
+	"title": "A custom SELinux user or role option is set",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

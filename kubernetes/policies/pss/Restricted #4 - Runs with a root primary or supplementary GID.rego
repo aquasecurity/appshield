@@ -7,7 +7,7 @@ default failRootGroupId = false
 
 __rego_metadata__ := {
 	"id": "KSV029",
-	"title": "Containers should be run as non-root groups",
+	"title": "Container is running as non-root group",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

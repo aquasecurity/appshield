@@ -7,7 +7,7 @@ default failSysctls = false
 
 __rego_metadata__ := {
 	"id": "KSV026",
-	"title": "Sysctls should be disallowed except for an allowed 'safe' subset",
+	"title": "Sysctls configures an 'unsafe' value",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
