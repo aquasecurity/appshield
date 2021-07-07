@@ -7,12 +7,12 @@ default failSeccompProfileType = false
 
 __rego_metadata__ := {
 	"id": "KSV030",
-	"title": "Runtime/Default Seccomp profile not set",
+	"title": "The default seccomp profile is not used",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
-	"description": "According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-	"recommended_actions": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to RuntimeDefault.",
+	"description": "The RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
+	"recommended_actions": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'runtime/default' or undefined.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
 }
 
@@ -41,7 +41,7 @@ failSeccompProfileType {
 deny[res] {
 	failSeccompProfileType
 
-	msg := kubernetes.format(sprintf("%s %s in %s namespace should set spec.securityContext.seccompProfile.type to 'RuntimeDefault'", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("%s '%s' should set spec.securityContext.seccompProfile.type to 'RuntimeDefault'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
@@ -55,7 +55,7 @@ deny[res] {
 deny[res] {
 	count(getContainersWithDisallowedSeccompProfileType) > 0
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set spec.containers[*].securityContext.seccompProfile.type to 'RuntimeDefault'", [getContainersWithDisallowedSeccompProfileType[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set spec.containers[*].securityContext.seccompProfile.type to 'RuntimeDefault'", [getContainersWithDisallowedSeccompProfileType[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

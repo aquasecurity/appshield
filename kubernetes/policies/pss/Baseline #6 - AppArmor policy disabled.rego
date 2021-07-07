@@ -6,7 +6,7 @@ default failAppArmor = false
 
 __rego_metadata__ := {
 	"id": "KSV002",
-	"title": "AppArmor policies disabled",
+	"title": "AppArmor policies are disabled",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
@@ -35,7 +35,7 @@ custom_apparmor_containers[container] {
 deny[res] {
 	container := custom_apparmor_containers[_]
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should specify an AppArmor profile", [container, lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of '%s' '%s' in '%s' namespace should specify an AppArmor profile", [container, lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,

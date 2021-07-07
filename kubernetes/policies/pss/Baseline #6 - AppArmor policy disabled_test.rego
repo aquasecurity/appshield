@@ -22,7 +22,7 @@ test_custom_deny {
 	}
 
 	count(r) == 1
-	r[_].msg == "container hello of pod hello-apparmor in default namespace should specify an AppArmor profile"
+	r[_].msg == "Container 'hello' of 'pod' 'hello-apparmor' in 'default' namespace should specify an AppArmor profile"
 }
 
 test_undefined_allowed {

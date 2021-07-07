@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "Exposing UNIX ports out of range from 0 to 65535",
+	"description": "Exposing UNIX ports out of range from 0 to 65535.",
 	"recommended_actions": "Use port number within range",
 	"url": "https://docs.docker.com/engine/reference/builder/#expose",
 }

@@ -128,7 +128,6 @@ func TestDockerfile(t *testing.T) {
 				},
 			},
 		},
-		/*there is separate issue with DS006
 		{
 			name:  "DS006: COPY '--from' references current image FROM alias",
 			input: "testdata/DS006",
@@ -143,18 +142,18 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS006",
-							Message:   `expected COPY "/target/app.jar" "app.jar" instead of ADD "/target/app.jar" "app.jar"`,
+							Message:   `'COPY --from' shouldn't mention current alias 'dep' since it is impossible to copy from itself`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS006",
 								Type:     "Dockerfile Security Check",
-								Title:    "COPY '--from' references current image FROM alias",
+								Title:    "COPY '--from' references the current image",
 								Severity: "CRITICAL",
 							},
 						},
 					},
 				},
 			},
-		},*/
+		},
 		{
 			name:  "DS007: Multiple ENTRYPOINT Instructions Listed",
 			input: "testdata/DS007",

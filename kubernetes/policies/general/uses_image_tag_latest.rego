@@ -6,7 +6,7 @@ default checkUsingLatestTag = false
 
 __rego_metadata__ := {
 	"id": "KSV013",
-	"title": "Image tag \":latest\" used",
+	"title": "Image tag ':latest' is used",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
@@ -47,7 +47,7 @@ deny[res] {
 
 	# msg = kubernetes.format(sprintf("%s in the %s %s has an image, %s, using the latest tag", [container.name, kubernetes.kind, image_name, kubernetes.name]))
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should specify image tag", [getUntaggedContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should specify an image tag", [getUntaggedContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

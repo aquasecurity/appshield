@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "For clarity and reliability, you should always use absolute paths for your WORKDIR",
+	"description": "For clarity and reliability, you should always use absolute paths for your WORKDIR.",
 	"recommended_actions": "Use absolute paths for your WORKDIR",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#workdir",
 }
