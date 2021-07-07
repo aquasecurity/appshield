@@ -11,6 +11,12 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "Check if any objects are using a deprecated version of API.",
 	"recommended_actions": "Don't use deprecated API versions",
+	"url": "https://kubernetes.io/docs/reference/using-api/deprecation-guide/",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 recommendedVersions := {
@@ -18,34 +24,27 @@ recommendedVersions := {
 		"Deployment": "apps/v1",
 		"DaemonSet": "apps/v1",
 		"Ingress": "apps/v1",
+		"NetworkPolicy": "networking.k8s.io/v1",
+		"ReplicaSet": "apps/v1",
+		"PodSecurityPolicy": "policy/v1beta1",
 	},
 	"apps/v1beta1": {
 		"Deployment": "apps/v1",
 		"StatefulSet": "apps/v1",
+		"ReplicaSet": "apps/v1",
 	},
 	"apps/v1beta2": {
 		"Deployment": "apps/v1",
 		"DaemonSet": "apps/v1",
 		"StatefulSet": "apps/v1",
+		"ReplicaSet": "apps/v1",
 	},
 }
 
-# Get all containers which use deprecated api versions
-getDeprecatedApi[name] {
-	allContainers := kubernetes.containers[_]
-	utils.has_key(recommendedVersions, kubernetes.apiVersion)
-	name := allContainers.name
-}
-
-# failApiVersionCheck is true if containers[].apiVersion is deprecated
-failApiVersionCheck {
-	count(getDeprecatedApi) > 0
-}
-
 deny[res] {
-	failApiVersionCheck
-
-	msg := kubernetes.format(sprintf("%s %s is using deprecated 'apiVersion' %s, it sould be %s", [getDeprecatedApi[_], lower(kubernetes.kind), kubernetes.apiVersion, lower(kubernetes.kind), recommendedVersions[kubernetes.apiVersion][kubernetes.kind]]))
+	utils.has_key(recommendedVersions, kubernetes.apiVersion)
+	utils.has_key(recommendedVersions[kubernetes.apiVersion], kubernetes.kind)
+	msg := kubernetes.format(sprintf("%s is using deprecated 'apiVersion: %s', it should be 'apiVersion: %s'", [lower(kubernetes.name), kubernetes.apiVersion, recommendedVersions[kubernetes.apiVersion][kubernetes.kind]]))
 
 	res := {
 		"msg": msg,
