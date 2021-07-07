@@ -7,12 +7,13 @@ default failSELinux = false
 
 __rego_metadata__ := {
 	"id": "KSV025",
-	"title": "SELinux custom options set",
+	"title": "A custom SELinux user or role option is set",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
-	"description": "According to pod security standard 'SElinux', setting custom SELinux options should be disallowed.",
+	"description": "Setting a custom SELinux user or role option should be forbidden.",
 	"recommended_actions": "Do not set 'spec.securityContext.seLinuxOptions', spec.containers[*].securityContext.seLinuxOptions and spec.initContainers[*].securityContext.seLinuxOptions.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
 __rego_input__ := {
@@ -35,7 +36,7 @@ failSELinuxOpts {
 deny[res] {
 	failSELinuxOpts
 
-	msg := kubernetes.format(sprintf("%s %s in %s namespace should not set spec.securityContext.seLinuxOptions, spec.containers[*].securityContext.seLinuxOptions or spec.initContainers[*].securityContext.seLinuxOptions.", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("%s '%s' should not set spec.securityContext.seLinuxOptions, spec.containers[*].securityContext.seLinuxOptions or spec.initContainers[*].securityContext.seLinuxOptions", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

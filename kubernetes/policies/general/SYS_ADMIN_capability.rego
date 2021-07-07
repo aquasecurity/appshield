@@ -6,12 +6,13 @@ default failCapsSysAdmin = false
 
 __rego_metadata__ := {
 	"id": "KSV005",
-	"title": "SYS_ADMIN capability added",
+	"title": "SYS_ADMIN capability is used",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "SYS_ADMIN gives the processes running inside the container privileges that are equivalent to root.",
 	"recommended_actions": "Remove the SYS_ADMIN capability from 'containers[].securityContext.capabilities.add'.",
+	"url": "https://kubesec.io/basics/containers-securitycontext-capabilities-add-index-sys-admin/",
 }
 
 __rego_input__ := {
@@ -36,7 +37,7 @@ failCapsSysAdmin {
 deny[res] {
 	failCapsSysAdmin
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should not include 'SYS_ADMIN' in securityContext.capabilities.add", [getCapsSysAdmin[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of '%s' '%s' in '%s' namespace should not include 'SYS_ADMIN' in securityContext.capabilities.add", [getCapsSysAdmin[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,

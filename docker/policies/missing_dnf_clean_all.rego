@@ -4,11 +4,11 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS019",
-	"title": "Missing Dnf Clean All",
+	"title": "'dnf clean all' is missing after installing packages",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "Cached package data should be cleaned after installation to reduce image size",
+	"description": "Cached package data should be cleaned after installation to reduce image size.",
 	"recommended_actions": "Add 'dnf clean all' to Dockerfile",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/",
 }

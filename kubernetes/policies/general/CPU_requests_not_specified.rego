@@ -7,12 +7,13 @@ default failRequestsCPU = false
 
 __rego_metadata__ := {
 	"id": "KSV015",
-	"title": "CPU requests not specified",
+	"title": "CPU requests is not specified",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "When containers have resource requests specified, the scheduler can make better decisions about which nodes to place pods on, and how to deal with resource contention.",
 	"recommended_actions": "Set 'containers[].resources.requests.cpu'.",
+	"url": "https://cloud.google.com/blog/products/containers-kubernetes/kubernetes-best-practices-resource-requests-and-limits",
 }
 
 __rego_input__ := {
@@ -43,7 +44,7 @@ failRequestsCPU {
 deny[res] {
 	failRequestsCPU
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set resources.requests.cpu", [getNoRequestsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set resources.requests.cpu", [getNoRequestsCPUContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

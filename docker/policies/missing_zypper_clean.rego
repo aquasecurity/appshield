@@ -4,11 +4,11 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS020",
-	"title": "Missing Zypper Clean",
+	"title": "'zypper clean' is missing after running zypper",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "Reduce layer and image size by deleting unneeded caches after running zypper",
+	"description": "Layer and image size should be reduced by deleting unneeded caches after running zypper.",
 	"recommended_actions": "Add 'zypper clean' to Dockerfile",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run",
 }
@@ -33,7 +33,7 @@ get_zypper[arg] {
 
 deny[res] {
 	args := get_zypper[_]
-	res := sprintf("'zypper clean' is missed: %s", [args])
+	res := sprintf("'zypper clean' is missed: '%s'", [args])
 }
 
 contains_zipper_clean(cmd) {

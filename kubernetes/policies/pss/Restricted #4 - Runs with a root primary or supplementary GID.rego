@@ -7,12 +7,13 @@ default failRootGroupId = false
 
 __rego_metadata__ := {
 	"id": "KSV029",
-	"title": "Runs with a root primary or supplementary GID",
+	"title": "Container is running as non-root group",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
-	"description": "According to pod security standard 'Non-root groups', containers should be forbidden from running with a root primary or supplementary GID.",
+	"description": "Containers should be forbidden from running with a root primary or supplementary GID.",
 	"recommended_actions": "Set 'containers[].securityContext.runAsGroup' to a non-zero integer or leave undefined.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
 }
 
 __rego_input__ := {
@@ -50,7 +51,7 @@ failRootGroupId {
 deny[res] {
 	failRootGroupId
 
-	msg := kubernetes.format(sprintf("%s %s in %s namespace should set spec.securityContext.runAsGroup, spec.securityContext.supplementalGroups[*] and spec.securityContext.fsGroup to integer greater than 0", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("%s '%s' should set spec.securityContext.runAsGroup, spec.securityContext.supplementalGroups[*] and spec.securityContext.fsGroup to integer greater than 0", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
@@ -64,7 +65,7 @@ deny[res] {
 deny[res] {
 	count(getContainersWithRootGroupId) > 0
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set spec.securityContext.runAsGroup to integer greater than  0", [getContainersWithRootGroupId[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set spec.securityContext.runAsGroup to integer greater than  0", [getContainersWithRootGroupId[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

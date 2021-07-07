@@ -7,12 +7,13 @@ default failCapsDropAny = false
 
 __rego_metadata__ := {
 	"id": "KSV004",
-	"title": "Default capabilities: some containers do not drop any",
+	"title": "Unused capabilities should be dropped (drop any)",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "Security best practices require containers to run with minimal required capabilities.",
 	"recommended_actions": "Specify at least one unneeded capability in 'containers[].securityContext.capabilities.drop'",
+	"url": "https://kubesec.io/basics/containers-securitycontext-capabilities-drop-index-all/",
 }
 
 __rego_input__ := {
@@ -44,7 +45,7 @@ failCapsDropAny {
 deny[res] {
 	failCapsDropAny
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set securityContext.capabilities.drop", [getNoCapsDropContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of '%s' '%s' in '%s' namespace should set securityContext.capabilities.drop", [getNoCapsDropContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,

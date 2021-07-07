@@ -4,12 +4,12 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS016",
-	"title": "Multiple CMD Instructions Listed",
+	"title": "Multiple CMD instructions listed",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
 	"description": "There can only be one CMD instruction in a Dockerfile. If you list more than one CMD then only the last CMD will take effect",
-	"recommended_actions": "One CMD instruction must remain in Dockerfile. Remove all other instructions",
+	"recommended_actions": "Dockefile should only have one CMD instruction. Remove all the other CMD instructions",
 	"url": "https://docs.docker.com/engine/reference/builder/#cmd",
 }
 

@@ -12,6 +12,7 @@ __rego_metadata__ := {
 	"type": "Kubernetes Security Check",
 	"description": "Sharing the host’s network namespace permits processes in the pod to communicate with processes bound to the host’s loopback adapter.",
 	"recommended_actions": "Do not set 'spec.template.spec.hostNetwork' to true.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
 __rego_input__ := {
@@ -27,7 +28,7 @@ failHostNetwork {
 deny[res] {
 	failHostNetwork
 
-	msg := kubernetes.format(sprintf("%s %s in %s namespace should not set spec.template.spec.hostNetwork to true", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("'%s' '%s' in '%s' namespace should not set spec.template.spec.hostNetwork to true", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,

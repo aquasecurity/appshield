@@ -5,12 +5,13 @@ import data.lib.utils
 
 __rego_metadata__ := {
 	"id": "KSV028",
-	"title": "Non-core volume types used.",
+	"title": "Non-ephemeral volume type not defined through PersistentVolumes is used",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
-	"description": "According to pod security standard 'Volume types', non-core volume types must not be used.",
+	"description": "In addition to restricting HostPath volumes, usage of non-ephemeral volume types should be limited to those defined through PersistentVolumes.",
 	"recommended_actions": "Do not Set 'spec.volumes[*]' to any of the disallowed volume types.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
 }
 
 __rego_input__ := {
@@ -22,7 +23,7 @@ __rego_input__ := {
 disallowed_volume_types = [
 	"gcePersistentDisk",
 	"awsElasticBlockStore",
-	"hostPath",
+	# "hostPath", Baseline detects spec.volumes[*].hostPath
 	"gitRepo",
 	"nfs",
 	"iscsi",
@@ -61,7 +62,7 @@ failVolumeTypes {
 deny[res] {
 	failVolumeTypes
 
-	msg := kubernetes.format(sprintf("%s %s in %s namespace should set volume %s spec.volumes[*] to type PersistentVolumeClaim", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, getDisallowedVolumes[_]]))
+	msg := kubernetes.format(sprintf("%s '%s' should set spec.volumes[*] to type PersistentVolumeClaim", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

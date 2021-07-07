@@ -6,12 +6,13 @@ default failAppArmor = false
 
 __rego_metadata__ := {
 	"id": "KSV002",
-	"title": "AppArmor policies disabled",
+	"title": "AppArmor policies are disabled",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "A program inside the container can bypass AppArmor protection policies.",
 	"recommended_actions": "Remove the 'unconfined' value from 'container.apparmor.security.beta.kubernetes.io'.",
+	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
 __rego_input__ := {
@@ -51,7 +52,7 @@ failApparmor {
 deny[res] {
 	failApparmor
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should specify an AppArmor profile", [getNoApparmorContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of '%s' '%s' in '%s' namespace should specify an AppArmor profile", [getNoApparmorContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,
