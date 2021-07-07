@@ -1,5 +1,5 @@
 FROM golang:1.7.3 as dep
-COPY --from dep /binary /
+COPY --from=dep /binary /
 
 FROM alpine:3.13
 USER mike
