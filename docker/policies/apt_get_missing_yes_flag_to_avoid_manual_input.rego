@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "Check if 'apt-get' calls use the flag '-y' to avoid user manual input.",
+	"description": "'apt-get' calls should use the flag '-y' to avoid user manual input.",
 	"recommended_actions": "Add '-y' flag to 'apt-get'",
 	"url": "https://docs.docker.com/engine/reference/builder/#run",
 }
