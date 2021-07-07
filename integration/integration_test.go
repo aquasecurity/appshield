@@ -388,6 +388,240 @@ func TestDockerfile(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:  "DS016: Multiple CMD Instructions Listed",
+			input: "testdata/DS016",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.dockerfile.DS016",
+							Message:   `There are 2 duplicate CMD instructions for stage 'golang:1.7.3'`,
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS016",
+								Type:     "Dockerfile Security Check",
+								Title:    "Multiple CMD instructions listed",
+								Severity: "HIGH",
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:  "DS017: Update Instruction Alone",
+			input: "testdata/DS017",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.dockerfile.DS017",
+							Message:   `Instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement.`,
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS017",
+								Type:     "Dockerfile Security Check",
+								Title:    "Update instruction alone",
+								Severity: "HIGH",
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:  "DS018: COPY '--from' Without FROM Alias Defined Previously",
+			input: "testdata/DS018",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.dockerfile.DS018",
+							Message:   `The alias '--from=dep' is not defined in the previous stages`,
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS018",
+								Type:     "Dockerfile Security Check",
+								Title:    "'COPY --from' without FROM alias defined previously",
+								Severity: "HIGH",
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:  "DS019: Missing Dnf Clean All",
+			input: "testdata/DS019",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.dockerfile.DS019",
+							Message:   `'dnf clean all' is missed: set -uex &&     dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo &&     sed -i 's/\\$releasever/26/g' /etc/yum.repos.d/docker-ce.repo &&     dnf install -vy docker-ce`,
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS019",
+								Type:     "Dockerfile Security Check",
+								Title:    "'dnf clean all' is missing after installing packages",
+								Severity: "HIGH",
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:  "DS020: Missing Zypper Clean",
+			input: "testdata/DS020",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.dockerfile.DS020",
+							Message:   `'zypper clean' is missed: 'zypper install bash'`,
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS020",
+								Type:     "Dockerfile Security Check",
+								Title:    "'zypper clean' is missing after running zypper",
+								Severity: "HIGH",
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:  "DS021: APT-GET Missing '-y' To Avoid Manual Input",
+			input: "testdata/DS021",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.dockerfile.DS021",
+							Message:   `'-y' flag is missed: 'apt-get install apt-utils && apt-get clean'`,
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS021",
+								Type:     "Dockerfile Security Check",
+								Title:    "'apt-get' is missing '-y' to avoid manual input",
+								Severity: "HIGH",
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:  "DS022: MAINTAINER is deprecated",
+			input: "testdata/DS022",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.dockerfile.DS022",
+							Message:   "MAINTAINER should not be used: 'MAINTAINER Lukas Martinelli <me@lukasmartinelli.ch>'",
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS022",
+								Type:     "Dockerfile Security Check",
+								Title:    "Deprecated MAINTAINER is used",
+								Severity: "HIGH",
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:  "DS023: Multiple HEALTHCHECK instructions",
+			input: "testdata/DS023",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.dockerfile.DS023",
+							Message:   "There are 2 duplicate HEALTHCHECK instructions in the stage 'busybox:1.33.1'",
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS023",
+								Type:     "Dockerfile Security Check",
+								Title:    "Multiple HEALTHCHECK are defined",
+								Severity: "MEDIUM",
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:  "DS024: Do not use apt-get dist-upgrade",
+			input: "testdata/DS024",
+			want: []types.Misconfiguration{
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.allowed",
+				},
+				{
+					FileType: types.Dockerfile,
+					FilePath: "Dockerfile.denied",
+					Failures: types.MisconfResults{
+						{
+							Namespace: "appshield.dockerfile.DS024",
+							Message:   "'apt-get dist-upgrade' should not be used in Dockerfile",
+							PolicyMetadata: types.PolicyMetadata{
+								ID:       "DS024",
+								Type:     "Dockerfile Security Check",
+								Title:    "'apt-get dist-upgrade' is used",
+								Severity: "HIGH",
+							},
+						},
+					},
+				},
+			},
+		},
 	}
 
 	for _, tt := range tests {
