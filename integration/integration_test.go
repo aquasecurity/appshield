@@ -406,7 +406,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS016",
 								Type:     "Dockerfile Security Check",
-								Title:    "Multiple CMD Instructions Listed",
+								Title:    "Multiple CMD instructions listed",
 								Severity: "HIGH",
 							},
 						},
@@ -428,11 +428,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS017",
-							Message:   `Instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement`,
+							Message:   `Instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement.`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS017",
 								Type:     "Dockerfile Security Check",
-								Title:    "Update Instruction Alone",
+								Title:    "Update instruction alone",
 								Severity: "HIGH",
 							},
 						},
@@ -454,11 +454,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS018",
-							Message:   `Invalid alias: --from=dep`,
+							Message:   `The alias '--from=dep' is not defined in the previous stages`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS018",
 								Type:     "Dockerfile Security Check",
-								Title:    "COPY '--from' Without FROM Alias Defined Previously",
+								Title:    "'COPY --from' without FROM alias defined previously",
 								Severity: "HIGH",
 							},
 						},
@@ -484,7 +484,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS019",
 								Type:     "Dockerfile Security Check",
-								Title:    "Missing Dnf Clean All",
+								Title:    "'dnf clean all' is missing after installing packages",
 								Severity: "HIGH",
 							},
 						},
@@ -506,11 +506,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS020",
-							Message:   `'zypper clean' is missed: zypper install bash`,
+							Message:   `'zypper clean' is missed: 'zypper install bash'`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS020",
 								Type:     "Dockerfile Security Check",
-								Title:    "Missing Zypper Clean",
+								Title:    "'zypper clean' is missing after running zypper",
 								Severity: "HIGH",
 							},
 						},
@@ -532,11 +532,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS021",
-							Message:   `-y flag is missed: apt-get install apt-utils && apt-get clean`,
+							Message:   `'-y' flag is missed: 'apt-get install apt-utils && apt-get clean'`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS021",
 								Type:     "Dockerfile Security Check",
-								Title:    "APT-GET Missing '-y' To Avoid Manual Input",
+								Title:    "'apt-get' is missing '-y' to avoid manual input",
 								Severity: "HIGH",
 							},
 						},
