@@ -4,11 +4,11 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS024",
-	"title": "Do not use apt-get dist-upgrade",
+	"title": "'apt-get dist-upgrade' is used",
 	"version": "v1.0.0",
-	"severity": "CRITICAL",
+	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "'dist-upgrade' upgrades a major version so it doesn't make more sense in Dockerfile",
+	"description": "'apt-get dist-upgrade' upgrades a major version so it doesn't make more sense in Dockerfile",
 	"recommended_actions": "Just use different image",
 }
 
@@ -24,6 +24,6 @@ get_apt_get_dist_upgrade[args] {
 }
 
 deny[res] {
-	arg := get_apt_get_dist_upgrade[_]
-	res := sprintf("%s shouldn't be used in dockerfile", [arg])
+	get_apt_get_dist_upgrade[_]
+	res := "'apt-get dist-upgrade' should not be used in Dockerfile"
 }

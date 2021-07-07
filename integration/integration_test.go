@@ -558,12 +558,12 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS022",
-							Message:   `Shouldn't use : maintainer Lukas Martinelli <me@lukasmartinelli.ch>`,
+							Message:   "MAINTAINER should not be used: 'MAINTAINER Lukas Martinelli <me@lukasmartinelli.ch>'",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS022",
 								Type:     "Dockerfile Security Check",
-								Title:    "MAINTAINER is deprecated",
-								Severity: "CRITICAL",
+								Title:    "Deprecated MAINTAINER is used",
+								Severity: "HIGH",
 							},
 						},
 					},
@@ -584,12 +584,12 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS023",
-							Message:   `There are 2 duplicate HEALTHCHECK instructions for: busybox:1.33.1`,
+							Message:   "There are 2 duplicate HEALTHCHECK instructions in the stage 'busybox:1.33.1'",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS023",
 								Type:     "Dockerfile Security Check",
-								Title:    "Multiple HEALTHCHECK instructions",
-								Severity: "HIGH",
+								Title:    "Multiple HEALTHCHECK are defined",
+								Severity: "MEDIUM",
 							},
 						},
 					},
@@ -610,12 +610,12 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS024",
-							Message:   `apt-get update && apt-get dist-upgrade && apt-get -y install curl && apt-get clean shouldn't be used in dockerfile`,
+							Message:   "'apt-get dist-upgrade' should not be used in Dockerfile",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS024",
 								Type:     "Dockerfile Security Check",
-								Title:    "Do not use apt-get dist-upgrade",
-								Severity: "CRITICAL",
+								Title:    "'apt-get dist-upgrade' is used",
+								Severity: "HIGH",
 							},
 						},
 					},
