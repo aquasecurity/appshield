@@ -11,7 +11,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
-	"description": "Using runAsNonRoot' forces the running image to run as a non-root user to ensure least privileges.",
+	"description": "'runAsNonRoot' forces the running image to run as a non-root user to ensure least privileges.",
 	"recommended_actions": "Set 'containers[].securityContext.runAsNonRoot' to true.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
 }
