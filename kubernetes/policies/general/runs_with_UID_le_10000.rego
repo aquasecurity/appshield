@@ -7,7 +7,7 @@ default failRunAsUser = false
 
 __rego_metadata__ := {
 	"id": "KSV020",
-	"title": "Runs with UID <= 10000",
+	"title": "Container running with low user Id",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
@@ -54,7 +54,7 @@ failRunAsUser {
 deny[res] {
 	failRunAsUser
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set securityContext.runAsUser > 10000", [getUserIdContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set securityContext.runAsUser > 10000", [getUserIdContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

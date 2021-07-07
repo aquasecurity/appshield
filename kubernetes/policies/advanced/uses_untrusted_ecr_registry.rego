@@ -7,12 +7,12 @@ default failTrustedECRRegistry = false
 
 __rego_metadata__ := {
 	"id": "KSV035",
-	"title": "Container images from non-ECR registries used",
+	"title": "Container images from non-ECR registries should not be allowed",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
-	"description": "Containers should only use images from trusted registries.",
-	"recommended_actions": "Use images from trusted registries.",
+	"description": "Container images from non-ECR registries should be forbidden.",
+	"recommended_actions": "Container image should be used from Amazon container Registry",
 }
 
 __rego_input__ := {
@@ -81,8 +81,7 @@ failTrustedECRRegistry {
 deny[res] {
 	failTrustedECRRegistry
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should restrict container image to your specific registry domain. See the full ECR list here: https://docs.aws.amazon.com/general/latest/gr/ecr.html", [getContainersWithUntrustedECRRegistry[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
-
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should restrict images to own ECR repository. See the full ECR list here: https://docs.aws.amazon.com/general/latest/gr/ecr.html", [getContainersWithUntrustedECRRegistry[_], kubernetes.kind, kubernetes.name]))
 	res := {
 		"msg": msg,
 		"id": __rego_metadata__.id,
