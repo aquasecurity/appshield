@@ -7,7 +7,7 @@ default failRootGroupId = false
 
 __rego_metadata__ := {
 	"id": "KSV029",
-	"title": "Container is running as non-root group",
+	"title": "Container is running as root group",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
@@ -51,7 +51,7 @@ failRootGroupId {
 deny[res] {
 	failRootGroupId
 
-	msg := kubernetes.format(sprintf("%s '%s' should set spec.securityContext.runAsGroup, spec.securityContext.supplementalGroups[*] and spec.securityContext.fsGroup to integer greater than 0", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should set 'spec.securityContext.runAsGroup', 'spec.securityContext.supplementalGroups[*]' and 'spec.securityContext.fsGroup' to integer greater than 0", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
@@ -65,7 +65,7 @@ deny[res] {
 deny[res] {
 	count(getContainersWithRootGroupId) > 0
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set spec.securityContext.runAsGroup to integer greater than  0", [getContainersWithRootGroupId[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'spec.securityContext.runAsGroup' to integer greater than  0", [getContainersWithRootGroupId[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
