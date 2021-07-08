@@ -21,16 +21,42 @@ __rego_input__ := {
 	"selector": [{"type": "kubernetes"}],
 }
 
+allowed_selinux_types := ["container_t", "container_init_t", "container_kvm_t"]
+
 # failSELinuxOpts is true if securityContext.seLinuxOptions is set in any container
 failSELinuxOpts {
 	allContainers := kubernetes.containers[_]
-	utils.has_key(allContainers.securityContext, "seLinuxOptions")
+	failSecurityContext(allContainers.securityContext.seLinuxOptions)
 }
 
 # failSELinuxOpts is true if securityContext.seLinuxOptions is set in the pod template
 failSELinuxOpts {
 	allPods := kubernetes.pods[_]
-	utils.has_key(allPods.spec.securityContext, "seLinuxOptions")
+	failSecurityContext(allPods.spec.securityContext.seLinuxOptions)
+}
+
+failSecurityContext(options) = false {
+	not options
+}
+
+failSecurityContext(options) {
+	not hasAllowedType(options)
+}
+
+failSecurityContext(options) {
+	utils.has_key(options, "role")
+}
+
+failSecurityContext(options) {
+	utils.has_key(options, "user")
+}
+
+hasAllowedType(options) {
+	allowed_selinux_types[_] == options.type
+}
+
+hasAllowedType(options) {
+	not utils.has_key(options, "type")
 }
 
 deny[res] {
