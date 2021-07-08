@@ -54,7 +54,7 @@ failRunAsGroup {
 deny[res] {
 	failRunAsGroup
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set securityContext.runAsGroup > 10000", [getGroupIdContainers[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'securityContext.runAsGroup' > 10000", [getGroupIdContainers[_], kubernetes.kind, kubernetes.name]))
 	res := {
 		"msg": msg,
 		"id": __rego_metadata__.id,

@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS005",
-	"title": "Use COPY instead of ADD",
+	"title": "ADD is used instead of COPY",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Dockerfile Security Check",

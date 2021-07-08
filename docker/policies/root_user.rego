@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS002",
-	"title": "Image user should not be 'root'",
+	"title": "Image user is 'root'",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
@@ -45,5 +45,5 @@ deny[msg] {
 
 deny[res] {
 	fail_last_user_root
-	res := "Last USER command in Dockerfile should not be root"
+	res := "Last USER command in Dockerfile should not be 'root'"
 }

@@ -49,7 +49,7 @@ failHostPorts {
 deny[res] {
 	failHostPorts
 
-	msg := sprintf("Container '%s' of %s '%s' should not set host ports, ports[*].hostPort%s", [getContainersWithDisallowedHostPorts[_], kubernetes.kind, kubernetes.name, host_ports_msg])
+	msg := sprintf("Container '%s' of %s '%s' should not set host ports, 'ports[*].hostPort'%s", [getContainersWithDisallowedHostPorts[_], kubernetes.kind, kubernetes.name, host_ports_msg])
 	res := {
 		"msg": msg,
 		"id": __rego_metadata__.id,

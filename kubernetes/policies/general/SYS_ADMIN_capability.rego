@@ -6,7 +6,7 @@ default failCapsSysAdmin = false
 
 __rego_metadata__ := {
 	"id": "KSV005",
-	"title": "SYS_ADMIN capability is used",
+	"title": "SYS_ADMIN capability is added",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
@@ -37,7 +37,7 @@ failCapsSysAdmin {
 deny[res] {
 	failCapsSysAdmin
 
-	msg := kubernetes.format(sprintf("Container '%s' of '%s' '%s' in '%s' namespace should not include 'SYS_ADMIN' in securityContext.capabilities.add", [getCapsSysAdmin[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should not include 'SYS_ADMIN' in 'securityContext.capabilities.add'", [getCapsSysAdmin[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

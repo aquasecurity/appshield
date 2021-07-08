@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS001",
-	"title": "Use a tag name in the 'FROM' statement",
+	"title": "':latest' tag is used",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",

@@ -54,7 +54,7 @@ failRunAsUser {
 deny[res] {
 	failRunAsUser
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set securityContext.runAsUser > 10000", [getUserIdContainers[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'securityContext.runAsUser' > 10000", [getUserIdContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

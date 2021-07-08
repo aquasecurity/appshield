@@ -6,7 +6,7 @@ default checkCapsDropAll = false
 
 __rego_metadata__ := {
 	"id": "KSV003",
-	"title": "Unused capabilities should be dropped (drop all)",
+	"title": "Unused capabilities are not dropped",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
@@ -42,7 +42,7 @@ checkCapsDropAll {
 deny[res] {
 	checkCapsDropAll
 
-	msg := kubernetes.format(sprintf("Container '%s' of '%s' '%s' in '%s' namespace should add 'ALL' to securityContext.capabilities.drop", [getCapsNoDropAllContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should add 'ALL' to 'securityContext.capabilities.drop'", [getCapsNoDropAllContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

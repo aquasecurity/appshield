@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS016",
-	"title": "Multiple CMD instructions listed",
+	"title": "Multiple CMD instructions are listed",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

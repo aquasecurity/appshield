@@ -32,9 +32,7 @@ checkDockerSocket {
 deny[res] {
 	checkDockerSocket
 
-	# msg = sprintf("%s should not mount /var/run/docker.socker", [name])
-
-	msg := kubernetes.format(sprintf("'%s' '%s' in '%s' namespace should not specify /var/run/docker.socker in spec.template.volumes.hostPath.path", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("%s '%s' should not specify '/var/run/docker.socker' in 'spec.template.volumes.hostPath.path'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

@@ -44,7 +44,7 @@ failLimitsCPU {
 deny[res] {
 	failLimitsCPU
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set resources.limits.cpu", [getNoLimitsCPUContainers[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'resources.limits.cpu'", [getNoLimitsCPUContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

@@ -49,7 +49,7 @@ failAdditionalCaps {
 deny[res] {
 	failAdditionalCaps
 
-	msg := sprintf("Container '%s' of %s '%s' should not set securityContext.capabilities.add%s", [getContainersWithDisallowedCaps[_], kubernetes.kind, kubernetes.name, caps_msg])
+	msg := sprintf("Container '%s' of %s '%s' should not set 'securityContext.capabilities.add'%s", [getContainersWithDisallowedCaps[_], kubernetes.kind, kubernetes.name, caps_msg])
 	res := {
 		"msg": msg,
 		"id": __rego_metadata__.id,
