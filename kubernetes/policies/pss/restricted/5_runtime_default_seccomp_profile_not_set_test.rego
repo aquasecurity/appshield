@@ -7,8 +7,7 @@ test_pod_context_custom_profile_denied {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {
-			"annotations": {"container.apparmor.security.beta.kubernetes.io/hello": "custom"},
-			"name": "hello-apparmor",
+			"name": "hello-seccomp",
 		},
 		"spec": {
 			"securityContext": {"seccompProfile": {"type": "custom"}},
@@ -16,7 +15,7 @@ test_pod_context_custom_profile_denied {
 				"command": [
 					"sh",
 					"-c",
-					"echo 'Hello AppArmor!' && sleep 1h",
+					"echo 'Hello' && sleep 1h",
 				],
 				"image": "busybox",
 				"name": "hello",
@@ -25,7 +24,7 @@ test_pod_context_custom_profile_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "Pod 'hello-apparmor' should set spec.securityContext.seccompProfile.type to 'runtime/default'"
+	r[_].msg == "Pod 'hello-seccomp' should set spec.securityContext.seccompProfile.type to 'RuntimeDefault'"
 }
 
 test_pod_context_undefined_type_allowed {
@@ -33,8 +32,7 @@ test_pod_context_undefined_type_allowed {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {
-			"annotations": {"container.apparmor.security.beta.kubernetes.io/hello": "custom"},
-			"name": "hello-apparmor",
+			"name": "hello-seccomp",
 		},
 		"spec": {
 			"securityContext": {"seccompProfile": {}},
@@ -42,7 +40,7 @@ test_pod_context_undefined_type_allowed {
 				"command": [
 					"sh",
 					"-c",
-					"echo 'Hello AppArmor!' && sleep 1h",
+					"echo 'Hello' && sleep 1h",
 				],
 				"image": "busybox",
 				"name": "hello",
@@ -58,8 +56,7 @@ test_pod_context_undefined_profile_allowed {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {
-			"annotations": {"container.apparmor.security.beta.kubernetes.io/hello": "custom"},
-			"name": "hello-apparmor",
+			"name": "hello-seccomp",
 		},
 		"spec": {
 			"securityContext": {"seccompProfile": {}},
@@ -67,7 +64,7 @@ test_pod_context_undefined_profile_allowed {
 				"command": [
 					"sh",
 					"-c",
-					"echo 'Hello AppArmor!' && sleep 1h",
+					"echo 'Hello' && sleep 1h",
 				],
 				"image": "busybox",
 				"name": "hello",
@@ -83,16 +80,15 @@ test_pod_context_runtime_default_allowed {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {
-			"annotations": {"container.apparmor.security.beta.kubernetes.io/hello": "custom"},
-			"name": "hello-apparmor",
+			"name": "hello-seccomp",
 		},
 		"spec": {
-			"securityContext": {"seccompProfile": {"type": "runtime/default"}},
+			"securityContext": {"seccompProfile": {"type": "RuntimeDefault"}},
 			"containers": [{
 				"command": [
 					"sh",
 					"-c",
-					"echo 'Hello AppArmor!' && sleep 1h",
+					"echo 'Hello' && sleep 1h",
 				],
 				"image": "busybox",
 				"name": "hello",
@@ -108,14 +104,13 @@ test_container_context_custom_profile_denied {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {
-			"annotations": {"container.apparmor.security.beta.kubernetes.io/hello": "custom"},
-			"name": "hello-apparmor",
+			"name": "hello-seccomp",
 		},
 		"spec": {"containers": [{
 			"command": [
 				"sh",
 				"-c",
-				"echo 'Hello AppArmor!' && sleep 1h",
+				"echo 'Hello' && sleep 1h",
 			],
 			"image": "busybox",
 			"name": "hello",
@@ -124,7 +119,7 @@ test_container_context_custom_profile_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "Container 'hello' of Pod 'hello-apparmor' should set spec.containers[*].securityContext.seccompProfile.type to 'runtime/default'"
+	r[_].msg == "Container 'hello' of Pod 'hello-seccomp' should set spec.containers[*].securityContext.seccompProfile.type to 'RuntimeDefault'"
 }
 
 test_container_context_undefined_type_allowed {
@@ -132,14 +127,13 @@ test_container_context_undefined_type_allowed {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {
-			"annotations": {"container.apparmor.security.beta.kubernetes.io/hello": "custom"},
-			"name": "hello-apparmor",
+			"name": "hello-seccomp",
 		},
 		"spec": {"containers": [{
 			"command": [
 				"sh",
 				"-c",
-				"echo 'Hello AppArmor!' && sleep 1h",
+				"echo 'Hello' && sleep 1h",
 			],
 			"image": "busybox",
 			"name": "hello",
@@ -155,14 +149,13 @@ test_container_context_undefined_profile_allowed {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {
-			"annotations": {"container.apparmor.security.beta.kubernetes.io/hello": "custom"},
-			"name": "hello-apparmor",
+			"name": "hello-seccomp",
 		},
 		"spec": {"containers": [{
 			"command": [
 				"sh",
 				"-c",
-				"echo 'Hello AppArmor!' && sleep 1h",
+				"echo 'Hello' && sleep 1h",
 			],
 			"image": "busybox",
 			"name": "hello",
@@ -177,18 +170,17 @@ test_container_context_runtime_default_allowed {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {
-			"annotations": {"container.apparmor.security.beta.kubernetes.io/hello": "custom"},
-			"name": "hello-apparmor",
+			"name": "hello-seccomp",
 		},
 		"spec": {"containers": [{
 			"command": [
 				"sh",
 				"-c",
-				"echo 'Hello AppArmor!' && sleep 1h",
+				"echo 'Hello' && sleep 1h",
 			],
 			"image": "busybox",
 			"name": "hello",
-			"securityContext": {"seccompProfile": {"type": "runtime/default"}},
+			"securityContext": {"seccompProfile": {"type": "RuntimeDefault"}},
 		}]},
 	}
 

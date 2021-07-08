@@ -12,7 +12,7 @@ __rego_metadata__ := {
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "The RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-	"recommended_actions": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'runtime/default' or undefined.",
+	"recommended_actions": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
 }
 
@@ -25,7 +25,7 @@ __rego_input__ := {
 getContainersWithDisallowedSeccompProfileType[name] {
 	container := kubernetes.containers[_]
 	type := container.securityContext.seccompProfile.type
-	not type == "runtime/default"
+	not type == "RuntimeDefault"
 	name := container.name
 }
 
@@ -33,14 +33,14 @@ getContainersWithDisallowedSeccompProfileType[name] {
 failSeccompProfileType {
 	pod := kubernetes.pods[_]
 	type := pod.spec.securityContext.seccompProfile.type
-	not type == "runtime/default"
+	not type == "RuntimeDefault"
 }
 
 # pods
 deny[res] {
 	failSeccompProfileType
 
-	msg := kubernetes.format(sprintf("%s '%s' should set spec.securityContext.seccompProfile.type to 'runtime/default'", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should set spec.securityContext.seccompProfile.type to 'RuntimeDefault'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
@@ -55,7 +55,7 @@ deny[res] {
 deny[res] {
 	count(getContainersWithDisallowedSeccompProfileType) > 0
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set spec.containers[*].securityContext.seccompProfile.type to 'runtime/default'", [getContainersWithDisallowedSeccompProfileType[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set spec.containers[*].securityContext.seccompProfile.type to 'RuntimeDefault'", [getContainersWithDisallowedSeccompProfileType[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
