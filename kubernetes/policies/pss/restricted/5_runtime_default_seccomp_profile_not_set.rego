@@ -36,6 +36,28 @@ failSeccompProfileType {
 	not type == "RuntimeDefault"
 }
 
+# annotations (Kubernetes pre-v1.19)
+failSeccompAnnotation {
+	annotations := kubernetes.annotations[_]
+	val := annotations["seccomp.security.alpha.kubernetes.io/pod"]
+	val != "runtime/default"
+}
+
+# annotations
+deny[res] {
+	failSeccompAnnotation
+
+	msg := kubernetes.format(sprintf("%s '%s' should set seccomp.security.alpha.kubernetes.io/pod to 'runtime/default'", [kubernetes.kind, kubernetes.name]))
+
+	res := {
+		"msg": msg,
+		"id": __rego_metadata__.id,
+		"title": __rego_metadata__.title,
+		"severity": __rego_metadata__.severity,
+		"type": __rego_metadata__.type,
+	}
+}
+
 # pods
 deny[res] {
 	failSeccompProfileType
