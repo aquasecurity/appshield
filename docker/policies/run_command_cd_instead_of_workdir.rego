@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS013",
-	"title": "Use 'WORKDIR' instead of 'RUN cd ...'",
+	"title": "'RUN cd ...' is used to change directory",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",
@@ -27,5 +27,5 @@ get_cd[args] {
 
 deny[res] {
 	args := get_cd[_]
-	res := sprintf("RUN shouldn't be used to change directory: '%s'. Use 'WORKDIR' statement instead.", [args])
+	res := sprintf("RUN should not be used to change directory: '%s'. Use 'WORKDIR' statement instead.", [args])
 }

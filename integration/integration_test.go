@@ -42,7 +42,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS001",
 								Type:     "Dockerfile Security Check",
-								Title:    "Use a tag name in the 'FROM' statement",
+								Title:    "':latest' tag is used",
 								Severity: "MEDIUM",
 							},
 						},
@@ -68,7 +68,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS002",
 								Type:     "Dockerfile Security Check",
-								Title:    "Image user should not be 'root'",
+								Title:    "Image user is 'root'",
 								Severity: "HIGH",
 							},
 						},
@@ -90,11 +90,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS004",
-							Message:   "Port 22 is exposed via the Dockerfile",
+							Message:   "Port 22 should not be exposed in Dockerfile",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS004",
 								Type:     "Dockerfile Security Check",
-								Title:    "Exposing port 22",
+								Title:    "Port 22 is exposed",
 								Severity: "MEDIUM",
 							},
 						},
@@ -120,7 +120,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS005",
 								Type:     "Dockerfile Security Check",
-								Title:    "Use COPY instead of ADD",
+								Title:    "ADD is used instead of COPY",
 								Severity: "LOW",
 							},
 						},
@@ -142,11 +142,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS006",
-							Message:   `'COPY --from' shouldn't mention current alias 'dep' since it is impossible to copy from itself`,
+							Message:   `'COPY --from' should not mention current alias 'dep' since it is impossible to copy from itself`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS006",
 								Type:     "Dockerfile Security Check",
-								Title:    "COPY '--from' references the current image",
+								Title:    "COPY '--from' refers to the current image",
 								Severity: "CRITICAL",
 							},
 						},
@@ -172,7 +172,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS007",
 								Type:     "Dockerfile Security Check",
-								Title:    "Multiple ENTRYPOINT instructions listed",
+								Title:    "Multiple ENTRYPOINT instructions are listed",
 								Severity: "CRITICAL",
 							},
 						},
@@ -198,7 +198,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS008",
 								Type:     "Dockerfile Security Check",
-								Title:    "UNIX ports out of range",
+								Title:    "Exposed port is out of range",
 								Severity: "CRITICAL",
 							},
 						},
@@ -220,11 +220,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS009",
-							Message:   `WORKDIR path 'path/to/workdir' isn't absolute`,
+							Message:   "WORKDIR path 'path/to/workdir' should be absolute",
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS009",
 								Type:     "Dockerfile Security Check",
-								Title:    "WORKDIR path not absolute",
+								Title:    "WORKDIR path is not absolute",
 								Severity: "HIGH",
 							},
 						},
@@ -250,7 +250,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS010",
 								Type:     "Dockerfile Security Check",
-								Title:    "Avoid using 'sudo' in containers",
+								Title:    "'sudo' is used",
 								Severity: "CRITICAL",
 							},
 						},
@@ -276,7 +276,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS011",
 								Type:     "Dockerfile Security Check",
-								Title:    "COPY with more than two arguments not ending with slash",
+								Title:    "COPY with more than two arguments is not ending with slash",
 								Severity: "CRITICAL",
 							},
 						},
@@ -298,11 +298,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS012",
-							Message:   `Duplicate aliases 'build' found in different FROMs`,
+							Message:   `Duplicate aliases 'build' are found in different FROMs`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS012",
 								Type:     "Dockerfile Security Check",
-								Title:    "Same alias in different FROMs",
+								Title:    "Duplicate aliases are defined in different FROMs",
 								Severity: "CRITICAL",
 							},
 						},
@@ -324,11 +324,11 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS013",
-							Message:   `RUN shouldn't be used to change directory: 'cd /usr/share/nginx/html'. Use 'WORKDIR' statement instead.`,
+							Message:   `RUN should not be used to change directory: 'cd /usr/share/nginx/html'. Use 'WORKDIR' statement instead.`,
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS013",
 								Type:     "Dockerfile Security Check",
-								Title:    "Use 'WORKDIR' instead of 'RUN cd ...'",
+								Title:    "'RUN cd ...' is used to change directory",
 								Severity: "MEDIUM",
 							},
 						},
@@ -380,7 +380,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS015",
 								Type:     "Dockerfile Security Check",
-								Title:    "Yum Clean All Missing",
+								Title:    "'yum clean all' is missing",
 								Severity: "HIGH",
 							},
 						},
@@ -406,7 +406,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS016",
 								Type:     "Dockerfile Security Check",
-								Title:    "Multiple CMD instructions listed",
+								Title:    "Multiple CMD instructions are listed",
 								Severity: "HIGH",
 							},
 						},
@@ -432,7 +432,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS017",
 								Type:     "Dockerfile Security Check",
-								Title:    "Update instruction alone",
+								Title:    "'RUN <package-manager> update' instruction is alone",
 								Severity: "HIGH",
 							},
 						},
@@ -458,7 +458,7 @@ func TestDockerfile(t *testing.T) {
 							PolicyMetadata: types.PolicyMetadata{
 								ID:       "DS018",
 								Type:     "Dockerfile Security Check",
-								Title:    "'COPY --from' without FROM alias defined previously",
+								Title:    "'COPY --from' refers to alias not defined previously",
 								Severity: "HIGH",
 							},
 						},

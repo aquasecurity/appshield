@@ -6,7 +6,7 @@ default failHostPID = false
 
 __rego_metadata__ := {
 	"id": "KSV010",
-	"title": "Access to host PID",
+	"title": "Container has access to host PID",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
@@ -28,7 +28,7 @@ failHostPID {
 deny[res] {
 	failHostPID
 
-	msg := kubernetes.format(sprintf("%s '%s' should not set spec.template.spec.hostPID to true", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should not set 'spec.template.spec.hostPID' to true", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

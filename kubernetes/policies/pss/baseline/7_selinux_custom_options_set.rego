@@ -36,7 +36,7 @@ failSELinuxOpts {
 deny[res] {
 	failSELinuxOpts
 
-	msg := kubernetes.format(sprintf("%s '%s' should not set spec.securityContext.seLinuxOptions, spec.containers[*].securityContext.seLinuxOptions or spec.initContainers[*].securityContext.seLinuxOptions", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should not set 'spec.securityContext.seLinuxOptions', 'spec.containers[*].securityContext.seLinuxOptions' or 'spec.initContainers[*].securityContext.seLinuxOptions'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
