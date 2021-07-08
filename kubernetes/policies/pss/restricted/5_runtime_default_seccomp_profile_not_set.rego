@@ -12,7 +12,7 @@ __rego_metadata__ := {
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "The RuntimeDefault seccomp profile must be required, or allow specific additional profiles.",
-	"recommended_actions": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'runtime/default' or undefined.",
+	"recommended_actions": "Set 'spec.securityContext.seccompProfile.type', 'spec.containers[*].securityContext.seccompProfile' and 'spec.initContainers[*].securityContext.seccompProfile' to 'RuntimeDefault' or undefined.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted",
 }
 
@@ -21,8 +21,7 @@ __rego_input__ := {
 	"selector": [{"type": "kubernetes"}],
 }
 
-# getContainersWithDisallowedSeccompProfileType returns a list of containers
-# with seccompProfile type set to anything other than RuntimeDefault
+# containers
 getContainersWithDisallowedSeccompProfileType[name] {
 	container := kubernetes.containers[_]
 	type := container.securityContext.seccompProfile.type
@@ -30,14 +29,36 @@ getContainersWithDisallowedSeccompProfileType[name] {
 	name := container.name
 }
 
-# failSeccompProfileType is true if pod seccompprofile type is set to any
-# value other "RuntimeDefault"
+# pods
 failSeccompProfileType {
 	pod := kubernetes.pods[_]
 	type := pod.spec.securityContext.seccompProfile.type
 	not type == "RuntimeDefault"
 }
 
+# annotations (Kubernetes pre-v1.19)
+failSeccompAnnotation {
+	annotations := kubernetes.annotations[_]
+	val := annotations["seccomp.security.alpha.kubernetes.io/pod"]
+	val != "runtime/default"
+}
+
+# annotations
+deny[res] {
+	failSeccompAnnotation
+
+	msg := kubernetes.format(sprintf("%s '%s' should set 'seccomp.security.alpha.kubernetes.io/pod' to 'runtime/default'", [kubernetes.kind, kubernetes.name]))
+
+	res := {
+		"msg": msg,
+		"id": __rego_metadata__.id,
+		"title": __rego_metadata__.title,
+		"severity": __rego_metadata__.severity,
+		"type": __rego_metadata__.type,
+	}
+}
+
+# pods
 deny[res] {
 	failSeccompProfileType
 
@@ -52,6 +73,7 @@ deny[res] {
 	}
 }
 
+# containers
 deny[res] {
 	count(getContainersWithDisallowedSeccompProfileType) > 0
 
