@@ -44,7 +44,7 @@ failLimitsMemory {
 deny[res] {
 	failLimitsMemory
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set resources.limits.memory", [getNoLimitsMemoryContainers[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'resources.limits.memory'", [getNoLimitsMemoryContainers[_], kubernetes.kind, kubernetes.name]))
 	res := {
 		"msg": msg,
 		"id": __rego_metadata__.id,

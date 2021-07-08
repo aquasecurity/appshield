@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS017",
-	"title": "Update instruction alone",
+	"title": "'RUN <package-manager> update' instruction is alone",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

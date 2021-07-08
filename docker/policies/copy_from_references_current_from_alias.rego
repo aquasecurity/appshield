@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS006",
-	"title": "COPY '--from' references the current image",
+	"title": "COPY '--from' refers to the current image",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",

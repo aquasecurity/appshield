@@ -47,7 +47,7 @@ test_last_root_denied {
 	]}}
 
 	count(r) > 0
-	startswith(r[_], "Last USER command in Dockerfile should not be root")
+	startswith(r[_], "Last USER command in Dockerfile should not be 'root'")
 }
 
 test_empty_user_denied {

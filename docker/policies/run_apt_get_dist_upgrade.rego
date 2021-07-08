@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "'apt-get dist-upgrade' upgrades a major version so it doesn't make more sense in Dockerfile",
+	"description": "'apt-get dist-upgrade' upgrades a major version so it doesn't make more sense in Dockerfile.",
 	"recommended_actions": "Just use different image",
 }
 

@@ -44,7 +44,7 @@ failRequestsMemory {
 deny[res] {
 	failRequestsMemory
 
-	msg := kubernetes.format(sprintf("container '%s' of '%s' '%s' in '%s' namespace should set resources.requests.memory", [getNoRequestsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'resources.requests.memory'", [getNoRequestsMemoryContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
