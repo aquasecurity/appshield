@@ -53,7 +53,6 @@ test_pod_context_undefined_profile_allowed {
 		"kind": "Pod",
 		"metadata": {"name": "hello-seccomp"},
 		"spec": {
-			"securityContext": {"seccompProfile": {}},
 			"containers": [{
 				"command": [
 					"sh",
