@@ -18,7 +18,7 @@ test_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "container hello of pod hello-add-capabilities in default namespace should not set securityContext.capabilities.add"
+	r[_].msg == "Container 'hello' of Pod 'hello-add-capabilities' should not set 'securityContext.capabilities.add'"
 }
 
 test_empty_add_allowed {

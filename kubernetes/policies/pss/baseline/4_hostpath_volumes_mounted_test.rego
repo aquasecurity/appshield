@@ -23,7 +23,7 @@ test_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "pod hello-host-path in default namespace should not set spec.template.volumes.hostPath"
+	r[_].msg == "Pod 'hello-host-path' should not set 'spec.template.volumes.hostPath'"
 }
 
 test_allowed {

@@ -18,7 +18,7 @@ test_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "container hello of pod hello-privileged in default namespace should set securityContext.privileged to false"
+	r[_].msg == "Container 'hello' of Pod 'hello-privileged' should set 'securityContext.privileged' to false"
 }
 
 test_undefined_allowed {
