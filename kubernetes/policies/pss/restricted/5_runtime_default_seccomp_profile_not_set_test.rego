@@ -6,9 +6,7 @@ test_pod_context_custom_profile_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
-		"metadata": {
-			"name": "hello-seccomp",
-		},
+		"metadata": {"name": "hello-seccomp"},
 		"spec": {
 			"securityContext": {"seccompProfile": {"type": "custom"}},
 			"containers": [{
@@ -31,9 +29,7 @@ test_pod_context_undefined_type_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
-		"metadata": {
-			"name": "hello-seccomp",
-		},
+		"metadata": {"name": "hello-seccomp"},
 		"spec": {
 			"securityContext": {"seccompProfile": {}},
 			"containers": [{
@@ -55,9 +51,7 @@ test_pod_context_undefined_profile_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
-		"metadata": {
-			"name": "hello-seccomp",
-		},
+		"metadata": {"name": "hello-seccomp"},
 		"spec": {
 			"securityContext": {"seccompProfile": {}},
 			"containers": [{
@@ -79,9 +73,7 @@ test_pod_context_runtime_default_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
-		"metadata": {
-			"name": "hello-seccomp",
-		},
+		"metadata": {"name": "hello-seccomp"},
 		"spec": {
 			"securityContext": {"seccompProfile": {"type": "RuntimeDefault"}},
 			"containers": [{
@@ -103,9 +95,7 @@ test_container_context_custom_profile_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
-		"metadata": {
-			"name": "hello-seccomp",
-		},
+		"metadata": {"name": "hello-seccomp"},
 		"spec": {"containers": [{
 			"command": [
 				"sh",
@@ -126,9 +116,7 @@ test_container_context_undefined_type_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
-		"metadata": {
-			"name": "hello-seccomp",
-		},
+		"metadata": {"name": "hello-seccomp"},
 		"spec": {"containers": [{
 			"command": [
 				"sh",
@@ -148,9 +136,7 @@ test_container_context_undefined_profile_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
-		"metadata": {
-			"name": "hello-seccomp",
-		},
+		"metadata": {"name": "hello-seccomp"},
 		"spec": {"containers": [{
 			"command": [
 				"sh",
@@ -169,9 +155,7 @@ test_container_context_runtime_default_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
-		"metadata": {
-			"name": "hello-seccomp",
-		},
+		"metadata": {"name": "hello-seccomp"},
 		"spec": {"containers": [{
 			"command": [
 				"sh",
