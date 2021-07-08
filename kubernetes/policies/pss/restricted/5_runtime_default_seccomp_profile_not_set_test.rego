@@ -52,17 +52,15 @@ test_pod_context_undefined_profile_allowed {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {"name": "hello-seccomp"},
-		"spec": {
-			"containers": [{
-				"command": [
-					"sh",
-					"-c",
-					"echo 'Hello' && sleep 1h",
-				],
-				"image": "busybox",
-				"name": "hello",
-			}],
-		},
+		"spec": {"containers": [{
+			"command": [
+				"sh",
+				"-c",
+				"echo 'Hello' && sleep 1h",
+			],
+			"image": "busybox",
+			"name": "hello",
+		}]},
 	}
 
 	count(r) == 0
