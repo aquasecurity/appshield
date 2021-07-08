@@ -43,5 +43,5 @@ is_alias_current_from_alias(current_name, current_alias) = allow {
 
 deny[res] {
 	args := get_alias_from_copy[_]
-	res := sprintf("'COPY --from' shouldn't mention current alias '%s' since it is impossible to copy from itself", [args])
+	res := sprintf("'COPY --from' should not mention current alias '%s' since it is impossible to copy from itself", [args])
 }
