@@ -22,7 +22,7 @@ test_pod_context_custom_profile_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "Pod 'hello-seccomp' should set spec.securityContext.seccompProfile.type to 'RuntimeDefault'"
+	r[_].msg == "Pod 'hello-seccomp' should set 'spec.securityContext.seccompProfile.type' to 'RuntimeDefault'"
 }
 
 test_pod_context_undefined_type_allowed {
@@ -109,7 +109,7 @@ test_container_context_custom_profile_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "Container 'hello' of Pod 'hello-seccomp' should set spec.containers[*].securityContext.seccompProfile.type to 'RuntimeDefault'"
+	r[_].msg == "Container 'hello' of Pod 'hello-seccomp' should set 'spec.containers[*].securityContext.seccompProfile.type' to 'RuntimeDefault'"
 }
 
 test_container_context_undefined_type_allowed {
@@ -213,5 +213,5 @@ test_annotation_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "Pod 'hello-seccomp' should set seccomp.security.alpha.kubernetes.io/pod to 'runtime/default'"
+	r[_].msg == "Pod 'hello-seccomp' should set 'seccomp.security.alpha.kubernetes.io/pod' to 'runtime/default'"
 }

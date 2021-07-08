@@ -47,7 +47,7 @@ failSeccompAnnotation {
 deny[res] {
 	failSeccompAnnotation
 
-	msg := kubernetes.format(sprintf("%s '%s' should set seccomp.security.alpha.kubernetes.io/pod to 'runtime/default'", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should set 'seccomp.security.alpha.kubernetes.io/pod' to 'runtime/default'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
@@ -62,7 +62,7 @@ deny[res] {
 deny[res] {
 	failSeccompProfileType
 
-	msg := kubernetes.format(sprintf("%s '%s' should set spec.securityContext.seccompProfile.type to 'RuntimeDefault'", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should set 'spec.securityContext.seccompProfile.type' to 'RuntimeDefault'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
@@ -77,7 +77,7 @@ deny[res] {
 deny[res] {
 	count(getContainersWithDisallowedSeccompProfileType) > 0
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set spec.containers[*].securityContext.seccompProfile.type to 'RuntimeDefault'", [getContainersWithDisallowedSeccompProfileType[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'spec.containers[*].securityContext.seccompProfile.type' to 'RuntimeDefault'", [getContainersWithDisallowedSeccompProfileType[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
