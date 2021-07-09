@@ -33,11 +33,7 @@ test_allowed {
 			],
 			"image": "busybox",
 			"name": "hello",
-            "resources" : {
-                "limits" : {
-                    "cpu": "500m"
-                }
-            }
+			"resources": {"limits": {"cpu": "500m"}},
 		}]},
 	}
 
