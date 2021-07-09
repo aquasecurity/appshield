@@ -62,7 +62,7 @@ failVolumeTypes {
 deny[res] {
 	failVolumeTypes
 
-	msg := kubernetes.format(sprintf("%s '%s' should set spec.volumes[*] to type PersistentVolumeClaim", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should set 'spec.volumes[*]' to type 'PersistentVolumeClaim'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

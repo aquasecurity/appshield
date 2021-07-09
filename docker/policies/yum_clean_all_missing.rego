@@ -4,11 +4,11 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS015",
-	"title": "Yum Clean All Missing",
+	"title": "'yum clean all' is missing",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "Need to use 'yum clean all' after using a 'yum install' command to clean package cached data and reduce image size",
+	"description": "Need to use 'yum clean all' after using a 'yum install' command to clean package cached data and reduce image size.",
 	"recommended_actions": "Add 'yum clean all' to Dockerfile",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run",
 }

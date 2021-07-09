@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS004",
-	"title": "Exposing port 22",
+	"title": "Port 22 is exposed",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",
@@ -28,5 +28,5 @@ fail_port_check {
 
 deny[res] {
 	fail_port_check
-	res := "Port 22 is exposed via the Dockerfile"
+	res := "Port 22 should not be exposed in Dockerfile"
 }

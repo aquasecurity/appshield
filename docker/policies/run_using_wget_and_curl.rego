@@ -8,8 +8,8 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Dockerfile Security Check",
-	"description": "Shouldn't use both 'wget' and 'curl' since they are two tools that have the same effect",
-	"recommended_actions": "Pick one util",
+	"description": "Shouldn't use both 'wget' and 'curl' since they are two tools that have the same effect.",
+	"recommended_actions": "Pick one util, either 'wget' or 'curl'",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run",
 }
 

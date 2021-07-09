@@ -45,7 +45,7 @@ checkRunAsNonRoot {
 deny[res] {
 	checkRunAsNonRoot
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set securityContext.runAsNonRoot to true", [getRootContainers[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'securityContext.runAsNonRoot' to true", [getRootContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

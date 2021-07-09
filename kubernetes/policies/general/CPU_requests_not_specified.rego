@@ -44,7 +44,7 @@ failRequestsCPU {
 deny[res] {
 	failRequestsCPU
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set resources.requests.cpu", [getNoRequestsCPUContainers[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'resources.requests.cpu'", [getNoRequestsCPUContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
