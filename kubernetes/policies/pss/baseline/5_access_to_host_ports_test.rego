@@ -20,6 +20,7 @@ test_denied {
 	count(r) == 1
 	r[_].msg == "Container 'hello' of Pod 'hello-host-ports' should not set host ports, 'ports[*].hostPort'"
 }
+
 test_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
