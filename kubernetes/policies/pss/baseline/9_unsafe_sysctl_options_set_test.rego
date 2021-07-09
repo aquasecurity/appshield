@@ -30,7 +30,7 @@ test_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "Pod 'hello-sysctls' should set securityContext.sysctl to the allowed values"
+	r[_].msg == "Pod 'hello-sysctls' should set 'securityContext.sysctl' to the allowed values"
 }
 
 test_mixed_denied {
@@ -67,7 +67,7 @@ test_mixed_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "Pod 'hello-sysctls' should set securityContext.sysctl to the allowed values"
+	r[_].msg == "Pod 'hello-sysctls' should set 'securityContext.sysctl' to the allowed values"
 }
 
 test_allowed {

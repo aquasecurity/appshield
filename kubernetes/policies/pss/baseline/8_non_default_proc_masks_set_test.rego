@@ -19,7 +19,7 @@ test_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "Pod 'hello-proc-mount' should not set spec.containers[*].securityContext.procMount or spec.initContainers[*].securityContext.procMount"
+	r[_].msg == "Pod 'hello-proc-mount' should not set 'spec.containers[*].securityContext.procMount' or 'spec.initContainers[*].securityContext.procMount'"
 }
 
 test_allowed {
