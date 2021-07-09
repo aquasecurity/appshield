@@ -32,6 +32,7 @@ test_denied {
 	count(r) == 1
 	r[_].msg == "Pod 'hello-sysctls' should set securityContext.sysctl to the allowed values"
 }
+
 test_mixed_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
@@ -69,19 +70,16 @@ test_mixed_denied {
 	r[_].msg == "Pod 'hello-sysctls' should set securityContext.sysctl to the allowed values"
 }
 
-
 test_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {"name": "hello-sysctls"},
 		"spec": {
-			"securityContext": {"sysctls": [
-				{
-					"name": "kernel.shm_rmid_forced",
-					"value": "0",
-				},
-			]},
+			"securityContext": {"sysctls": [{
+				"name": "kernel.shm_rmid_forced",
+				"value": "0",
+			}]},
 			"containers": [{
 				"command": [
 					"sh",
@@ -97,6 +95,7 @@ test_allowed {
 
 	count(r) == 0
 }
+
 test_undefined_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
@@ -119,5 +118,3 @@ test_undefined_allowed {
 
 	count(r) == 0
 }
-
-
