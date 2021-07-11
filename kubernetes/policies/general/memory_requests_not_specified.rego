@@ -7,7 +7,7 @@ default failRequestsMemory = false
 
 __rego_metadata__ := {
 	"id": "KSV016",
-	"title": "Memory requests is not specified",
+	"title": "Memory requests not specified",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
