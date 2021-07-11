@@ -6,7 +6,7 @@ default failHostNetwork = false
 
 __rego_metadata__ := {
 	"id": "KSV009",
-	"title": "Container has access to host network",
+	"title": "Access to host network",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

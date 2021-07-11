@@ -4,11 +4,11 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS017",
-	"title": "'RUN <package-manager> update' instruction is alone",
+	"title": "'RUN <package-manager> update' instruction alone",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "Instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement.",
+	"description": "The instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement.",
 	"recommended_actions": "Combine '<package-manager> update' and '<package-manager> install' instructions to single one",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run",
 }

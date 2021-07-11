@@ -2,7 +2,7 @@ package appshield.dockerfile.DS012
 
 __rego_metadata__ := {
 	"id": "DS012",
-	"title": "Duplicate aliases are defined in different FROMs",
+	"title": "Duplicate aliases defined in different FROMs",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",

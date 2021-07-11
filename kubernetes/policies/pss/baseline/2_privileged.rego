@@ -6,7 +6,7 @@ default failPrivileged = false
 
 __rego_metadata__ := {
 	"id": "KSV017",
-	"title": "Container is privileged",
+	"title": "Privileged container",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

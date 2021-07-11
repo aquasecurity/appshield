@@ -332,7 +332,7 @@ func TestDockerfile(t *testing.T) {
 					Failures: types.MisconfResults{
 						{
 							Namespace: "appshield.dockerfile.DS017",
-							Message:   `Instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement.`,
+							Message:   `The instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement.`,
 						},
 					},
 				},

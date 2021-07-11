@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS011",
-	"title": "COPY with more than two arguments is not ending with slash",
+	"title": "COPY with more than two arguments not ending with slash",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",

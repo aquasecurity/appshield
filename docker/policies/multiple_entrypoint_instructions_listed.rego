@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS007",
-	"title": "Multiple ENTRYPOINT instructions are listed",
+	"title": "Multiple ENTRYPOINT instructions listed",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
