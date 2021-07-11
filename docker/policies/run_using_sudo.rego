@@ -8,7 +8,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": " Avoid using 'RUN' with 'sudo' commands, as it can lead to unpredictable behavior.",
+	"description": "Avoid using 'RUN' with 'sudo' commands, as it can lead to unpredictable behavior.",
 	"recommended_actions": "Don't use sudo",
 	"url": "https://docs.docker.com/engine/reference/builder/#run",
 }
