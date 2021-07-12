@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV102
+package appshield.kubernetes.KSV202
 
 import data.lib.kubernetes
 
@@ -8,14 +8,19 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "Critical",
 	"type": "Kubernetes Security Check",
-	"description": "Check if Tiller is deployed.",
-	"recommended_actions": "Remove tiller and migrate to Helm v3",
+	"description": "Check if Helm Tiller component is deployed.",
+	"recommended_actions": "Migrate to Helm v3 which no longer has Tiller component",
+}
+
+__rego_input__ := {
+	"combine": false,
+	"selector": [{"type": "kubernetes"}],
 }
 
 # Get all containers and check kubernetes metadata for tiller
 tillerDeployed[container] {
 	currentContainer := kubernetes.containers[_]
-	checkMetadata(kubernetes.metadata)
+	checkMetadata(input.metadata)
 	container := currentContainer.name
 }
 
@@ -27,17 +32,14 @@ tillerDeployed[container] {
 }
 
 # Get all pods and check each metadata for tiller
-tillerDeployed[container] {
+tillerDeployed[pod] {
 	currentPod := kubernetes.pods[_]
 	checkMetadata(currentPod.metadata)
-	container := currentPod.metadata.name
+	pod := currentPod.metadata.name
 }
 
 deny[res] {
-	tillerDeployedContainers = tillerDeployed
-	count(tillerDeployedContainers) > 0
-
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace shouldn't have tiller deployed", [tillerDeployed[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("container '%s' of %s '%s' in '%s' namespace shouldn't have tiller deployed", [tillerDeployed[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
 
 	res := {
 		"msg": msg,
@@ -48,17 +50,17 @@ deny[res] {
 	}
 }
 
-# Check for tiller in name field 
+# Check for tiller by resource name
 checkMetadata(metadata) {
 	contains(metadata.name, "tiller")
 }
 
-# Check for tiller if app is helm
+# Check for tiller by app label
 checkMetadata(metadata) {
-	object.get(metadata.labels, "app", "undefined") == "helm"
+	metadata.labels.app == "helm"
 }
 
-# Check for tiller in labels.name field
+# Check for tiller by name label
 checkMetadata(metadata) {
-	contains(object.get(metadata.labels, "name", "undefined"), "tiller")
+	metadata.labels.name == "tiller"
 }
