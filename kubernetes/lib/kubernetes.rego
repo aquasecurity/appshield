@@ -34,8 +34,6 @@ namespace = object.metadata.namespace
 
 kind = object.kind
 
-apiVersion = object.apiVersion
-
 is_service {
 	kind = "Service"
 }
