@@ -12,3 +12,4 @@ While building this repository, we were inspired by the following projects and w
 - https://github.com/controlplaneio/kubesec
 - https://github.com/tfsec/tfsec
 - https://kubernetes.io/docs/concepts/security/pod-security-standards/
+- https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
