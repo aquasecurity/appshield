@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV014
 
-test_denied {
+test_read_only_root_file_system_not_set_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -20,7 +20,7 @@ test_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-fs-not-readonly' should set 'securityContext.readOnlyRootFilesystem' to true"
 }
 
-test_false_denied {
+test_read_only_root_file_system_false_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -41,7 +41,7 @@ test_false_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-fs-not-readonly' should set 'securityContext.readOnlyRootFilesystem' to true"
 }
 
-test_allowed {
+test_read_only_root_file_system_true_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",

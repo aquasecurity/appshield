@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV018
 
-test_denied {
+test_memory_not_limited_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -20,7 +20,7 @@ test_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-memory-limit' should set 'resources.limits.memory'"
 }
 
-test_allowed {
+test_memory_limited_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",

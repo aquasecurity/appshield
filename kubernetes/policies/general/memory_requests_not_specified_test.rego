@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV016
 
-test_denied {
+test_memory_requests_not_specified_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -20,7 +20,7 @@ test_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-memory-requests' should set 'resources.requests.memory'"
 }
 
-test_allowed {
+test_memory_requests_specified_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
