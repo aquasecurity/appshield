@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV021
 
-test_allowed {
+test_GID_gt_10000_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",

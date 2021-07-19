@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV006
 
-test_allowed {
+test_docker_socket_not_mounted_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -19,7 +19,7 @@ test_allowed {
 	count(r) == 0
 }
 
-test_denied {
+test_docker_socket_mounted_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
