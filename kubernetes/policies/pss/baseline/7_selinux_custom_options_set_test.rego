@@ -44,7 +44,7 @@ test_container_invalid_selinux_type_denied {
 	r[_].msg == "Pod 'hello-selinux' uses invalid seLinux type 'custom'"
 }
 
-test_empty_allowed {
+test_empty_selinux_options_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -71,24 +71,21 @@ test_no_security_context_allowed {
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {"name": "hello-selinux"},
-		"spec": {
-			"securityContext": {"seLinuxOptions": {}},
-			"containers": [{
-				"command": [
-					"sh",
-					"-c",
-					"echo 'Hello' && sleep 1h",
-				],
-				"image": "busybox",
-				"name": "hello",
-			}],
-		},
+		"spec": {"containers": [{
+			"command": [
+				"sh",
+				"-c",
+				"echo 'Hello' && sleep 1h",
+			],
+			"image": "busybox",
+			"name": "hello",
+		}]},
 	}
 
 	count(r) == 0
 }
 
-test_restricted_key_denied {
+test_restricted_key_in_selinux_options_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -111,7 +108,7 @@ test_restricted_key_denied {
 	r[_].msg == "Pod 'hello-selinux' uses restricted properties in seLinuxOptions: ('role')"
 }
 
-test_restricted_multiple_keys_denied {
+test_multiple_restricted_keys_in_selinux_options_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -134,7 +131,7 @@ test_restricted_multiple_keys_denied {
 	r[_].msg == "Pod 'hello-selinux' uses restricted properties in seLinuxOptions: ('role', 'user')"
 }
 
-test_containers_have_restricted_multiple_keys_denied {
+test_containers_have_multiple_restricted_keys_in_selinux_options_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",

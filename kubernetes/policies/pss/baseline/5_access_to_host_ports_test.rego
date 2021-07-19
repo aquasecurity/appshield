@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV024
 
-test_denied {
+test_host_ports_defined_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -21,7 +21,7 @@ test_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-host-ports' should not set host ports, 'ports[*].hostPort'"
 }
 
-test_allowed {
+test_no_host_ports_defined_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
