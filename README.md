@@ -12,6 +12,6 @@ While building this repository, we were inspired by the following projects and w
 - https://github.com/hadolint/hadolint
 - https://github.com/Checkmarx/kics
 - https://github.com/controlplaneio/kubesec
-- https://github.com/tfsec/tfsec
+- https://github.com/aquasecurity/tfsec
 - https://kubernetes.io/docs/concepts/security/pod-security-standards/
 - https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
