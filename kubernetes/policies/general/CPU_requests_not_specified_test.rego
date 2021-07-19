@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV015
 
-test_denied {
+test_CPU_requests_not_specified_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -20,7 +20,7 @@ test_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-cpu-request' should set 'resources.requests.cpu'"
 }
 
-test_allowed {
+test_CPU_requests_specified_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",

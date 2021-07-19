@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV003
 
-test_denied {
+test_cap_no_drop_all_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -20,7 +20,7 @@ test_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-drop-capabilities' should add 'ALL' to 'securityContext.capabilities.drop'"
 }
 
-test_allowed {
+test_cap_drop_all_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",

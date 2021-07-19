@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV011
 
-test_denied {
+test_CPU_not_limited_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -20,7 +20,7 @@ test_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-cpu-limit' should set 'resources.limits.cpu'"
 }
 
-test_allowed {
+test_CPU_limited_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
