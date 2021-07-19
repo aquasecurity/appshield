@@ -24,7 +24,6 @@ test_denied {
 				],
 				"image": "busybox",
 				"name": "hello",
-				"ports": [{"hostPort": 8080}],
 			}],
 		},
 	}
@@ -33,7 +32,7 @@ test_denied {
 	r[_].msg == "Pod 'hello-sysctls' should set 'securityContext.sysctl' to the allowed values"
 }
 
-test_mixed_denied {
+test_sysctls_not_restricted_property_mixed_with_restriced_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -61,7 +60,6 @@ test_mixed_denied {
 				],
 				"image": "busybox",
 				"name": "hello",
-				"ports": [{"hostPort": 8080}],
 			}],
 		},
 	}
@@ -70,7 +68,7 @@ test_mixed_denied {
 	r[_].msg == "Pod 'hello-sysctls' should set 'securityContext.sysctl' to the allowed values"
 }
 
-test_allowed {
+test_sysctls_not_restricted_property_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -88,7 +86,6 @@ test_allowed {
 				],
 				"image": "busybox",
 				"name": "hello",
-				"ports": [{"hostPort": 8080}],
 			}],
 		},
 	}
@@ -96,7 +93,7 @@ test_allowed {
 	count(r) == 0
 }
 
-test_undefined_allowed {
+test_sysctls_is_undefined_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -111,7 +108,6 @@ test_undefined_allowed {
 				],
 				"image": "busybox",
 				"name": "hello",
-				"ports": [{"hostPort": 8080}],
 			}],
 		},
 	}

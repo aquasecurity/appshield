@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV027
 
-test_denied {
+test_proc_mount_is_set_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -22,7 +22,7 @@ test_denied {
 	r[_].msg == "Pod 'hello-proc-mount' should not set 'spec.containers[*].securityContext.procMount' or 'spec.initContainers[*].securityContext.procMount'"
 }
 
-test_allowed {
+test_proc_mount_is_not_set_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
