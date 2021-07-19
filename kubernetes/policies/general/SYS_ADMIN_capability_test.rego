@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV005
 
-test_allowed {
+test_cap_without_sys_admin_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -19,7 +19,7 @@ test_allowed {
 	count(r) == 0
 }
 
-test_denied {
+test_cap_add_sys_admin_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
