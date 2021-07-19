@@ -7,7 +7,7 @@ default failHostPathVolume = false
 
 __rego_metadata__ := {
 	"id": "KSV023",
-	"title": "HostPath volume is mounted",
+	"title": "hostPath volumes mounted",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

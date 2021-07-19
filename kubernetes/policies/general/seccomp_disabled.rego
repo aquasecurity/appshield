@@ -6,7 +6,7 @@ default failSeccompAny = false
 
 __rego_metadata__ := {
 	"id": "KSV019",
-	"title": "Container is running with disabled seccomp",
+	"title": "Seccomp policies disabled",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

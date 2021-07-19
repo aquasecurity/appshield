@@ -6,7 +6,7 @@ default failHostIPC = false
 
 __rego_metadata__ := {
 	"id": "KSV008",
-	"title": "Container has access to host IPC namespace",
+	"title": "Access to host IPC namespace",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

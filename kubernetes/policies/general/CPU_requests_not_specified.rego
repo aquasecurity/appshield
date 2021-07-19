@@ -7,7 +7,7 @@ default failRequestsCPU = false
 
 __rego_metadata__ := {
 	"id": "KSV015",
-	"title": "CPU requests is not specified",
+	"title": "CPU requests not specified",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
