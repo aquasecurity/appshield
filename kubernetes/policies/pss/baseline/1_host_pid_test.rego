@@ -20,7 +20,7 @@ test_host_pid_set_to_true_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "Pod 'hello-host-pid' should not set spec.template.spec.hostPID to true"
+	r[_].msg == "Pod 'hello-host-pid' should not set 'spec.template.spec.hostPID' to true"
 }
 
 test_host_pid_set_to_false_allowed {

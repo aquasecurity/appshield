@@ -20,7 +20,7 @@ test_host_ipc_set_to_true_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "'pod' 'hello-ipc' in default namespace should not set spec.template.spec.hostIPC to true"
+	r[_].msg == "Pod 'hello-ipc' should not set 'spec.template.spec.hostIPC' to true"
 }
 
 test_host_ipc_set_to_false_allowed {

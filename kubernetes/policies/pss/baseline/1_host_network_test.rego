@@ -20,7 +20,7 @@ test_host_network_set_to_true_denied {
 	}
 
 	count(r) == 1
-	r[_].msg == "'pod' 'hello-host-network' in 'default' namespace should not set spec.template.spec.hostNetwork to true"
+	r[_].msg == "Pod 'hello-host-network' should not set 'spec.template.spec.hostNetwork' to true"
 }
 
 test_host_network_set_to_false_allowed {
