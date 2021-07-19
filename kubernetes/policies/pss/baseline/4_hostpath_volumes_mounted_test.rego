@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV023
 
-test_denied {
+test_host_path_specified_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -26,7 +26,7 @@ test_denied {
 	r[_].msg == "Pod 'hello-host-path' should not set 'spec.template.volumes.hostPath'"
 }
 
-test_allowed {
+test_host_path_not_specified_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",

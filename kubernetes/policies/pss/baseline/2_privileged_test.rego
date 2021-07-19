@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV017
 
-test_denied {
+test_privileged_is_true_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -21,7 +21,7 @@ test_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-privileged' should set 'securityContext.privileged' to false"
 }
 
-test_undefined_allowed {
+test_privileged_is_undefined_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -40,7 +40,7 @@ test_undefined_allowed {
 	count(r) == 0
 }
 
-test_false_allowed {
+test_privileged_is_false_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
