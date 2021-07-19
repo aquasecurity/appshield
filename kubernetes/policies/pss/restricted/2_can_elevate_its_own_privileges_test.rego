@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV001
 
-test_allowed {
+test_allow_privilege_escalation_set_to_false_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -20,7 +20,7 @@ test_allowed {
 	count(r) == 0
 }
 
-test_default_denied {
+test_allow_privilege_escalation_is_undefined_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -40,7 +40,7 @@ test_default_denied {
 	r[_].msg == "Container 'hello' of Pod 'hello-privilege-escalation' should set 'securityContext.allowPrivilegeEscalation' to false"
 }
 
-test_true_denied {
+test_allow_privilege_escalation_set_to_true_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
