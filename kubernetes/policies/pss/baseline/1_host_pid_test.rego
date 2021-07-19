@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV010
 
-test_denied {
+test_host_pid_set_to_true_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -23,7 +23,7 @@ test_denied {
 	r[_].msg == "Pod 'hello-host-pid' should not set spec.template.spec.hostPID to true"
 }
 
-test_false_allowed {
+test_host_pid_set_to_false_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -45,7 +45,7 @@ test_false_allowed {
 	count(r) == 0
 }
 
-test_undefined_allowed {
+test_host_pid_is_undefined_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
