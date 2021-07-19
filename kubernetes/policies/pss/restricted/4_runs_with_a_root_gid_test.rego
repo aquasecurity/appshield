@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV029
 
-test_allowed {
+test_run_as_group_not_defined_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -19,7 +19,7 @@ test_allowed {
 	count(r) == 0
 }
 
-test_pod_run_as_group_denied {
+test_run_as_group_set_to_zero_for_pod_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -42,7 +42,7 @@ test_pod_run_as_group_denied {
 	r[_].msg == "Pod 'hello-run-as-group' should set 'spec.securityContext.runAsGroup', 'spec.securityContext.supplementalGroups[*]' and 'spec.securityContext.fsGroup' to integer greater than 0"
 }
 
-test_pod_run_as_group_allowed {
+test_run_as_group_set_to_value_greater_than_10000_for_pod_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -64,7 +64,7 @@ test_pod_run_as_group_allowed {
 	count(r) == 0
 }
 
-test_pod_supplemental_groups_denied {
+test_supplemental_groups_is_defined_for_pod_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -87,7 +87,7 @@ test_pod_supplemental_groups_denied {
 	r[_].msg == "Pod 'hello-run-as-group' should set 'spec.securityContext.runAsGroup', 'spec.securityContext.supplementalGroups[*]' and 'spec.securityContext.fsGroup' to integer greater than 0"
 }
 
-test_pod_fs_group_denied {
+test_fs_group_is_defined_for_pod_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
