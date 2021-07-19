@@ -7,11 +7,11 @@ default failHostPathVolume = false
 
 __rego_metadata__ := {
 	"id": "KSV023",
-	"title": "HostPath volumes mounted",
+	"title": "hostPath volumes mounted",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
-	"description": "According to pod security standard 'HostPath Volumes', HostPath volumes must be forbidden.",
+	"description": "HostPath volumes must be forbidden.",
 	"recommended_actions": "Do not set 'spec.volumes[*].hostPath'.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
@@ -29,7 +29,7 @@ failHostPathVolume {
 deny[res] {
 	failHostPathVolume
 
-	msg := kubernetes.format(sprintf("%s %s in %s namespace should not set spec.template.volumes.hostPath", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("%s '%s' should not set 'spec.template.volumes.hostPath'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

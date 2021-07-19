@@ -7,7 +7,7 @@ default failProcMount = false
 
 __rego_metadata__ := {
 	"id": "KSV027",
-	"title": "The default /proc masks are not used",
+	"title": "Non-default /proc masks set",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
@@ -30,7 +30,7 @@ failProcMountOpts {
 deny[res] {
 	failProcMountOpts
 
-	msg := kubernetes.format(sprintf("%s '%s' should not set spec.containers[*].securityContext.procMount or spec.initContainers[*].securityContext.procMount", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should not set 'spec.containers[*].securityContext.procMount' or 'spec.initContainers[*].securityContext.procMount'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

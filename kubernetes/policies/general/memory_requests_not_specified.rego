@@ -7,7 +7,7 @@ default failRequestsMemory = false
 
 __rego_metadata__ := {
 	"id": "KSV016",
-	"title": "Memory requests is not specified",
+	"title": "Memory requests not specified",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
@@ -44,7 +44,7 @@ failRequestsMemory {
 deny[res] {
 	failRequestsMemory
 
-	msg := kubernetes.format(sprintf("container '%s' of '%s' '%s' in '%s' namespace should set resources.requests.memory", [getNoRequestsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'resources.requests.memory'", [getNoRequestsMemoryContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

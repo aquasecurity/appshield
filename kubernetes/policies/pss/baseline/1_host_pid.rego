@@ -28,7 +28,7 @@ failHostPID {
 deny[res] {
 	failHostPID
 
-	msg := kubernetes.format(sprintf("%s '%s' should not set spec.template.spec.hostPID to true", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should not set 'spec.template.spec.hostPID' to true", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

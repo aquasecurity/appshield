@@ -7,7 +7,7 @@ default failLimitsCPU = false
 
 __rego_metadata__ := {
 	"id": "KSV011",
-	"title": "CPU is not limited",
+	"title": "CPU not limited",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
@@ -44,7 +44,7 @@ failLimitsCPU {
 deny[res] {
 	failLimitsCPU
 
-	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set resources.limits.cpu", [getNoLimitsCPUContainers[_], kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'resources.limits.cpu'", [getNoLimitsCPUContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

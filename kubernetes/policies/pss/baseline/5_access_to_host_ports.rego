@@ -10,7 +10,7 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
-	"description": "According to pod security standard 'Host Ports', hostPorts should be disallowed, or at minimum restricted to a known list.",
+	"description": "HostPorts should be disallowed, or at minimum restricted to a known list.",
 	"recommended_actions": "Do not set spec.containers[*].ports[*].hostPort and spec.initContainers[*].ports[*].hostPort.",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
@@ -49,8 +49,7 @@ failHostPorts {
 deny[res] {
 	failHostPorts
 
-	msg := sprintf("container %s of %s %s in %s namespace should not set host ports, ports[*].hostPort%s", [getContainersWithDisallowedHostPorts[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace, host_ports_msg])
-
+	msg := sprintf("Container '%s' of %s '%s' should not set host ports, 'ports[*].hostPort'%s", [getContainersWithDisallowedHostPorts[_], kubernetes.kind, kubernetes.name, host_ports_msg])
 	res := {
 		"msg": msg,
 		"id": __rego_metadata__.id,

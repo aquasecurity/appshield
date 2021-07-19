@@ -7,7 +7,7 @@ default failSysctls = false
 
 __rego_metadata__ := {
 	"id": "KSV026",
-	"title": "Sysctls configures an 'unsafe' value",
+	"title": "Unsafe sysctl options set",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
@@ -40,7 +40,7 @@ failSysctls {
 deny[res] {
 	failSysctls
 
-	msg := kubernetes.format(sprintf("%s '%s' should set securityContext.sysctl to the allowed values", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should set 'securityContext.sysctl' to the allowed values", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

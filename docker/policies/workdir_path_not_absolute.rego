@@ -27,5 +27,5 @@ get_work_dir[arg] {
 
 deny[res] {
 	arg := get_work_dir[_]
-	res := sprintf("WORKDIR path '%s' isn't absolute", [arg])
+	res := sprintf("WORKDIR path '%s' should be absolute", [arg])
 }

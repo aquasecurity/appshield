@@ -28,7 +28,7 @@ failHostNetwork {
 deny[res] {
 	failHostNetwork
 
-	msg := kubernetes.format(sprintf("'%s' '%s' in '%s' namespace should not set spec.template.spec.hostNetwork to true", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("%s '%s' should not set 'spec.template.spec.hostNetwork' to true", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

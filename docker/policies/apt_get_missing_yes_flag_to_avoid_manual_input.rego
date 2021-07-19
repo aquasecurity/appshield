@@ -4,11 +4,11 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS021",
-	"title": "'apt-get' is missing '-y' to avoid manual input",
+	"title": "'apt-get' missing '-y' to avoid manual input",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "'apt-get' calls should use the flag '-y' to avoid user manual input.",
+	"description": "'apt-get' calls should use the flag '-y' to avoid manual user input.",
 	"recommended_actions": "Add '-y' flag to 'apt-get'",
 	"url": "https://docs.docker.com/engine/reference/builder/#run",
 }

@@ -7,7 +7,7 @@ default failRunAsGroup = false
 
 __rego_metadata__ := {
 	"id": "KSV021",
-	"title": "Runs with GID <= 10000",
+	"title": "Runs with low group ID",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
@@ -54,8 +54,7 @@ failRunAsGroup {
 deny[res] {
 	failRunAsGroup
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set securityContext.runAsGroup > 10000", [getGroupIdContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
-
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'securityContext.runAsGroup' > 10000", [getGroupIdContainers[_], kubernetes.kind, kubernetes.name]))
 	res := {
 		"msg": msg,
 		"id": __rego_metadata__.id,

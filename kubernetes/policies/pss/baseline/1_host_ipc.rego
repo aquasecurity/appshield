@@ -6,7 +6,7 @@ default failHostIPC = false
 
 __rego_metadata__ := {
 	"id": "KSV008",
-	"title": "Container has access to host IPC namespace",
+	"title": "Access to host IPC namespace",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
@@ -28,7 +28,7 @@ failHostIPC {
 deny[res] {
 	failHostIPC
 
-	msg := kubernetes.format(sprintf("'%s' '%s' in %s namespace should not set spec.template.spec.hostIPC to true", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("%s '%s' should not set 'spec.template.spec.hostIPC' to true", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

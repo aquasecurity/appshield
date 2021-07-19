@@ -4,11 +4,11 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS010",
-	"title": "Avoid using 'sudo' in containers",
+	"title": "RUN using 'sudo'",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "Avoid 'RUN' with 'sudo' command as it leads to unpredictable behavior.",
+	"description": "Avoid using 'RUN' with 'sudo' commands, as it can lead to unpredictable behavior.",
 	"recommended_actions": "Don't use sudo",
 	"url": "https://docs.docker.com/engine/reference/builder/#run",
 }

@@ -8,7 +8,7 @@ default checkDockerSocket = false
 
 __rego_metadata__ := {
 	"id": "KSV006",
-	"title": "docker.sock is mounted to container",
+	"title": "hostPath volume mounted with docker.sock",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
@@ -32,9 +32,7 @@ checkDockerSocket {
 deny[res] {
 	checkDockerSocket
 
-	# msg = sprintf("%s should not mount /var/run/docker.socker", [name])
-
-	msg := kubernetes.format(sprintf("'%s' '%s' in '%s' namespace should not specify /var/run/docker.socker in spec.template.volumes.hostPath.path", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("%s '%s' should not specify '/var/run/docker.socker' in 'spec.template.volumes.hostPath.path'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

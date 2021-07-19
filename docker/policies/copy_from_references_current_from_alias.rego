@@ -4,7 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS006",
-	"title": "COPY '--from' references the current image",
+	"title": "COPY '--from' referring to the current image",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
@@ -43,5 +43,5 @@ is_alias_current_from_alias(current_name, current_alias) = allow {
 
 deny[res] {
 	args := get_alias_from_copy[_]
-	res := sprintf("'COPY --from' shouldn't mention current alias '%s' since it is impossible to copy from itself", [args])
+	res := sprintf("'COPY --from' should not mention current alias '%s' since it is impossible to copy from itself", [args])
 }

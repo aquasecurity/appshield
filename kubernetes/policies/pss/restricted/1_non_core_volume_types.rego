@@ -5,7 +5,7 @@ import data.lib.utils
 
 __rego_metadata__ := {
 	"id": "KSV028",
-	"title": "Non-ephemeral volume type not defined through PersistentVolumes is used",
+	"title": "Non-ephemeral volume types used",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
@@ -62,7 +62,7 @@ failVolumeTypes {
 deny[res] {
 	failVolumeTypes
 
-	msg := kubernetes.format(sprintf("%s '%s' should set spec.volumes[*] to type PersistentVolumeClaim", [kubernetes.kind, kubernetes.name]))
+	msg := kubernetes.format(sprintf("%s '%s' should set 'spec.volumes[*]' to type 'PersistentVolumeClaim'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

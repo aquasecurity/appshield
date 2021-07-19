@@ -4,12 +4,12 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS014",
-	"title": "Run using 'wget' and 'curl'",
+	"title": "RUN using 'wget' and 'curl'",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Dockerfile Security Check",
-	"description": "Shouldn't use both 'wget' and 'curl' since they are two tools that have the same effect",
-	"recommended_actions": "Pick one util",
+	"description": "Avoid using both 'wget' and 'curl' since these tools have the same effect.",
+	"recommended_actions": "Pick one util, either 'wget' or 'curl'",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run",
 }
 

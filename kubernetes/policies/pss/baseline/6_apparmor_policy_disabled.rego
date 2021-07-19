@@ -6,7 +6,7 @@ default failAppArmor = false
 
 __rego_metadata__ := {
 	"id": "KSV002",
-	"title": "AppArmor policies are disabled",
+	"title": "Default AppArmor profile not set",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
