@@ -6,7 +6,7 @@ default failHostPorts = false
 
 __rego_metadata__ := {
 	"id": "KSV024",
-	"title": "HostPort is binded",
+	"title": "Access to host ports",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

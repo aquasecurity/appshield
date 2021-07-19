@@ -4,11 +4,11 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS022",
-	"title": "Deprecated MAINTAINER is used",
+	"title": "Deprecated MAINTAINER used",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "MAINTAINER is deprecated since Docker 1.13.0",
+	"description": "MAINTAINER has been deprecated since Docker 1.13.0.",
 	"recommended_actions": "Use LABEL instead of MAINTAINER",
 	"url": "https://docs.docker.com/engine/deprecated/#maintainer-in-dockerfile",
 }

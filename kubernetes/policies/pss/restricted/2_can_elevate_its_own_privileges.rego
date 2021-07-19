@@ -7,7 +7,7 @@ default checkAllowPrivilegeEscalation = false
 
 __rego_metadata__ := {
 	"id": "KSV001",
-	"title": "Privilege escalation is allowed",
+	"title": "Process can elevate its own privileges",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

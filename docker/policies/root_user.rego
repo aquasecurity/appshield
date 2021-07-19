@@ -4,11 +4,11 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS002",
-	"title": "Image user is 'root'",
+	"title": "root user",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "Running containers with 'root' user can lead to container escape situation. It is a best practice to run containers as non-root users, which can be done by adding 'USER' statement to the Dockerfile.",
+	"description": "Running containers with 'root' user can lead to a container escape situation. It is a best practice to run containers as non-root users, which can be done by adding a 'USER' statement to the Dockerfile.",
 	"recommended_actions": "Add 'USER <non root user name>' line to the Dockerfile",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/",
 }

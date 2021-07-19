@@ -6,7 +6,7 @@ default failHostPID = false
 
 __rego_metadata__ := {
 	"id": "KSV010",
-	"title": "Container has access to host PID",
+	"title": "Access to host PID",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

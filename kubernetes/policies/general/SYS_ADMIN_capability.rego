@@ -6,7 +6,7 @@ default failCapsSysAdmin = false
 
 __rego_metadata__ := {
 	"id": "KSV005",
-	"title": "SYS_ADMIN capability is added",
+	"title": "SYS_ADMIN capability added",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

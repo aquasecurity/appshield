@@ -6,7 +6,7 @@ default failAdditionalCaps = false
 
 __rego_metadata__ := {
 	"id": "KSV022",
-	"title": "Capabilities beyond the default set is allowed",
+	"title": "Non-default capabilities added",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
