@@ -38,14 +38,13 @@ failRootGroupId {
 # failRootGroupId is true if root group id is set on pod
 failRootGroupId {
 	pod := kubernetes.pods[_]
-	gid := pod.spec.securityContext.supplementalGroups[_]
-	gid == 0
+	utils.has_key(pod.spec.securityContext, "supplementalGroups")
 }
 
 # failRootGroupId is true if root group id is set on pod
 failRootGroupId {
 	pod := kubernetes.pods[_]
-	pod.spec.securityContext.fsGroup == 0
+	utils.has_key(pod.spec.securityContext, "fsGroup")
 }
 
 deny[res] {
