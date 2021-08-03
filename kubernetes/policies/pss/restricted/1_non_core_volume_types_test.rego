@@ -1,6 +1,6 @@
 package appshield.kubernetes.KSV028
 
-test_non_core_volume_type_denied {
+test_disallowed_volume_type_used_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -34,7 +34,7 @@ test_non_core_volume_type_denied {
 	r[_].msg == "Pod 'hello-volume-types' should set 'spec.volumes[*]' to type 'PersistentVolumeClaim'"
 }
 
-test_volume_with_no_type_set_allowed {
+test_no_volume_type_used_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",

@@ -7,7 +7,7 @@ default failRunAsGroup = false
 
 __rego_metadata__ := {
 	"id": "KSV021",
-	"title": "Container is running with low group ID",
+	"title": "Runs with low group ID",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

@@ -20,7 +20,7 @@ test_allow_privilege_escalation_set_to_false_allowed {
 	count(r) == 0
 }
 
-test_allow_privilege_escalation_missed_denied {
+test_allow_privilege_escalation_is_undefined_denied {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",

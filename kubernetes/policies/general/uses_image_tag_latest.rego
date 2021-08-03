@@ -6,7 +6,7 @@ default checkUsingLatestTag = false
 
 __rego_metadata__ := {
 	"id": "KSV013",
-	"title": "Image tag ':latest' is used",
+	"title": "Image tag ':latest' used",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

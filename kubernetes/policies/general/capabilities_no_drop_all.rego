@@ -6,7 +6,7 @@ default checkCapsDropAll = false
 
 __rego_metadata__ := {
 	"id": "KSV003",
-	"title": "Unused capabilities are not dropped",
+	"title": "Default capabilities not dropped",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

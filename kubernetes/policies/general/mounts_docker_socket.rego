@@ -8,7 +8,7 @@ default checkDockerSocket = false
 
 __rego_metadata__ := {
 	"id": "KSV006",
-	"title": "docker.sock is mounted to container",
+	"title": "hostPath volume mounted with docker.sock",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
