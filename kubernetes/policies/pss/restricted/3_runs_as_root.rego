@@ -38,12 +38,19 @@ getRootContainers[container] {
 
 # checkRunAsNonRoot is true if securityContext.runAsNonRoot is set to false
 # or if securityContext.runAsNonRoot is not set.
-checkRunAsNonRoot {
+checkRunAsNonRootContainers {
 	count(getRootContainers) > 0
 }
 
+checkRunAsNonRootPod {
+	allPods := kubernetes.pods[_]
+	not allPods.spec.securityContext.runAsNonRoot
+}
+
 deny[res] {
-	checkRunAsNonRoot
+	checkRunAsNonRootPod
+
+	checkRunAsNonRootContainers
 
 	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'securityContext.runAsNonRoot' to true", [getRootContainers[_], kubernetes.kind, kubernetes.name]))
 
