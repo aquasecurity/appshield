@@ -33,9 +33,14 @@ fail_user_count {
 # fail_last_user_root is true if the last USER command
 # value is "root"
 fail_last_user_root {
-	user := cast_array(get_user)
-	len := count(get_user)
-	user[minus(len, 1)] == "root"
+	some i, j
+	instruction := input.stages[i][j]
+
+	instruction.Cmd == "user"
+
+	instruction.Value[0] == "root"
+
+	j == count(input.stages[i]) - 1 #index is zero based
 }
 
 deny[msg] {
