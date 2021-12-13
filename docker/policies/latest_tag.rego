@@ -17,6 +17,17 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
+get_aliases[aliases] {
+	from_cmd := docker.from[_]
+	count(from_cmd.Value) == 3
+	aliases := from_cmd.Value[2]
+}
+
+is_alias(img) = allow {
+	img == get_aliases[_]
+	allow := true
+}
+
 # image_names returns the image in FROM statement.
 image_names[image_name] {
 	from := docker.from[_]
@@ -61,10 +72,12 @@ image_tags[[img, tag]] {
 }
 
 # fail_latest is true if image is not scratch and
+#image is not an alias
 # tag is latest.
 fail_latest[img] {
 	[img, tag] := image_tags[_]
 	img != "scratch"
+	not is_alias(img)
 	tag == "latest"
 }
 

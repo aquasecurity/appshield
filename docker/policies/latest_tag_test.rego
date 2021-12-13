@@ -122,3 +122,68 @@ test_multi_stage_allowed {
 
 	count(r) == 0
 }
+
+test_multi_stage_base_alias_allowed {
+	r := deny with input as {"stages": {
+		"node:14.18.1-bullseye as dependencies": [
+			{
+				"Cmd": "from",
+				"Value": ["node:14.18.1-bullseye", "as", "dependencies"],
+			},
+			{
+				"Cmd": "run",
+				"Value": ["apt-get update"],
+			},
+		],
+		"build": [{
+			"Cmd": "from",
+			"Value": ["dependencies", "as", "build"],
+		}],
+	}}
+
+	count(r) == 0
+}
+
+test_multi_stage_denied {
+	r := deny with input as {"stages": {
+		"node:14.18.1-bullseye as dependencies": [
+			{
+				"Cmd": "from",
+				"Value": ["node:14.18.1-bullseye", "as", "dependencies"],
+			},
+			{
+				"Cmd": "run",
+				"Value": ["apt-get update"],
+			},
+		],
+		"alpine:latest": [{
+			"Cmd": "from",
+			"Value": ["alpine:latest"],
+		}],
+	}}
+
+	count(r) == 1
+	r[_] == "Specify a tag in the 'FROM' statement for image 'alpine'"
+}
+
+test_multi_stage_no_tag_denied {
+	r := deny with input as {"stages": {
+		"node:14.18.1-bullseye as dependencies": [
+			{
+				"Cmd": "from",
+				"Value": ["node:14.18.1-bullseye", "as", "dependencies"],
+			},
+			{
+				"Cmd": "run",
+				"Value": ["apt-get update"],
+			},
+		],
+		"alpine:latest": [{
+			"Cmd": "from",
+			"Value": ["alpine"],
+		}],
+	}}
+
+	count(r) == 1
+	r[_] == "Specify a tag in the 'FROM' statement for image 'alpine'"
+}
