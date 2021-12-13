@@ -71,9 +71,9 @@ image_tags[[img, tag]] {
 	[img, tag] = parse_tag(bare_image_name)
 }
 
-# fail_latest is true if image is not scratch and
-#image is not an alias
-# tag is latest.
+# fail_latest is true if image is not scratch
+# and image is not an alias
+# and tag is latest.
 fail_latest[img] {
 	[img, tag] := image_tags[_]
 	img != "scratch"
