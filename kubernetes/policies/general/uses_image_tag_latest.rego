@@ -24,8 +24,8 @@ __rego_input__ := {
 # have tagged images.
 getTaggedContainers[container] {
 	allContainers := kubernetes.containers[_]
-	[x, y] := split(allContainers.image, ":")
-	y != "latest"
+	tag := split(split(allContainers.image, "@")[0], ":")[1]
+	tag != "latest"
 	container := allContainers.name
 }
 
