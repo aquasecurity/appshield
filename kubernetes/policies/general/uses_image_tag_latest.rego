@@ -23,8 +23,14 @@ __rego_input__ := {
 # getTaggedContainers returns the names of all containers which
 # have tagged images.
 getTaggedContainers[container] {
+	# If the image defines a digest value, we don't care about the tag
 	allContainers := kubernetes.containers[_]
-	tag := split(split(allContainers.image, "@")[0], ":")[1]
+	digest := split(allContainers.image, "@")[1]
+	container := allContainers.name
+} {
+	# No digest, look at tag
+	allContainers := kubernetes.containers[_]
+	tag := split(allContainers.image, ":")[1]
 	tag != "latest"
 	container := allContainers.name
 }

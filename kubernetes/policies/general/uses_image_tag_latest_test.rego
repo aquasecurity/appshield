@@ -78,7 +78,7 @@ test_tagged_image_with_digest_allowed {
 	count(r) == 0
 }
 
-test_tagged_image_with_digest_denied {
+test_image_uses_latest_tag_with_digest_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -94,11 +94,10 @@ test_tagged_image_with_digest_denied {
 		}]},
 	}
 
-	count(r) == 1
-	r[_].msg == "Container 'hello' of Pod 'hello-tag' should specify an image tag"
+	count(r) == 0
 }
 
-test_image_with_no_tag_with_digest_denied {
+test_image_with_no_tag_with_digest_allowed {
 	r := deny with input as {
 		"apiVersion": "v1",
 		"kind": "Pod",
@@ -114,6 +113,5 @@ test_image_with_no_tag_with_digest_denied {
 		}]},
 	}
 
-	count(r) == 1
-	r[_].msg == "Container 'hello' of Pod 'hello-tag' should specify an image tag"
+	count(r) == 0
 }
