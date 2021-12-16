@@ -27,7 +27,9 @@ getTaggedContainers[container] {
 	allContainers := kubernetes.containers[_]
 	digest := split(allContainers.image, "@")[1]
 	container := allContainers.name
-} {
+}
+
+getTaggedContainers[container] {
 	# No digest, look at tag
 	allContainers := kubernetes.containers[_]
 	tag := split(allContainers.image, ":")[1]
