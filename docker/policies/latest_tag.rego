@@ -17,15 +17,19 @@ __rego_input__ := {
 	"selector": [{"type": "dockerfile"}],
 }
 
-get_aliases[aliases] {
-	from_cmd := docker.from[_]
-	count(from_cmd.Value) == 3
-	aliases := from_cmd.Value[2]
+# returns element after AS
+get_alias(values) = alias {
+	"as" == values[i]
+	alias = values[plus(i, 1)]
 }
 
-is_alias(img) = allow {
+get_aliases[aliases] {
+	from_cmd := docker.from[_]
+	aliases := get_alias(from_cmd.Value)
+}
+
+is_alias(img) {
 	img == get_aliases[_]
-	allow := true
 }
 
 # image_names returns the image in FROM statement.
