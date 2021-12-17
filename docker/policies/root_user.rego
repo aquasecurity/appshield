@@ -33,9 +33,9 @@ fail_user_count {
 # fail_last_user_root is true if the last USER command
 # value is "root"
 fail_last_user_root {
-	user := cast_array(get_user)
-	len := count(get_user)
-	user[minus(len, 1)] == "root"
+	stage_users := docker.stage_user[_]
+	len := count(stage_users)
+	stage_users[minus(len, 1)].Value[0] == "root"
 }
 
 deny[msg] {

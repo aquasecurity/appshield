@@ -45,6 +45,11 @@ stage_healthcheck[stage_name] = hlthchecks {
 	hlthchecks := [hlthcheck | hlthcheck := stage[_]; hlthcheck.Cmd == "healthcheck"]
 }
 
+stage_user[stage_name] = users {
+	stage := input.stages[stage_name]
+	users := [cmd | cmd := stage[_]; cmd.Cmd == "user"]
+}
+
 expose[instruction] {
 	instruction := input.stages[_][_]
 	instruction.Cmd == "expose"
