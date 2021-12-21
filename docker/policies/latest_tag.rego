@@ -19,7 +19,7 @@ __rego_input__ := {
 
 # returns element after AS
 get_alias(values) = alias {
-	"as" == values[i]
+	"as" == lower(values[i])
 	alias = values[plus(i, 1)]
 }
 
