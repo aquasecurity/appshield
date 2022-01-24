@@ -5,6 +5,7 @@ import data.lib.utils
 
 __rego_metadata__ := {
 	"id": "KSV028",
+	"avd_id": "AVD-KSV-0028",
 	"title": "Non-ephemeral volume types used",
 	"version": "v1.0.0",
 	"severity": "LOW",

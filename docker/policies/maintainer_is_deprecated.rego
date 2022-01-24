@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS022",
+	"avd_id": "AVD-DS-0022",
 	"title": "Deprecated MAINTAINER used",
 	"version": "v1.0.0",
 	"severity": "HIGH",

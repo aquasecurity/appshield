@@ -6,6 +6,7 @@ default failPrivileged = false
 
 __rego_metadata__ := {
 	"id": "KSV017",
+	"avd_id": "AVD-KSV-0017",
 	"title": "Privileged container",
 	"version": "v1.0.0",
 	"severity": "HIGH",

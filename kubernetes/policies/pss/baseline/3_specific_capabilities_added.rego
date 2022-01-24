@@ -6,6 +6,7 @@ default failAdditionalCaps = false
 
 __rego_metadata__ := {
 	"id": "KSV022",
+	"avd_id": "AVD-KSV-0022",
 	"title": "Non-default capabilities added",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

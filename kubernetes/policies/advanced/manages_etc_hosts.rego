@@ -7,6 +7,7 @@ default failHostAliases = false
 
 __rego_metadata__ := {
 	"id": "KSV007",
+	"avd_id": "AVD-KSV-0007",
 	"title": "hostAliases is set",
 	"version": "v1.0.0",
 	"severity": "LOW",

@@ -6,6 +6,7 @@ default failAppArmor = false
 
 __rego_metadata__ := {
 	"id": "KSV002",
+	"avd_id": "AVD-KSV-0002",
 	"title": "Default AppArmor profile not set",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

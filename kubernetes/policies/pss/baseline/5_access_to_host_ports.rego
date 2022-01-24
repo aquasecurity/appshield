@@ -6,6 +6,7 @@ default failHostPorts = false
 
 __rego_metadata__ := {
 	"id": "KSV024",
+	"avd_id": "AVD-KSV-0024",
 	"title": "Access to host ports",
 	"version": "v1.0.0",
 	"severity": "HIGH",

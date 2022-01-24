@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS021",
+	"avd_id": "AVD-DS-0021",
 	"title": "'apt-get' missing '-y' to avoid manual input",
 	"version": "v1.0.0",
 	"severity": "HIGH",

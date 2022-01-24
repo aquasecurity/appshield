@@ -6,6 +6,7 @@ default failCapsSysAdmin = false
 
 __rego_metadata__ := {
 	"id": "KSV005",
+	"avd_id": "AVD-KSV-0005",
 	"title": "SYS_ADMIN capability added",
 	"version": "v1.0.0",
 	"severity": "HIGH",

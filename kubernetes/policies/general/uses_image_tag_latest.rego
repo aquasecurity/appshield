@@ -6,6 +6,7 @@ default checkUsingLatestTag = false
 
 __rego_metadata__ := {
 	"id": "KSV013",
+	"avd_id": "AVD-KSV-0013",
 	"title": "Image tag ':latest' used",
 	"version": "v1.0.0",
 	"severity": "LOW",

@@ -6,6 +6,7 @@ default failHostIPC = false
 
 __rego_metadata__ := {
 	"id": "KSV008",
+	"avd_id": "AVD-KSV-0008",
 	"title": "Access to host IPC namespace",
 	"version": "v1.0.0",
 	"severity": "HIGH",

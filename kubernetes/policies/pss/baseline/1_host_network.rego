@@ -6,6 +6,7 @@ default failHostNetwork = false
 
 __rego_metadata__ := {
 	"id": "KSV009",
+	"avd_id": "AVD-KSV-0009",
 	"title": "Access to host network",
 	"version": "v1.0.0",
 	"severity": "HIGH",

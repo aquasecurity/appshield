@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS002",
+	"avd_id": "AVD-DS-0002",
 	"title": "root user",
 	"version": "v1.0.0",
 	"severity": "HIGH",

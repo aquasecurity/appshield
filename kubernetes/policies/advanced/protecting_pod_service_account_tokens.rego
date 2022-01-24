@@ -5,6 +5,7 @@ import data.lib.utils
 
 __rego_metadata__ := {
 	"id": "KSV036",
+	"avd_id": "AVD-KSV-0036",
 	"title": "Protecting Pod service account tokens",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

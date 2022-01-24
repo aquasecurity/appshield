@@ -7,6 +7,7 @@ default failTrustedGCRRegistry = false
 
 __rego_metadata__ := {
 	"id": "KSV033",
+	"avd_id": "AVD-KSV-0033",
 	"title": "All container images must start with a GCR domain",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

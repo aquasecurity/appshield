@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS018",
+	"avd_id": "AVD-DS-0018",
 	"title": "'COPY --from' refers to alias not defined previously",
 	"version": "v1.0.0",
 	"severity": "HIGH",

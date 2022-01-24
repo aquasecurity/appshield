@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS024",
+	"avd_id": "AVD-DS-0024",
 	"title": "'apt-get dist-upgrade' used",
 	"version": "v1.0.0",
 	"severity": "HIGH",

@@ -4,6 +4,7 @@ import data.lib.kubernetes
 
 __rego_metadata__ := {
 	"id": "KSV102",
+	"avd_id": "AVD-KSV-0102",
 	"title": "Tiller Is Deployed",
 	"version": "v1.0.0",
 	"severity": "Critical",

@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS008",
+	"avd_id": "AVD-DS-0008",
 	"title": "Exposed port out of range",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",

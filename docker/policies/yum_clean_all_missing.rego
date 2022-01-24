@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS015",
+	"avd_id": "AVD-DS-0015",
 	"title": "'yum clean all' missing",
 	"version": "v1.0.0",
 	"severity": "HIGH",

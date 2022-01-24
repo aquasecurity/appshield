@@ -7,6 +7,7 @@ default failCapsDropAny = false
 
 __rego_metadata__ := {
 	"id": "KSV004",
+	"avd_id": "AVD-KSV-0004",
 	"title": "Unused capabilities should be dropped (drop any)",
 	"version": "v1.0.0",
 	"severity": "LOW",

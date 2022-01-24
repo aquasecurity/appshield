@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS020",
+	"avd_id": "AVD-DS-0020",
 	"title": "'zypper clean' missing",
 	"version": "v1.0.0",
 	"severity": "HIGH",

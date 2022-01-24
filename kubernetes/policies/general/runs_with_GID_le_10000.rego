@@ -7,6 +7,7 @@ default failRunAsGroup = false
 
 __rego_metadata__ := {
 	"id": "KSV021",
+	"avd_id": "AVD-KSV-0021",
 	"title": "Runs with low group ID",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

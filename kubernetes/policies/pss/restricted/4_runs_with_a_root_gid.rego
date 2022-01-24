@@ -7,6 +7,7 @@ default failRootGroupId = false
 
 __rego_metadata__ := {
 	"id": "KSV029",
+	"avd_id": "AVD-KSV-0029",
 	"title": "A root primary or supplementary GID set",
 	"version": "v1.0.0",
 	"severity": "LOW",

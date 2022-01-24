@@ -7,6 +7,7 @@ default failLimitsMemory = false
 
 __rego_metadata__ := {
 	"id": "KSV018",
+	"avd_id": "AVD-KSV-0018",
 	"title": "Memory not limited",
 	"version": "v1.0.0",
 	"severity": "LOW",
