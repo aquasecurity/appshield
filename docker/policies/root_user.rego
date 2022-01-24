@@ -35,7 +35,7 @@ fail_user_count {
 fail_last_user_root {
 	stage_users := docker.stage_user[_]
 	len := count(stage_users)
-	stage_users[minus(len, 1)].Value[0] == "root"
+	stage_users[len - 1].Value[0] == "root"
 }
 
 deny[msg] {

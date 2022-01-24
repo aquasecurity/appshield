@@ -39,7 +39,7 @@ deny[res] {
 contains_zipper_clean(cmd) {
 	zypper_commands := regex.find_n(zypper_regex, cmd, -1)
 
-	is_zypper_clean(zypper_commands[minus(count(zypper_commands), 1)])
+	is_zypper_clean(zypper_commands[count(zypper_commands) - 1])
 }
 
 is_zypper_clean(cmd) {
