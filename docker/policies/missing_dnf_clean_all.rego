@@ -39,5 +39,5 @@ deny[res] {
 contains_clean_after_dnf(cmd) {
 	dnf_commands := regex.find_n(dnf_regex, cmd, -1)
 
-	dnf_commands[minus(count(dnf_commands), 1)] == "dnf clean all"
+	dnf_commands[count(dnf_commands) - 1] == "dnf clean all"
 }

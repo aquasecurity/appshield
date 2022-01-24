@@ -38,7 +38,7 @@ is_valid_update(command) {
 
 	update := {"update", "--update"}
 
-	array_split[minus(len, 1)] == update[_]
+	array_split[len - 1] == update[_]
 }
 
 update_followed_by_install(command) {

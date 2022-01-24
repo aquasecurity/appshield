@@ -24,7 +24,7 @@ get_copy_arg[arg] {
 	cnt := count(copy.Value)
 	cnt > 2
 
-	arg := copy.Value[minus(cnt, 1)]
+	arg := copy.Value[cnt - 1]
 	not endswith(arg, "/")
 }
 

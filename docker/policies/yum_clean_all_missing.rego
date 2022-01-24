@@ -35,5 +35,5 @@ deny[res] {
 contains_clean_after_yum(cmd) {
 	yum_commands := regex.find_n("(yum (-[a-zA-Z]+ *)*install)|(yum clean all)", cmd, -1)
 
-	yum_commands[minus(count(yum_commands), 1)] == "yum clean all"
+	yum_commands[count(yum_commands) - 1] == "yum clean all"
 }
