@@ -6,6 +6,7 @@ default failReadOnlyRootFilesystem = false
 
 __rego_metadata__ := {
 	"id": "KSV014",
+	"avd_id": "AVD-KSV-0014",
 	"title": "Root file system is not read-only",
 	"version": "v1.0.0",
 	"severity": "LOW",

@@ -7,6 +7,7 @@ default failSysctls = false
 
 __rego_metadata__ := {
 	"id": "KSV026",
+	"avd_id": "AVD-KSV-0026",
 	"title": "Unsafe sysctl options set",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

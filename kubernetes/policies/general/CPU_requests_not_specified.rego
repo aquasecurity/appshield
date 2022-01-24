@@ -7,6 +7,7 @@ default failRequestsCPU = false
 
 __rego_metadata__ := {
 	"id": "KSV015",
+	"avd_id": "AVD-KSV-0015",
 	"title": "CPU requests not specified",
 	"version": "v1.0.0",
 	"severity": "LOW",

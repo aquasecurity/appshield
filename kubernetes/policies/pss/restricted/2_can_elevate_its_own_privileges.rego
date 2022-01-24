@@ -7,6 +7,7 @@ default checkAllowPrivilegeEscalation = false
 
 __rego_metadata__ := {
 	"id": "KSV001",
+	"avd_id": "AVD-KSV-0001",
 	"title": "Process can elevate its own privileges",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

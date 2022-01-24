@@ -7,6 +7,7 @@ default failRequestsMemory = false
 
 __rego_metadata__ := {
 	"id": "KSV016",
+	"avd_id": "AVD-KSV-0016",
 	"title": "Memory requests not specified",
 	"version": "v1.0.0",
 	"severity": "LOW",

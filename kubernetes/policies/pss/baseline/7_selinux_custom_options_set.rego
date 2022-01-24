@@ -7,6 +7,7 @@ default failSELinux = false
 
 __rego_metadata__ := {
 	"id": "KSV025",
+	"avd_id": "AVD-KSV-0025",
 	"title": "SELinux custom options set",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS014",
+	"avd_id": "AVD-DS-0014",
 	"title": "RUN using 'wget' and 'curl'",
 	"version": "v1.0.0",
 	"severity": "LOW",

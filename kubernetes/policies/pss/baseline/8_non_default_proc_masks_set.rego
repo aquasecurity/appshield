@@ -7,6 +7,7 @@ default failProcMount = false
 
 __rego_metadata__ := {
 	"id": "KSV027",
+	"avd_id": "AVD-KSV-0027",
 	"title": "Non-default /proc masks set",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS023",
+	"avd_id": "AVD-DS-0023",
 	"title": "Multiple HEALTHCHECK defined",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

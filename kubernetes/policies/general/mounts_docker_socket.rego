@@ -8,6 +8,7 @@ default checkDockerSocket = false
 
 __rego_metadata__ := {
 	"id": "KSV006",
+	"avd_id": "AVD-KSV-0006",
 	"title": "hostPath volume mounted with docker.sock",
 	"version": "v1.0.0",
 	"severity": "HIGH",

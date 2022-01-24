@@ -7,6 +7,7 @@ default failLimitsCPU = false
 
 __rego_metadata__ := {
 	"id": "KSV011",
+	"avd_id": "AVD-KSV-0011",
 	"title": "CPU not limited",
 	"version": "v1.0.0",
 	"severity": "LOW",

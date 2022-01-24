@@ -4,6 +4,7 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS010",
+	"avd_id": "AVD-DS-0010",
 	"title": "RUN using 'sudo'",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",

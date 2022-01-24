@@ -7,6 +7,7 @@ default failPublicRegistry = false
 
 __rego_metadata__ := {
 	"id": "KSV034",
+	"avd_id": "AVD-KSV-0034",
 	"title": "Container images from public registries used",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

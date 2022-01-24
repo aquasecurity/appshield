@@ -7,6 +7,7 @@ default failTrustedAzureRegistry = false
 
 __rego_metadata__ := {
 	"id": "KSV032",
+	"avd_id": "AVD-KSV-0032",
 	"title": "All container images must start with the *.azurecr.io domain",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",

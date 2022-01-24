@@ -7,6 +7,7 @@ default failSeccompProfileType = false
 
 __rego_metadata__ := {
 	"id": "KSV030",
+	"avd_id": "AVD-KSV-0030",
 	"title": "Default Seccomp profile not set",
 	"version": "v1.0.0",
 	"severity": "LOW",
