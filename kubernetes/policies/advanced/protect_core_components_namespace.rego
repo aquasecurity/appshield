@@ -5,6 +5,7 @@ import data.lib.utils
 
 __rego_metadata__ := {
 	"id": "KSV037",
+	"avd_id": "AVD-KSV-0037",
 	"title": "User Pods should not be placed in kube-system namespace",
 	"short_code": "no-user-pods-in-system-namespace",
 	"version": "v1.0.0",
