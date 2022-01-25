@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV016",
 	"avd_id": "AVD-KSV-0016",
 	"title": "Memory requests not specified",
+	"short_code": "no-unspecified-memory-requests",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

@@ -8,6 +8,7 @@ __rego_metadata__ := {
 	"id": "KSV017",
 	"avd_id": "AVD-KSV-0017",
 	"title": "Privileged container",
+	"short_code": "no-privileged-containers",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

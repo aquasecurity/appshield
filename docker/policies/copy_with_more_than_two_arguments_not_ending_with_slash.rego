@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS011",
 	"avd_id": "AVD-DS-0011",
 	"title": "COPY with more than two arguments not ending with slash",
+	"short_code": "use-slash-for-copy-args",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",

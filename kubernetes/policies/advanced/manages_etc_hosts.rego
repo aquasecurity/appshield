@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV007",
 	"avd_id": "AVD-KSV-0007",
 	"title": "hostAliases is set",
+	"short_code": "no-hostaliases",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

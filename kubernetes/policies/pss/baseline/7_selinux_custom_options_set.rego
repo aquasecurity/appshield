@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV025",
 	"avd_id": "AVD-KSV-0025",
 	"title": "SELinux custom options set",
+	"short_code": "no-custom-selinux-options",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

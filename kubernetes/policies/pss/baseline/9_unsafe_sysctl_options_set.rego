@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV026",
 	"avd_id": "AVD-KSV-0026",
 	"title": "Unsafe sysctl options set",
+	"short_code": "no-unsafe-sysctl",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

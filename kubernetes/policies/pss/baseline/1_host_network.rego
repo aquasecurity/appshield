@@ -8,6 +8,7 @@ __rego_metadata__ := {
 	"id": "KSV009",
 	"avd_id": "AVD-KSV-0009",
 	"title": "Access to host network",
+	"short_code": "no-host-network",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

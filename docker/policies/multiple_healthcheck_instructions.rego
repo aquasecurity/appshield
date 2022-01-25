@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS023",
 	"avd_id": "AVD-DS-0023",
 	"title": "Multiple HEALTHCHECK defined",
+	"short_code": "only-one-healthcheck",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",

@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS021",
 	"avd_id": "AVD-DS-0021",
 	"title": "'apt-get' missing '-y' to avoid manual input",
+	"short_code": "use-apt-auto-confirm",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

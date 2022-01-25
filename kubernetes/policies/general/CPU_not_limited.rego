@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV011",
 	"avd_id": "AVD-KSV-0011",
 	"title": "CPU not limited",
+	"short_code": "limit-cpu",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

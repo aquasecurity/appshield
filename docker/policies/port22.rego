@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS004",
 	"avd_id": "AVD-DS-0004",
 	"title": "Port 22 exposed",
+	"short_code": "no-ssh-port",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",

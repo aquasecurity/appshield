@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS010",
 	"avd_id": "AVD-DS-0010",
 	"title": "RUN using 'sudo'",
+	"short_code": "no-sudo-run",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",

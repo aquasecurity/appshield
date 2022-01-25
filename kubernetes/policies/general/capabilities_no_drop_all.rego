@@ -8,6 +8,7 @@ __rego_metadata__ := {
 	"id": "KSV003",
 	"avd_id": "AVD-KSV-0003",
 	"title": "Default capabilities not dropped",
+	"short_code": "drop-default-capabilities",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV029",
 	"avd_id": "AVD-KSV-0029",
 	"title": "A root primary or supplementary GID set",
+	"short_code": "no-run-root-gid",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV018",
 	"avd_id": "AVD-KSV-0018",
 	"title": "Memory not limited",
+	"short_code": "limit-memory",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

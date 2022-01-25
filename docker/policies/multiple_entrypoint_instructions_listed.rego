@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS007",
 	"avd_id": "AVD-DS-0007",
 	"title": "Multiple ENTRYPOINT instructions listed",
+	"short_code": "only-one-entrypoint",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",

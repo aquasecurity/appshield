@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS015",
 	"avd_id": "AVD-DS-0015",
 	"title": "'yum clean all' missing",
+	"short_code": "purge-yum-package-cache",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

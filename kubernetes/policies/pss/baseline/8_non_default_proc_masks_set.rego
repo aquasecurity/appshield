@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV027",
 	"avd_id": "AVD-KSV-0027",
 	"title": "Non-default /proc masks set",
+	"short_code": "no-custom-proc-mask",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS013",
 	"avd_id": "AVD-DS-0013",
 	"title": "'RUN cd ...' to change directory",
+	"short_code": "use-workdir-over-cd",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",

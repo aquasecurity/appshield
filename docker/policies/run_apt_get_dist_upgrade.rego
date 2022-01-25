@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS024",
 	"avd_id": "AVD-DS-0024",
 	"title": "'apt-get dist-upgrade' used",
+	"short_code": "no-dist-upgrade",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

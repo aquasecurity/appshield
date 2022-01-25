@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV012",
 	"avd_id": "AVD-KSV-0012",
 	"title": "Runs as root user",
+	"short_code": "no-root",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

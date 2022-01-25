@@ -8,6 +8,7 @@ __rego_metadata__ := {
 	"id": "KSV005",
 	"avd_id": "AVD-KSV-0005",
 	"title": "SYS_ADMIN capability added",
+	"short_code": "no-sysadmin-capability",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

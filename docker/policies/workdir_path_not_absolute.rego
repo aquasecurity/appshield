@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS009",
 	"avd_id": "AVD-DS-0009",
 	"title": "WORKDIR path not absolute",
+	"short_code": "user-absolute-workdir",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
