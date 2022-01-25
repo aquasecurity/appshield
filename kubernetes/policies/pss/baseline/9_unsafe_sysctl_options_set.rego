@@ -14,7 +14,7 @@ __rego_metadata__ := {
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed 'safe' subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.",
-	"recommended_actions": sprintf("Do not set 'spec.securityContext.sysctls' or set to values in an allowed subset, %s", [allowed_sysctls]),
+	"recommended_actions": "Do not set 'spec.securityContext.sysctls' or set to values in an allowed subset",
 	"url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/#baseline",
 }
 
