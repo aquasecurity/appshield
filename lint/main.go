@@ -14,6 +14,7 @@ type RegoMetadata struct {
 	ID                 string   `json:"id"`
 	AVDID              string   `json:"avd_id"`
 	Title              string   `json:"title"`
+	ShortCode          string   `json:"short_code"`
 	Version            string   `json:"version"`
 	Type               string   `json:"type"`
 	Description        string   `json:"description"`
@@ -29,6 +30,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Printf("Running metadata linter against %d policies", len(regoFiles))
 
 	for _, file := range regoFiles {
 		rego, err := ioutil.ReadFile(file)
@@ -93,6 +96,10 @@ func valid(regoMetadata RegoMetadata) (bool, []string) {
 		valid = false
 		failureAttributes = append(failureAttributes, "Title")
 	}
+	if strings.EqualFold(regoMetadata.ShortCode, "") {
+		valid = false
+		failureAttributes = append(failureAttributes, "ShortCode")
+	}
 	if strings.EqualFold(regoMetadata.Description, "") {
 		valid = false
 		failureAttributes = append(failureAttributes, "Description")
@@ -100,6 +107,10 @@ func valid(regoMetadata RegoMetadata) (bool, []string) {
 	if strings.EqualFold(regoMetadata.Severity, "") {
 		valid = false
 		failureAttributes = append(failureAttributes, "Severity")
+	}
+	if strings.EqualFold(regoMetadata.RecommendedActions, "") {
+		valid = false
+		failureAttributes = append(failureAttributes, "RecommendedActions")
 	}
 	return valid, failureAttributes
 }

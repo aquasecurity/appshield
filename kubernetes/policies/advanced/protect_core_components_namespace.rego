@@ -1,4 +1,4 @@
-package appshield.kubernetes.KSV036
+package appshield.kubernetes.KSV037
 
 import data.lib.kubernetes
 import data.lib.utils
@@ -11,15 +11,14 @@ __rego_metadata__ := {
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
-	"description": "ensure that Pod specifications disable the secret token being mounted by setting automountServiceAccountToken: false",
-	"recommended_actions": "Remove 'container.apparmor.security.beta.kubernetes.io' annotation or set it to 'runtime/default'.",
-	"url": "https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#serviceaccount-admission-controller",
+	"description": "ensure that User pods are not placed in kube-system namespace",
+	"recommended_actions": "Deploy the use pods into a designated namespace which is not kube-system.",
+	"url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/implementation-details/",
 }
 
 deny[res] {
-	mountServiceAccountToken(input.spec)
-	msg := kubernetes.format(sprintf("Container of %s '%s' should set 'spec.automountServiceAccountToken' to false", [kubernetes.kind, kubernetes.name]))
-
+	systemNamespaceInUse(input.metadata, input.spec)
+	msg := sprintf("%s '%s' should not be set with 'kube-system' namespace", [kubernetes.kind, kubernetes.name])
 	res := {
 		"msg": msg,
 		"id": __rego_metadata__.id,
@@ -29,17 +28,17 @@ deny[res] {
 	}
 }
 
-mountServiceAccountToken(spec) {
-	has_key(spec, "automountServiceAccountToken")
-	spec.automountServiceAccountToken == true
+systemNamespaceInUse(metadata, spec) {
+	kubernetes.namespace == "kube-system"
+	not core_component(metadata, spec)
 }
 
-# if there is no automountServiceAccountToken spec, check on volumeMount in containers. Service Account token is mounted on /var/run/secrets/kubernetes.io/serviceaccount
-mountServiceAccountToken(spec) {
-	not has_key(spec, "automountServiceAccountToken")
-	"/var/run/secrets/kubernetes.io/serviceaccount" == kubernetes.containers[_].volumeMounts[_].mountPath
-}
-
-has_key(x, k) {
-	_ = x[k]
+core_component(metadata, spec) {
+	kubernetes.has_field(metadata.labels, "tier")
+	metadata.labels.tier == "control-plane"
+	kubernetes.has_field(spec, "priorityClassName")
+	spec.priorityClassName == "system-node-critical"
+	kubernetes.has_field(metadata.labels, "component")
+	coreComponentLabels := ["kube-apiserver", "etcd", "kube-controller-manager", "kube-scheduler"]
+	metadata.labels.component = coreComponentLabels[_]
 }
