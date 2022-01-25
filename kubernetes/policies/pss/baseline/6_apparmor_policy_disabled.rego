@@ -8,6 +8,7 @@ __rego_metadata__ := {
 	"id": "KSV002",
 	"avd_id": "AVD-KSV-0002",
 	"title": "Default AppArmor profile not set",
+	"short_code": "use-default-apparmor-profile",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

@@ -10,6 +10,7 @@ __rego_metadata__ := {
 	"id": "KSV006",
 	"avd_id": "AVD-KSV-0006",
 	"title": "hostPath volume mounted with docker.sock",
+	"short_code": "no-docker-sock-mount",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

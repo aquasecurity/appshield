@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "KSV102",
 	"avd_id": "AVD-KSV-0102",
 	"title": "Tiller Is Deployed",
+	"short_code": "no-tiller",
 	"version": "v1.0.0",
 	"severity": "Critical",
 	"type": "Kubernetes Security Check",

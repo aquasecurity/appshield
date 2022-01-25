@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS022",
 	"avd_id": "AVD-DS-0022",
 	"title": "Deprecated MAINTAINER used",
+	"short_code": "no-maintainer",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

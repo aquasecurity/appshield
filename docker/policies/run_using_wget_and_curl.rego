@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS014",
 	"avd_id": "AVD-DS-0014",
 	"title": "RUN using 'wget' and 'curl'",
+	"short_code": "standardise-remote-get",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Dockerfile Security Check",

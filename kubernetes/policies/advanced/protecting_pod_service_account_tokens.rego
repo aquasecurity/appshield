@@ -7,6 +7,7 @@ __rego_metadata__ := {
 	"id": "KSV036",
 	"avd_id": "AVD-KSV-0036",
 	"title": "Protecting Pod service account tokens",
+	"short_code": "no-auto-mount-service-token",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

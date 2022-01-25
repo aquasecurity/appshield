@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS006",
 	"avd_id": "AVD-DS-0006",
 	"title": "COPY '--from' referring to the current image",
+	"short_code": "no-self-referencing-copy-from",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",

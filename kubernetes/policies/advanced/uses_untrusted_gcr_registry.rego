@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV033",
 	"avd_id": "AVD-KSV-0033",
 	"title": "All container images must start with a GCR domain",
+	"short_code": "use-gcr-domain",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

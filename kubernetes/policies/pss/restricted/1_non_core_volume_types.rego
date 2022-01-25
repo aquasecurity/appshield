@@ -7,6 +7,7 @@ __rego_metadata__ := {
 	"id": "KSV028",
 	"avd_id": "AVD-KSV-0028",
 	"title": "Non-ephemeral volume types used",
+	"short_code": "no-non-ephemeral-volumes",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

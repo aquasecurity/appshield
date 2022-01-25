@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS017",
 	"avd_id": "AVD-DS-0017",
 	"title": "'RUN <package-manager> update' instruction alone",
+	"short_code": "no-orphan-package-update",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

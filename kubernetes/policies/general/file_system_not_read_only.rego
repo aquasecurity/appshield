@@ -8,6 +8,7 @@ __rego_metadata__ := {
 	"id": "KSV014",
 	"avd_id": "AVD-KSV-0014",
 	"title": "Root file system is not read-only",
+	"short_code": "use-readonly-filesystem",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS005",
 	"avd_id": "AVD-DS-0005",
 	"title": "ADD instead of COPY",
+	"short_code": "use-copy-over-add",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Dockerfile Security Check",

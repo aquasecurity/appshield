@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS008",
 	"avd_id": "AVD-DS-0008",
 	"title": "Exposed port out of range",
+	"short_code": "port-out-of-range",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",

@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS001",
 	"avd_id": "AVD-DS-0001",
 	"title": "':latest' tag used",
+	"short_code": "use-specific-tags",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",

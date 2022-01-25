@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV021",
 	"avd_id": "AVD-KSV-0021",
 	"title": "Runs with low group ID",
+	"short_code": "use-high-gid",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

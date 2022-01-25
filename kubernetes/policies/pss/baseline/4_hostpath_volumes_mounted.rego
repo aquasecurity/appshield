@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV023",
 	"avd_id": "AVD-KSV-0023",
 	"title": "hostPath volumes mounted",
+	"short_code": "no-mounted-hostpath",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

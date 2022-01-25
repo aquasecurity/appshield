@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS016",
 	"avd_id": "AVD-DS-0016",
 	"title": "Multiple CMD instructions listed",
+	"short_code": "only-one-cmd",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

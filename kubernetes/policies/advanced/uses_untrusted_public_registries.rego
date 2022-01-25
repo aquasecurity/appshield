@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV034",
 	"avd_id": "AVD-KSV-0034",
 	"title": "Container images from public registries used",
+	"short_code": "no-public-registries",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

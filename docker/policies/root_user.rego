@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS002",
 	"avd_id": "AVD-DS-0002",
 	"title": "root user",
+	"short_code": "least-privilege-user",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

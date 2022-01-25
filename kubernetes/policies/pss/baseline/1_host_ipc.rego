@@ -8,6 +8,7 @@ __rego_metadata__ := {
 	"id": "KSV008",
 	"avd_id": "AVD-KSV-0008",
 	"title": "Access to host IPC namespace",
+	"short_code": "no-shared-ipc-namespace",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",

@@ -4,6 +4,7 @@ __rego_metadata__ := {
 	"id": "DS012",
 	"avd_id": "AVD-DS-0012",
 	"title": "Duplicate aliases defined in different FROMs",
+	"short_code": "no-duplicate-alias",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",

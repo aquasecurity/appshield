@@ -8,6 +8,7 @@ __rego_metadata__ := {
 	"id": "KSV022",
 	"avd_id": "AVD-KSV-0022",
 	"title": "Non-default capabilities added",
+	"short_code": "no-non-default-capabilities",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
@@ -41,7 +42,7 @@ caps_msg = "" {
 	msg := sprintf(" or set it to the following allowed values: %s", [concat(", ", allowed_caps)])
 }
 
-# failAdditionalCaps is true if there are containers which set additional capabiliites
+# failAdditionalCaps is true if there are containers which set additional capabilities
 # not included in the allowed capabilities list
 failAdditionalCaps {
 	count(getContainersWithDisallowedCaps) > 0

@@ -8,6 +8,7 @@ __rego_metadata__ := {
 	"id": "KSV013",
 	"avd_id": "AVD-KSV-0013",
 	"title": "Image tag ':latest' used",
+	"short_code": "use-specific-tags",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

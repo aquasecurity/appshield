@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV015",
 	"avd_id": "AVD-KSV-0015",
 	"title": "CPU requests not specified",
+	"short_code": "no-unspecified-cpu-requests",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV004",
 	"avd_id": "AVD-KSV-0004",
 	"title": "Unused capabilities should be dropped (drop any)",
+	"short_code": "drop-unused-capabilities",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

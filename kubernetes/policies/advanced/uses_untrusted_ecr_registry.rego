@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV035",
 	"avd_id": "AVD-KSV-0035",
 	"title": "All container images must start with an ECR domain",
+	"short_code": "no-untrusted-ecr-domain",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",

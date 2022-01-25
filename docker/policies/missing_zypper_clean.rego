@@ -6,6 +6,7 @@ __rego_metadata__ := {
 	"id": "DS020",
 	"avd_id": "AVD-DS-0020",
 	"title": "'zypper clean' missing",
+	"short_code": "purge-zipper-cache",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Dockerfile Security Check",

@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV030",
 	"avd_id": "AVD-KSV-0030",
 	"title": "Default Seccomp profile not set",
+	"short_code": "use-default-seccomp",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",

@@ -9,6 +9,7 @@ __rego_metadata__ := {
 	"id": "KSV001",
 	"avd_id": "AVD-KSV-0001",
 	"title": "Process can elevate its own privileges",
+	"short_code": "no-self-privesc",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
