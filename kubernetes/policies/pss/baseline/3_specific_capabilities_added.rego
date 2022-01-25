@@ -42,7 +42,7 @@ caps_msg = "" {
 	msg := sprintf(" or set it to the following allowed values: %s", [concat(", ", allowed_caps)])
 }
 
-# failAdditionalCaps is true if there are containers which set additional capabiliites
+# failAdditionalCaps is true if there are containers which set additional capabilities
 # not included in the allowed capabilities list
 failAdditionalCaps {
 	count(getContainersWithDisallowedCaps) > 0
