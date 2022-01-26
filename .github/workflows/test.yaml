@@ -47,4 +47,4 @@ jobs:
       - name: Run integration tests
         run: go test -v ./...
       - name: Run metadata linter
-        run: go run ./lint
+        run: go run ./tools/lint
