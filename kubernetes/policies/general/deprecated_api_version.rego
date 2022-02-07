@@ -7,7 +7,7 @@ __rego_metadata__ := {
 	"id": "KSV101",
 	"title": "Resource is using a deprecated API version",
 	"version": "v1.0.0",
-	"severity": "MEDIUM",
+	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "Check if any objects are using a deprecated version of API.",
 	"recommended_actions": "Update to use a newer API version.",
