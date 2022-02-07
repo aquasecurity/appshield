@@ -34,6 +34,8 @@ namespace = object.metadata.namespace
 
 kind = object.kind
 
+apiVersion = object.apiVersion
+
 is_pod {
 	kind = "Pod"
 }
