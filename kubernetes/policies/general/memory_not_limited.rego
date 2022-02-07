@@ -7,12 +7,15 @@ default failLimitsMemory = false
 
 __rego_metadata__ := {
 	"id": "KSV018",
+	"avd_id": "AVD-KSV-0018",
 	"title": "Memory not limited",
+	"short_code": "limit-memory",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "Enforcing memory limits prevents DoS via resource exhaustion.",
 	"recommended_actions": "Set a limit value under 'containers[].resources.limits.memory'.",
+	"url": "https://kubesec.io/basics/containers-resources-limits-memory/",
 }
 
 __rego_input__ := {
@@ -43,8 +46,7 @@ failLimitsMemory {
 deny[res] {
 	failLimitsMemory
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set resources.limits.memory", [getNoLimitsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
-
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'resources.limits.memory'", [getNoLimitsMemoryContainers[_], kubernetes.kind, kubernetes.name]))
 	res := {
 		"msg": msg,
 		"id": __rego_metadata__.id,

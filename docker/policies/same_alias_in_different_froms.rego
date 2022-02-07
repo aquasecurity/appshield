@@ -2,11 +2,13 @@ package appshield.dockerfile.DS012
 
 __rego_metadata__ := {
 	"id": "DS012",
-	"title": "Same Alias In Different FROMs",
+	"avd_id": "AVD-DS-0012",
+	"title": "Duplicate aliases defined in different FROMs",
+	"short_code": "no-duplicate-alias",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "Different FROMs can't have the same alias defined",
+	"description": "Different FROMs can't have the same alias defined.",
 	"recommended_actions": "Change aliases to make them different",
 	"url": "https://docs.docker.com/develop/develop-images/multistage-build/",
 }
@@ -36,5 +38,5 @@ get_aliased_name[arg] {
 
 deny[res] {
 	alias := get_duplicate_alias[_]
-	res := sprintf("Duplicate aliases '%s' found in different FROMs", [alias])
+	res := sprintf("Duplicate aliases '%s' are found in different FROMs", [alias])
 }

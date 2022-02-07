@@ -4,12 +4,14 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS004",
-	"title": "Exposing Port 22",
+	"avd_id": "AVD-DS-0004",
+	"title": "Port 22 exposed",
+	"short_code": "no-ssh-port",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",
-	"description": "Exposing Port 22 allows users to SSH inside the container.",
-	"recommended_actions": "Remove port 22 from the dockerfile",
+	"description": "Exposing port 22 might allow users to SSH into the container.",
+	"recommended_actions": "Remove 'EXPOSE 22' statement from the Dockerfile",
 }
 
 __rego_input__ := {
@@ -28,5 +30,5 @@ fail_port_check {
 
 deny[res] {
 	fail_port_check
-	res := "Specify Port to SSH into the container"
+	res := "Port 22 should not be exposed in Dockerfile"
 }

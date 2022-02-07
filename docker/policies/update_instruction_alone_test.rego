@@ -21,7 +21,8 @@ test_denied {
 	]}}
 
 	count(r) == 1
-	r[_] == "Instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement"
+	trace(sprintf("%s", [r[_]]))
+	r[_] == "The instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement."
 }
 
 test_json_array_denied {
@@ -41,7 +42,7 @@ test_json_array_denied {
 	]}}
 
 	count(r) == 1
-	r[_] == "Instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement"
+	r[_] == "The instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement."
 }
 
 test_chained_denied {
@@ -65,7 +66,7 @@ test_chained_denied {
 	]}}
 
 	count(r) == 1
-	r[_] == "Instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement"
+	r[_] == "The instruction 'RUN <package-manager> update' should always be followed by '<package-manager> install' in the same RUN statement."
 }
 
 test_allowed {

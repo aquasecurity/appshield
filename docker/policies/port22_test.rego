@@ -8,7 +8,7 @@ test_denied {
 	}]}}
 
 	count(r) > 0
-	startswith(r[_], "Specify Port to SSH into the container")
+	startswith(r[_], "Port 22 should not be exposed in Dockerfile")
 }
 
 test_tcp_denied {
@@ -18,7 +18,7 @@ test_tcp_denied {
 	}]}}
 
 	count(r) > 0
-	startswith(r[_], "Specify Port to SSH into the container")
+	startswith(r[_], "Port 22 should not be exposed in Dockerfile")
 }
 
 # Test EXPOSE without PORT 22

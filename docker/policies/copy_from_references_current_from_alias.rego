@@ -4,12 +4,14 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS006",
-	"title": "COPY '--from' references current image FROM alias",
+	"avd_id": "AVD-DS-0006",
+	"title": "COPY '--from' referring to the current image",
+	"short_code": "no-self-referencing-copy-from",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "COPY '--from' should not mention the current FROM alias, since it is impossible to copy from itself",
-	"recommended_actions": "Don't use from flag",
+	"description": "COPY '--from' should not mention the current FROM alias, since it is impossible to copy from itself.",
+	"recommended_actions": "Change the '--from' so that it will not refer to itself",
 	"url": "https://docs.docker.com/develop/develop-images/multistage-build/",
 }
 
@@ -43,5 +45,5 @@ is_alias_current_from_alias(current_name, current_alias) = allow {
 
 deny[res] {
 	args := get_alias_from_copy[_]
-	res := sprintf("COPY from shouldn't mention current alias '%s'", [args])
+	res := sprintf("'COPY --from' should not mention current alias '%s' since it is impossible to copy from itself", [args])
 }

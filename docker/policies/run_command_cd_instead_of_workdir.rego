@@ -4,11 +4,13 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS013",
-	"title": "RUN Instruction Using 'cd' Instead of WORKDIR",
+	"avd_id": "AVD-DS-0013",
+	"title": "'RUN cd ...' to change directory",
+	"short_code": "use-workdir-over-cd",
 	"version": "v1.0.0",
-	"severity": "HIGH",
+	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",
-	"description": "Use WORKDIR instead of proliferating instructions like RUN cd … && do-something, which are hard to read, troubleshoot, and maintain.",
+	"description": "Use WORKDIR instead of proliferating instructions like 'RUN cd … && do-something', which are hard to read, troubleshoot, and maintain.",
 	"recommended_actions": "Use WORKDIR to change directory",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#workdir",
 }
@@ -27,5 +29,5 @@ get_cd[args] {
 
 deny[res] {
 	args := get_cd[_]
-	res := sprintf("RUN shouldn't be used to change directory: '%s'", [args])
+	res := sprintf("RUN should not be used to change directory: '%s'. Use 'WORKDIR' statement instead.", [args])
 }

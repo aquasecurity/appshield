@@ -46,3 +46,5 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
       - name: Run integration tests
         run: go test -v ./...
+      - name: Run metadata linter
+        run: go run ./tools/lint

@@ -40,6 +40,16 @@ stage_cmd[stage_name] = cmds {
 	cmds := [cmd | cmd := stage[_]; cmd.Cmd == "cmd"]
 }
 
+stage_healthcheck[stage_name] = hlthchecks {
+	stage := input.stages[stage_name]
+	hlthchecks := [hlthcheck | hlthcheck := stage[_]; hlthcheck.Cmd == "healthcheck"]
+}
+
+stage_user[stage_name] = users {
+	stage := input.stages[stage_name]
+	users := [cmd | cmd := stage[_]; cmd.Cmd == "user"]
+}
+
 expose[instruction] {
 	instruction := input.stages[_][_]
 	instruction.Cmd == "expose"

@@ -7,12 +7,15 @@ default failLimitsCPU = false
 
 __rego_metadata__ := {
 	"id": "KSV011",
+	"avd_id": "AVD-KSV-0011",
 	"title": "CPU not limited",
+	"short_code": "limit-cpu",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "Enforcing CPU limits prevents DoS via resource exhaustion.",
 	"recommended_actions": "Set a limit value under 'containers[].resources.limits.cpu'.",
+	"url": "https://cloud.google.com/blog/products/containers-kubernetes/kubernetes-best-practices-resource-requests-and-limits",
 }
 
 __rego_input__ := {
@@ -43,7 +46,7 @@ failLimitsCPU {
 deny[res] {
 	failLimitsCPU
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set resources.limits.cpu", [getNoLimitsCPUContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'resources.limits.cpu'", [getNoLimitsCPUContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

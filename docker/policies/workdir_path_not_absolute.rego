@@ -4,11 +4,13 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS009",
-	"title": "WORKDIR Path Not Absolute",
+	"avd_id": "AVD-DS-0009",
+	"title": "WORKDIR path not absolute",
+	"short_code": "user-absolute-workdir",
 	"version": "v1.0.0",
-	"severity": "CRITICAL",
+	"severity": "HIGH",
 	"type": "Dockerfile Security Check",
-	"description": "For clarity and reliability, you should always use absolute paths for your WORKDIR",
+	"description": "For clarity and reliability, you should always use absolute paths for your WORKDIR.",
 	"recommended_actions": "Use absolute paths for your WORKDIR",
 	"url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#workdir",
 }
@@ -27,5 +29,5 @@ get_work_dir[arg] {
 
 deny[res] {
 	arg := get_work_dir[_]
-	res := sprintf("Path %s isn't absolute", [arg])
+	res := sprintf("WORKDIR path '%s' should be absolute", [arg])
 }

@@ -7,12 +7,15 @@ default failRequestsMemory = false
 
 __rego_metadata__ := {
 	"id": "KSV016",
+	"avd_id": "AVD-KSV-0016",
 	"title": "Memory requests not specified",
+	"short_code": "no-unspecified-memory-requests",
 	"version": "v1.0.0",
 	"severity": "LOW",
 	"type": "Kubernetes Security Check",
 	"description": "When containers have memory requests specified, the scheduler can make better decisions about which nodes to place pods on, and how to deal with resource contention.",
 	"recommended_actions": "Set 'containers[].resources.requests.memory'.",
+	"url": "https://kubesec.io/basics/containers-resources-limits-memory/",
 }
 
 __rego_input__ := {
@@ -43,7 +46,7 @@ failRequestsMemory {
 deny[res] {
 	failRequestsMemory
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set resources.requests.memory", [getNoRequestsMemoryContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'resources.requests.memory'", [getNoRequestsMemoryContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

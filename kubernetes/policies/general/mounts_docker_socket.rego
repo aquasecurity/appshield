@@ -8,12 +8,15 @@ default checkDockerSocket = false
 
 __rego_metadata__ := {
 	"id": "KSV006",
+	"avd_id": "AVD-KSV-0006",
 	"title": "hostPath volume mounted with docker.sock",
+	"short_code": "no-docker-sock-mount",
 	"version": "v1.0.0",
 	"severity": "HIGH",
 	"type": "Kubernetes Security Check",
 	"description": "Mounting docker.sock from the host can give the container full root access to the host.",
-	"recommended_actions": "Do not specify /var/run/docker.socker in 'spec.template.volumes.hostPath.path'.",
+	"recommended_actions": "Do not specify /var/run/docker.socket in 'spec.template.volumes.hostPath.path'.",
+	"url": "https://kubesec.io/basics/spec-volumes-hostpath-path-var-run-docker-sock/",
 }
 
 __rego_input__ := {
@@ -31,9 +34,7 @@ checkDockerSocket {
 deny[res] {
 	checkDockerSocket
 
-	# msg = sprintf("%s should not mount /var/run/docker.socker", [name])
-
-	msg := kubernetes.format(sprintf("%s %s in %s namespace should not specify /var/run/docker.socker in spec.template.volumes.hostPath.path", [lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("%s '%s' should not specify '/var/run/docker.socker' in 'spec.template.volumes.hostPath.path'", [kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,

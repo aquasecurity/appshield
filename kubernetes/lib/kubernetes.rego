@@ -36,32 +36,12 @@ kind = object.kind
 
 apiVersion = object.apiVersion
 
-is_service {
-	kind = "Service"
-}
-
-is_controller {
-	kind = "CronJob"
-}
-
-is_controller {
-	kind = "StatefulSet"
-}
-
-is_controller {
-	kind = "Deployment"
-}
-
-is_controller {
-	kind = "Daemonset"
-}
-
-is_deployment {
-	kind = "Deployment"
-}
-
 is_pod {
 	kind = "Pod"
+}
+
+is_cronjob {
+	kind = "CronJob"
 }
 
 default is_controller = false
@@ -90,10 +70,6 @@ is_controller {
 	kind = "Job"
 }
 
-is_cronjob {
-	kind = "CronJob"
-}
-
 split_image(image) = [image, "latest"] {
 	not contains(image, ":")
 }
@@ -116,11 +92,6 @@ containers[container] {
 containers[container] {
 	all_containers = pod_containers(object)
 	container = all_containers[_]
-}
-
-pods[pod] {
-	is_deployment
-	pod = object.spec.template
 }
 
 pods[pod] {

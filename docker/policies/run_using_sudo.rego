@@ -4,11 +4,13 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS010",
-	"title": "Run Using Sudo",
+	"avd_id": "AVD-DS-0010",
+	"title": "RUN using 'sudo'",
+	"short_code": "no-sudo-run",
 	"version": "v1.0.0",
 	"severity": "CRITICAL",
 	"type": "Dockerfile Security Check",
-	"description": "Avoid RUN with sudo command as it leads to unpredictable behavior",
+	"description": "Avoid using 'RUN' with 'sudo' commands, as it can lead to unpredictable behavior.",
 	"recommended_actions": "Don't use sudo",
 	"url": "https://docs.docker.com/engine/reference/builder/#run",
 }
@@ -36,5 +38,5 @@ get_sudo[arg] {
 
 deny[res] {
 	count(get_sudo) > 0
-	res := "Shouldn't use sudo in Dockerfile"
+	res := "Using 'sudo' in Dockerfile should be avoided"
 }

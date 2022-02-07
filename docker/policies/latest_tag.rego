@@ -4,17 +4,34 @@ import data.lib.docker
 
 __rego_metadata__ := {
 	"id": "DS001",
-	"title": "Use a tag name in FROM statement",
+	"avd_id": "AVD-DS-0001",
+	"title": "':latest' tag used",
+	"short_code": "use-specific-tags",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Dockerfile Security Check",
-	"description": "When using 'FROM' statement you should use a specific tag to avoid uncontrolled behavior when image is updated",
-	"recommended_actions": "Add a tag to the image in the FROM statement",
+	"description": "When using a 'FROM' statement you should use a specific tag to avoid uncontrolled behavior when the image is updated.",
+	"recommended_actions": "Add a tag to the image in the 'FROM' statement",
 }
 
 __rego_input__ := {
 	"combine": false,
 	"selector": [{"type": "dockerfile"}],
+}
+
+# returns element after AS
+get_alias(values) = alias {
+	"as" == lower(values[i])
+	alias = values[i + 1]
+}
+
+get_aliases[aliases] {
+	from_cmd := docker.from[_]
+	aliases := get_alias(from_cmd.Value)
+}
+
+is_alias(img) {
+	img == get_aliases[_]
 }
 
 # image_names returns the image in FROM statement.
@@ -60,15 +77,17 @@ image_tags[[img, tag]] {
 	[img, tag] = parse_tag(bare_image_name)
 }
 
-# fail_latest is true if image is not scratch and
-# tag is latest.
+# fail_latest is true if image is not scratch
+# and image is not an alias
+# and tag is latest.
 fail_latest[img] {
 	[img, tag] := image_tags[_]
 	img != "scratch"
+	not is_alias(img)
 	tag == "latest"
 }
 
 deny[res] {
 	img := fail_latest[_]
-	res := sprintf("Specify tag for image %s", [img])
+	res := sprintf("Specify a tag in the 'FROM' statement for image '%s'", [img])
 }

@@ -7,12 +7,15 @@ default failRunAsUser = false
 
 __rego_metadata__ := {
 	"id": "KSV020",
-	"title": "Runs with UID <= 10000",
+	"avd_id": "AVD-KSV-0020",
+	"title": "Runs with low user ID",
+	"short_code": "use-high-uid",
 	"version": "v1.0.0",
 	"severity": "MEDIUM",
 	"type": "Kubernetes Security Check",
 	"description": "Force the container to run with user ID > 10000 to avoid conflicts with the host’s user table.",
 	"recommended_actions": "Set 'containers[].securityContext.runAsUser' to an integer > 10000.",
+	"url": "https://kubesec.io/basics/containers-securitycontext-runasuser/",
 }
 
 __rego_input__ := {
@@ -53,7 +56,7 @@ failRunAsUser {
 deny[res] {
 	failRunAsUser
 
-	msg := kubernetes.format(sprintf("container %s of %s %s in %s namespace should set securityContext.runAsUser > 10000", [getUserIdContainers[_], lower(kubernetes.kind), kubernetes.name, kubernetes.namespace]))
+	msg := kubernetes.format(sprintf("Container '%s' of %s '%s' should set 'securityContext.runAsUser' > 10000", [getUserIdContainers[_], kubernetes.kind, kubernetes.name]))
 
 	res := {
 		"msg": msg,
