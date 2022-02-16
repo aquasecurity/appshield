@@ -1,4 +1,8 @@
-> **IMPORTANT:** This repository has been archived. All Rego policies have been migrated to https://github.com/aquasecurity/defsec - you can find them with the same directory structure, nested inside the `rules/` directory. The appshield image is still published to ghcr for now, but is completely interchangable with the defsec image, which you should use instead.
+# This repository has moved
+
+Content has been migrated to https://github.com/aquasecurity/defsec.
+
+---
 
 # Appshield
 
